@@ -14,6 +14,7 @@
       --muted: #9ca3af;
       --accent: #facc15;
       --accent-dark: #eab308;
+      --pill: #1f2937;
       --border: rgba(148,163,184,0.35);
     }
 
@@ -42,6 +43,8 @@
     h3 { font-size: 1.1rem; margin-bottom: 6px; }
 
     p { color: #d1d5db; margin-bottom: 8px; }
+
+    /* HERO */
 
     .hero {
       border-radius: 24px;
@@ -93,19 +96,6 @@
       color: var(--muted);
     }
 
-    .btn-primary {
-      display: inline-block;
-      margin-top: 16px;
-      padding: 11px 22px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-      color: #020617;
-      font-weight: 600;
-      text-decoration: none;
-      font-size: 0.95rem;
-      box-shadow: 0 14px 35px rgba(15,23,42,0.7);
-    }
-
     .section {
       margin-bottom: 36px;
     }
@@ -117,6 +107,8 @@
     .section-header p {
       max-width: 640px;
     }
+
+    /* KPI CARDS */
 
     .kpi-grid {
       display: grid;
@@ -148,6 +140,8 @@
       color: var(--muted);
       margin-top: 6px;
     }
+
+    /* CASE STUDY */
 
     .case-card {
       border-radius: 20px;
@@ -188,31 +182,46 @@
       color: #e5e7eb;
     }
 
-    .case-images {
+    .case-layout {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 18px;
       margin-top: 12px;
+      align-items: flex-start;
     }
 
-    .case-images img {
+    .case-main-image img {
       width: 100%;
-      border-radius: 10px;
-      border: 1px solid rgba(148,163,184,0.4);
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,0.6);
       display: block;
     }
 
-    .case-images figcaption {
-      font-size: 0.75rem;
+    .case-main-image figcaption {
+      font-size: 0.8rem;
       color: var(--muted);
-      margin-top: 3px;
-      text-align: center;
+      margin-top: 6px;
     }
+
+    .case-side-image img {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,0.6);
+      display: block;
+    }
+
+    .case-side-image figcaption {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    /* GALLERY */
 
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
     }
 
     .gallery-item {
@@ -224,9 +233,10 @@
 
     .gallery-item img {
       width: 100%;
-      border-radius: 10px;
+      border-radius: 12px;
       display: block;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
+      border: 1px solid rgba(148,163,184,0.6);
     }
 
     .gallery-item span {
@@ -234,27 +244,21 @@
       color: var(--muted);
     }
 
-    .cta-box {
-      border-radius: 22px;
-      background: radial-gradient(circle at top, #1f2937, #020617);
+    /* NOTE FINALI */
+
+    .note-box {
+      border-radius: 18px;
+      background: #020617;
       border: 1px solid var(--border);
-      padding: 22px 20px 20px;
-      text-align: center;
-      margin-top: 8px;
-    }
-
-    .cta-box p {
-      max-width: 520px;
-      margin: 6px auto 10px;
-    }
-
-    .cta-note {
-      font-size: 0.78rem;
+      padding: 18px 16px;
+      font-size: 0.86rem;
       color: var(--muted);
-      margin-top: 6px;
     }
 
     @media (max-width: 720px) {
+      .hero {
+        text-align: left;
+      }
       .hero-top {
         flex-direction: column;
         align-items: flex-start;
@@ -263,6 +267,9 @@
         text-align: left;
       }
       h1 { font-size: 1.9rem; }
+      .case-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
     }
   </style>
 </head>
@@ -273,23 +280,21 @@
       <div class="hero-top">
         <div>
           <div class="hero-badge">Risultati reali • Case vacanze</div>
-          <h1>Il cruscotto dei risultati di Federica</h1>
+          <h1>Cruscotto risultati proprietari – Federica Cellini</h1>
           <p>
-            Screenshot reali estratti dai portali e dai cruscotti dei proprietari.
-            Qui vedi solo numeri: quanto hanno guadagnato, quante notti hanno venduto
-            e come sono cambiati i risultati dopo il lavoro di ottimizzazione.
+            Raccolta di screenshot reali estratti dai portali e dalle app dei proprietari.
+            Nessuna simulazione: sono gli stessi numeri che vedono loro quando aprono
+            il cruscotto dei guadagni.
           </p>
-          <a href="#cta" class="btn-primary">
-            Richiedi un’analisi della tua struttura
-          </a>
         </div>
 
         <div class="hero-right">
           <div class="hero-kpi">+37%</div>
           <div class="hero-kpi-label">Guadagni medi dopo 6–12 mesi*</div>
-          <p class="cta-note" style="margin-top:8px; max-width:240px;">
+          <p style="font-size:0.78rem;color:var(--muted);margin-top:6px;max-width:240px;">
             *Valore indicativo su un gruppo di case vacanze seguite in modo continuativo.
-            I risultati possono variare in base alla zona e alla partenza.
+            I risultati possono variare in base alla zona, al punto di partenza
+            e al tipo di struttura.
           </p>
         </div>
       </div>
@@ -300,8 +305,8 @@
       <div class="section-header">
         <h2>In sintesi: cosa è cambiato per i proprietari</h2>
         <p>
-          Alcuni esempi di strutture seguite da Federica. I dati sono presi dagli
-          stessi cruscotti che vedono i proprietari: notti prenotate, durata media
+          Alcuni esempi di strutture seguite da Federica. I dati arrivano
+          direttamente dai cruscotti dei portali: notti prenotate, durata media
           dei soggiorni e somme già corrisposte.
         </p>
       </div>
@@ -309,10 +314,10 @@
       <div class="kpi-grid">
         <article class="kpi-card">
           <div class="kpi-value">+130 notti</div>
-          <div class="kpi-label">Incremento su una singola struttura (123 → 253 notti)</div>
+          <div class="kpi-label">Incremento su una singola struttura (da 123 a 253 notti)</div>
           <p class="kpi-note">
-            Il calendario passa da “riempito a metà” a occupazione quasi raddoppiata,
-            con una durata media più lunga (2,7 → 4,3 notti).
+            Lo stesso appartamento, con un annuncio ottimizzato, passa da un calendario
+            “riempito a metà” a un’occupazione decisamente più piena.
           </p>
         </article>
 
@@ -330,7 +335,7 @@
           <div class="kpi-label">Picchi mensili su singole strutture</div>
           <p class="kpi-note">
             In alta stagione una sola casa vacanze può superare i 3.000 €/mese,
-            senza che il proprietario debba occuparsi di messaggi e calendario.
+            con processi e messaggi gestiti da Federica.
           </p>
         </article>
       </div>
@@ -341,9 +346,8 @@
       <div class="section-header">
         <h2>Case study 1 – Da 123 a 253 notti in un anno</h2>
         <p>
-          Stessa casa, stesso quartiere, stesso portale. Quello che è cambiato
-          è il modo in cui viene gestito l’annuncio: prezzi, messaggi, minimo
-          soggiorno e controllo del calendario.
+          Stessa casa, stesso quartiere, stesso portale. Ciò che cambia è la gestione:
+          strategia prezzi, minimo soggiorno, messaggi automatici e controllo del calendario.
         </p>
       </div>
 
@@ -361,23 +365,23 @@
         </div>
 
         <p>
-          L’obiettivo non è solo “riempire il calendario”, ma farlo con numeri
-          che hanno senso: più notti vendute, soggiorni più lunghi e un flusso
-          di cassa più stabile per il proprietario.
+          L’obiettivo non è solo riempire il calendario, ma farlo con numeri che hanno senso:
+          più notti vendute, soggiorni più lunghi e un flusso di cassa più stabile
+          per il proprietario.
         </p>
 
         <span class="case-pill">Ottimizzazione prezzi</span>
         <span class="case-pill">Minimo soggiorno</span>
         <span class="case-pill">Messaggi automatici</span>
 
-        <div class="case-images">
-          <figure>
+        <div class="case-layout">
+          <figure class="case-main-image">
             <img src="assets/proof/screen1.jpg" alt="Cruscotto prima dell’ottimizzazione">
-            <figcaption>Prima – 123 notti, durata media 2,7 notti.</figcaption>
+            <figcaption>Prima – riepilogo annuale con 123 notti e durata media 2,7.</figcaption>
           </figure>
-          <figure>
-            <img src="assets/proof/screen2.jpg" alt="Cruscotto dopo l’ottimizzazione">
-            <figcaption>Dopo – 253 notti, durata media 4,3 notti.</figcaption>
+          <figure class="case-side-image">
+            <img src="assets/proof/screen 2.jpg" alt="Cruscotto dopo l’ottimizzazione">
+            <figcaption>Dopo – 253 notti e durata media 4,3 notti sullo stesso appartamento.</figcaption>
           </figure>
         </div>
       </article>
@@ -388,30 +392,31 @@
       <div class="section-header">
         <h2>Altri esempi dal cruscotto</h2>
         <p>
-          Alcune schermate mensili e annuali di diverse strutture. Qui non ci sono
-          simulazioni: sono gli stessi grafici che i proprietari vedono nelle loro app.
+          Alcune schermate mensili e annuali di diverse strutture.
+          Sono utili per capire l’ordine di grandezza dei risultati e l’andamento
+          mese per mese.
         </p>
       </div>
 
       <div class="gallery-grid">
         <div class="gallery-item">
-          <img src="assets/proof/screen3.jpg" alt="Guadagni mensili ottobre">
+          <img src="assets/proof/screen 3.jpg" alt="Guadagni mensili ottobre">
           <span>3.610,47 € nel mese di ottobre su una singola struttura.</span>
         </div>
 
         <div class="gallery-item">
-          <img src="assets/proof/screen4.jpg" alt="Guadagni mensili struttura 2">
-          <span>Andamento dei ricavi su più mesi consecutivi (luglio–ottobre).</span>
+          <img src="assets/proof/screen 4.jpg" alt="Guadagni mensili ottobre dettaglio">
+          <span>Zoom sullo stesso mese: andamento dei ricavi da luglio a ottobre.</span>
         </div>
 
         <div class="gallery-item">
-          <img src="assets/proof/screen5.jpg" alt="Riepilogo annuale 2025">
-          <span>2025 in crescita: oltre 11.900 € già corrisposti, con ancora prenotazioni future.</span>
+          <img src="assets/proof/screen 5.jpg" alt="Riepilogo annuale 2025">
+          <span>Riepilogo annuale 2025: oltre 11.900 € già corrisposti, con prenotazioni future.</span>
         </div>
 
         <div class="gallery-item">
-          <img src="assets/proof/screen6.jpg" alt="Guadagni mensili struttura 3">
-          <span>Una struttura supera i 3.200 € in un mese con altre entrate in arrivo.</span>
+          <img src="assets/proof/screen 6.jpg" alt="Guadagni mensili struttura 2">
+          <span>Un’altra struttura supera i 3.200 € in un mese, con entrate ancora in arrivo.</span>
         </div>
 
         <div class="gallery-item">
@@ -420,66 +425,33 @@
         </div>
 
         <div class="gallery-item">
-          <img src="assets/proof/screen8.jpg" alt="Guadagni mensili altra struttura">
-          <span>Altra struttura: 1.987,38 € in un mese, con prenotazioni già confermate.</span>
+          <img src="assets/proof/screen 8.jpg" alt="Guadagni mensili altra struttura">
+          <span>Altra struttura: 1.987,38 € in un mese, con prenotazioni già confermate per i mesi successivi.</span>
         </div>
       </div>
     </section>
 
-    <!-- METODO BREVE -->
+    <!-- NOTE FINALI -->
     <section class="section">
       <div class="section-header">
-        <h2>Come vengono generati questi numeri</h2>
-        <p>
-          Non è magia né un “trucco di algoritmo”. È un lavoro molto concreto su tre fronti:
-          annuncio, prezzi e processi. Tutto misurato mese per mese.
-        </p>
+        <h2>Come leggere questi numeri</h2>
       </div>
 
-      <div class="kpi-grid">
-        <article class="kpi-card">
-          <div class="kpi-label" style="font-weight:600;margin-bottom:4px;">1 • Analisi iniziale</div>
-          <p>
-            Si parte dai numeri attuali: estratti conto, calendario, storico
-            recensioni e posizionamento dell’annuncio. L’obiettivo è capire dove
-            si stanno perdendo soldi o tempo.
-          </p>
-        </article>
-
-        <article class="kpi-card">
-          <div class="kpi-label" style="font-weight:600;margin-bottom:4px;">2 • Strategia prezzi & annuncio</div>
-          <p>
-            Revisione di titolo, cover, descrizione e foto; impostazione di una
-            strategia prezzi legata a stagionalità, eventi e domanda reale.
-          </p>
-        </article>
-
-        <article class="kpi-card">
-          <div class="kpi-label" style="font-weight:600;margin-bottom:4px;">3 • Gestione & controllo</div>
-          <p>
-            Messaggi automatici, regole di calendario, monitoraggio mensile dei
-            risultati e aggiustamenti continui per evitare di tornare alla situazione iniziale.
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <!-- CTA FINALE -->
-    <section class="section" id="cta">
-      <div class="cta-box">
-        <h2>Vuoi vedere il potenziale reale della tua casa vacanze?</h2>
+      <div class="note-box">
         <p>
-          Federica può analizzare il tuo annuncio partendo dai numeri: guadagni attuali,
-          notti vendute e obiettivi. In 20–30 minuti saprai se ha senso intervenire
-          e quali risultati sono realistici.
+          Tutti gli screenshot sono reali e provengono dai portali utilizzati dai proprietari.
+          Ogni struttura parte da una situazione diversa: zona, stagionalità, storico recensioni,
+          qualità dell’appartamento e prezzi di partenza.
         </p>
-        <a href="LINK-ALLA-TUA-CALL-O-FORM" class="btn-primary">
-          Prenota una call numerica
-        </a>
-        <div class="cta-note">
-          Nessun impegno: se i numeri non hanno margine, te lo dice. Se invece c’è
-          spazio per crescere, concordate il piano migliore per te.
-        </div>
+        <p>
+          I risultati che vedi sono quindi esempi di cosa può succedere quando l’annuncio viene
+          trattato come un vero business: analisi numerica, strategia prezzi, regole di calendario
+          e processi chiari per gestire gli ospiti.
+        </p>
+        <p>
+          Non sono promesse, ma casi concreti: servono per capire il potenziale che può avere una
+          casa vacanze quando viene seguita in modo continuativo.
+        </p>
       </div>
     </section>
   </main>
