@@ -2,22 +2,30 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <title>Risultati Reali – Federica Property Manager</title>
+  <title>Cruscotto risultati – Federica Property Manager</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex,nofollow" />
   <style>
     :root {
       --bg: #020617;
-      --bg-soft: #0b1220;
-      --bg-soft-2: #020617;
+      --bg-soft: #020617;
+      --bg-card: #020617;
+      --bg-card-soft: #020617;
+      --bg-hero: #020617;
+      --border-subtle: rgba(148, 163, 184, 0.25);
+      --border-strong: rgba(148, 163, 184, 0.5);
       --text: #f9fafb;
       --muted: #9ca3af;
       --accent: #facc15;
-      --accent-soft: rgba(250,204,21,0.12);
-      --accent-dark: #eab308;
-      --pill: #111827;
-      --border: rgba(148,163,184,0.35);
-      --border-soft: rgba(31,41,55,0.8);
+      --accent-soft: rgba(250, 204, 21, 0.12);
+      --accent-strong: #fbbf24;
+      --pill-bg: rgba(15, 23, 42, 0.9);
+      --shadow-soft: 0 22px 60px rgba(0, 0, 0, 0.70);
+      --radius-xl: 26px;
+      --radius-lg: 22px;
+      --radius-md: 18px;
+      --radius-pill: 999px;
+      --max-width: 1160px;
     }
 
     * {
@@ -28,15 +36,17 @@
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #020617, #000);
+      background:
+        radial-gradient(circle at top, #0b1220 0, #020617 42%, #020617 70%) fixed;
       color: var(--text);
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
     .page {
-      max-width: 1120px;
+      max-width: var(--max-width);
       margin: 0 auto;
-      padding: 32px 16px 72px;
+      padding: 32px 16px 64px;
     }
 
     h1, h2, h3 {
@@ -44,618 +54,690 @@
       font-weight: 700;
     }
 
-    h1 { font-size: 2.3rem; margin-bottom: 16px; }
-    h2 { font-size: 1.6rem; margin-bottom: 10px; }
-    h3 { font-size: 1.05rem; margin-bottom: 6px; }
-
-    p { color: #e5e7eb; margin-bottom: 8px; }
-
-    .pill-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      padding: 4px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(250,204,21,0.6);
-      background: rgba(15,23,42,0.9);
-      color: var(--accent);
-      margin-bottom: 12px;
+    h1 {
+      font-size: 2.4rem;
+      line-height: 1.1;
     }
 
-    .pill-label span.dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--accent);
+    h2 {
+      font-size: 1.7rem;
+      margin-bottom: 8px;
     }
+
+    h3 {
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    p {
+      color: #e5e7eb;
+    }
+
+    /* HERO */
 
     .hero {
-      border-radius: 24px;
-      background: radial-gradient(circle at top left, #020617, #020617);
-      padding: 28px 20px 24px;
-      border: 1px solid var(--border);
-      margin-bottom: 32px;
+      position: relative;
+      border-radius: var(--radius-xl);
+      background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(250, 204, 21, 0.2), transparent 60%),
+        linear-gradient(135deg, #020617, #020617);
+      padding: 28px 26px 26px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 40px;
+      overflow: hidden;
     }
 
-    .hero-grid {
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      border: 1px solid transparent;
+      background:
+        linear-gradient(135deg, rgba(250, 204, 21, 0.25), rgba(56, 189, 248, 0.08))
+        border-box;
+      mask:
+        linear-gradient(#000 0 0) padding-box,
+        linear-gradient(#000 0 0);
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 24px;
       justify-content: space-between;
       align-items: flex-start;
     }
 
-    .hero-main {
-      max-width: 640px;
+    .hero-left {
+      flex: 1 1 260px;
+      max-width: 620px;
     }
 
-    .hero-main p {
-      max-width: 640px;
-      color: #d1d5db;
-    }
-
-    .hero-kpi-box {
-      min-width: 220px;
+    .hero-right {
+      flex: 0 0 220px;
       text-align: right;
     }
 
-    .hero-kpi {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--accent);
-      margin-bottom: 4px;
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.85);
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+
+    .hero-subtitle {
+      margin-top: 10px;
+      max-width: 540px;
+      font-size: 0.96rem;
+      color: #d1d5db;
+    }
+
+    .hero-right-main {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding: 14px 18px;
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 1));
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.9);
+      min-width: 210px;
     }
 
     .hero-kpi-label {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .hero-note {
       font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
       color: var(--muted);
-      margin-top: 10px;
-      max-width: 260px;
-      margin-left: auto;
+      margin-bottom: 4px;
     }
 
-    .hero-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 16px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: rgba(15,23,42,0.9);
-      border: 1px dashed rgba(148,163,184,0.5);
+    .hero-kpi {
+      font-size: 2.3rem;
+      line-height: 1;
+      font-weight: 700;
+      color: var(--accent-strong);
+      margin-bottom: 4px;
+    }
+
+    .hero-kpi-note {
       font-size: 0.8rem;
       color: var(--muted);
+      max-width: 230px;
     }
 
-    .hero-chip strong {
-      color: #e5e7eb;
-      font-weight: 600;
-    }
+    /* SECTION GENERALE */
 
     .section {
       margin-bottom: 40px;
     }
 
     .section-header {
-      margin-bottom: 18px;
-    }
-
-    .section-header p {
+      margin-bottom: 16px;
       max-width: 720px;
     }
 
-    .section-tag {
-      font-size: 0.78rem;
+    .section-eyebrow {
+      font-size: 0.76rem;
       text-transform: uppercase;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.18em;
       color: var(--muted);
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
+
+    .section-header p {
+      font-size: 0.95rem;
+      color: #d1d5db;
+    }
+
+    /* KPI GRID */
 
     .kpi-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 16px;
     }
 
     .kpi-card {
-      border-radius: 18px;
-      background: radial-gradient(circle at top, #020617, #020617);
-      border: 1px solid var(--border);
-      padding: 16px 16px 14px;
+      position: relative;
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), #020617);
+      border: 1px solid var(--border-subtle);
+      padding: 16px 18px 14px;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55);
+      overflow: hidden;
+    }
+
+    .kpi-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(250, 204, 21, 0.18), transparent 55%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+    }
+
+    .kpi-card:hover::after {
+      opacity: 1;
+    }
+
+    .kpi-title {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-bottom: 6px;
     }
 
     .kpi-value {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 700;
-      color: var(--accent);
+      color: var(--accent-strong);
       margin-bottom: 2px;
     }
 
     .kpi-label {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: #e5e7eb;
+      margin-bottom: 5px;
     }
 
     .kpi-note {
       font-size: 0.8rem;
       color: var(--muted);
-      margin-top: 6px;
     }
+
+    /* CASE STUDY 1 – ANNUALE */
 
     .case-card {
-      border-radius: 22px;
-      background: radial-gradient(circle at top left, #020617, #000);
-      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at top left, rgba(30, 64, 175, 0.26), transparent 60%),
+                  linear-gradient(135deg, #020617, #020617);
+      border: 1px solid var(--border-subtle);
       padding: 18px 18px 18px;
+      box-shadow: var(--shadow-soft);
     }
 
-    .case-meta {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-
-    .case-meta strong {
-      color: #e5e7eb;
-      font-weight: 600;
-    }
-
-    .case-columns {
+    .case-layout {
       display: grid;
       grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.1fr);
       gap: 18px;
-      align-items: flex-start;
-      margin-top: 12px;
+      align-items: stretch;
     }
 
-    .case-stats {
-      font-size: 0.9rem;
-      margin-top: 8px;
+    .case-meta {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 8px;
     }
 
-    .case-stats p {
-      margin-bottom: 4px;
+    .case-lead {
+      margin-bottom: 12px;
+      color: #e5e7eb;
+      font-size: 0.96rem;
     }
 
-    .case-stats strong {
-      color: #f9fafb;
+    .case-grid-numbers {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px 18px;
+      margin-bottom: 12px;
+      font-size: 0.88rem;
+    }
+
+    .case-grid-numbers span {
+      color: var(--muted);
+    }
+
+    .case-grid-numbers strong {
+      color: #e5e7eb;
       font-weight: 600;
     }
 
     .case-pill-row {
-      margin-top: 10px;
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
+      margin-bottom: 12px;
     }
 
-    .case-pill {
+    .pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: #020617;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.45);
       padding: 2px 10px;
-      font-size: 0.76rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 0.75rem;
       color: var(--muted);
     }
 
-    .case-pill-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--accent);
+    .case-image-shell {
+      border-radius: var(--radius-md);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 1));
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      overflow: hidden;
+      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.95);
     }
 
-    figure.case-figure {
-      margin: 0;
-    }
-
-    .case-figure img {
-      width: 100%;
-      border-radius: 16px;
-      border: 1px solid rgba(148,163,184,0.5);
+    .case-image-shell img {
       display: block;
-      background: #020617;
+      width: 100%;
+      height: auto;
     }
 
-    .case-figure figcaption {
+    .case-caption {
+      padding: 10px 12px 9px;
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
       font-size: 0.78rem;
       color: var(--muted);
-      margin-top: 6px;
     }
+
+    /* GALLERY MENSILE */
 
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
     }
 
     .gallery-item {
-      background: #020617;
-      border-radius: 18px;
-      border: 1px solid var(--border);
-      padding: 10px 10px 9px;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
+      border-radius: var(--radius-lg);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 10px 10px 11px;
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.65);
     }
 
-    .gallery-item img {
+    .gallery-thumb-shell {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 1), rgba(15, 23, 42, 1));
+      margin-bottom: 8px;
+    }
+
+    .gallery-thumb-shell img {
+      display: block;
       width: 100%;
-      border-radius: 12px;
-      display: block;
-      margin-bottom: 6px;
-      border: 1px solid rgba(15,23,42,0.9);
-      background: #000;
+      height: auto;
     }
 
-    .gallery-item strong {
+    .gallery-title {
       font-size: 0.9rem;
+      font-weight: 600;
       color: #e5e7eb;
-      display: block;
-      margin-bottom: 2px;
+      margin-bottom: 3px;
     }
 
-    .gallery-item span {
+    .gallery-text {
       font-size: 0.8rem;
       color: var(--muted);
     }
 
-    .subsection-title {
-      font-size: 0.95rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--muted);
-      margin-bottom: 10px;
-    }
+    /* 365 GIORNI */
 
-    .divider {
-      height: 1px;
-      border: none;
-      margin: 32px 0 24px;
-      background: linear-gradient(
-        to right,
-        rgba(148,163,184,0),
-        rgba(148,163,184,0.8),
-        rgba(148,163,184,0)
-      );
-    }
-
-    .footnote {
+    .note-bottom {
+      margin-top: 10px;
       font-size: 0.78rem;
       color: var(--muted);
-      margin-top: 4px;
     }
 
-    @media (max-width: 860px) {
-      .hero-grid {
+    .gallery-365-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #e5e7eb;
+      margin-bottom: 4px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 880px) {
+      .hero {
+        padding: 24px 20px 22px;
+      }
+
+      .hero-content {
         flex-direction: column;
         align-items: flex-start;
       }
 
-      .hero-kpi-box {
+      .hero-right {
         text-align: left;
       }
 
-      .hero-note {
-        margin-left: 0;
+      .hero-right-main {
+        align-items: flex-start;
+        min-width: 0;
       }
 
-      h1 { font-size: 2rem; }
-    }
-
-    @media (max-width: 720px) {
-      .page {
-        padding: 24px 14px 56px;
+      h1 {
+        font-size: 2rem;
       }
 
-      .case-columns {
+      .case-layout {
         grid-template-columns: minmax(0, 1fr);
       }
+    }
 
-      .hero {
-        padding: 22px 16px 18px;
+    @media (max-width: 640px) {
+      .page {
+        padding-inline: 14px;
+      }
+
+      h1 {
+        font-size: 1.85rem;
+      }
+
+      .hero-subtitle {
+        font-size: 0.9rem;
       }
     }
   </style>
 </head>
 <body>
-  <main class="page">
-    <!-- HERO -->
-    <section class="hero">
-      <div class="pill-label">
-        <span class="dot"></span>
-        RISULTATI REALI • CASE VACANZE
+<main class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-left">
+        <div class="badge">
+          <span class="badge-dot"></span>
+          RISULTATI REALI · CASE VACANZE
+        </div>
+        <h1>Cruscotto risultati proprietari seguiti da Federica</h1>
+        <p class="hero-subtitle">
+          Pagina interna di lavoro che raccoglie screenshot reali dai portali di prenotazione:
+          ricavi, notti vendute, durata media dei soggiorni e performance su 365 giorni.
+          Usata come prova numerica durante le call con i proprietari.
+        </p>
       </div>
 
-      <div class="hero-grid">
-        <div class="hero-main">
-          <h1>Cruscotto risultati proprietari seguiti da Federica</h1>
-          <p>
-            Questa pagina raccoglie solo screenshot reali dai portali di prenotazione:
-            ricavi annuali, notti vendute e durata media dei soggiorni.
-            È una pagina interna, usata come prova numerica durante le call con i proprietari.
-          </p>
-
-          <div class="hero-chip">
-            <span>Pagina privata di riepilogo risultati – <strong>nessun link esterno o form</strong>.</span>
-          </div>
-        </div>
-
-        <div class="hero-kpi-box">
+      <div class="hero-right">
+        <div class="hero-right-main">
+          <div class="hero-kpi-label">Incremento medio stimato</div>
           <div class="hero-kpi">+37%</div>
-          <div class="hero-kpi-label">Incremento medio dei ricavi dopo 6–12 mesi*</div>
-          <p class="hero-note">
-            *Valore indicativo calcolato su un gruppo di case vacanze seguite in modo continuativo.
-            I risultati possono variare in base alla zona, alla partenza e al tipo di gestione.
+          <p class="hero-kpi-note">
+            Valore indicativo su un gruppo di case vacanze seguite in modo continuativo
+            per 6–12 mesi. I risultati effettivi dipendono da zona, partenza e tipo di gestione.
           </p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- KPI SINTESI -->
-    <section class="section">
-      <div class="section-header">
-        <div class="section-tag">Sintesi risultati</div>
-        <h2>In sintesi: cosa è cambiato per i proprietari</h2>
-        <p>
-          Alcuni numeri sintetici che riassumono l’effetto del lavoro su annunci, prezzi
-          e processi di gestione. I dati provengono dai cruscotti che i proprietari
-          vedono ogni mese nelle loro app.
-        </p>
-      </div>
+  <!-- SINTESI RISULTATI -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-eyebrow">Sintesi risultati</div>
+      <h2>In sintesi: cosa è cambiato per i proprietari</h2>
+      <p>
+        Alcuni numeri sintetici che riassumono l’effetto del lavoro su annunci, prezzi
+        e processi di gestione. Tutti i dati provengono dagli stessi cruscotti che
+        i proprietari vedono nelle loro app.
+      </p>
+    </div>
 
-      <div class="kpi-grid">
-        <article class="kpi-card">
-          <div class="kpi-value">+130 notti</div>
-          <div class="kpi-label">Incremento su una singola struttura (da 123 a 253 notti)</div>
-          <p class="kpi-note">
-            Calendario più pieno e soggiorni più lunghi sulla stessa casa vacanze,
-            nello stesso quartiere e sullo stesso portale.
-          </p>
-        </article>
-
-        <article class="kpi-card">
-          <div class="kpi-value">+7.800 €</div>
-          <div class="kpi-label">Delta stimato di ricavi su 12 mesi*</div>
-          <p class="kpi-note">
-            Differenza tra il ritmo di incassi 2024 e quello 2025 nella stessa struttura,
-            considerando solo i dati mostrati nel portale.
-          </p>
-        </article>
-
-        <article class="kpi-card">
-          <div class="kpi-value">3.600 €</div>
-          <div class="kpi-label">Picchi mensili su singole case vacanze</div>
-          <p class="kpi-note">
-            In alta stagione una sola casa vacanze può superare i 3.000 €/mese,
-            senza che il proprietario debba gestire messaggi, pulizie e calendario.
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <hr class="divider" />
-
-    <!-- CASE STUDY PRINCIPALE: EVOLUZIONE ANNO SU ANNO -->
-    <section class="section">
-      <div class="section-header">
-        <div class="section-tag">Case study 1</div>
-        <h2>Un anno dopo sulla stessa struttura</h2>
-        <p>
-          Di seguito un cruscotto annuale reale: si vede come cambiano i numeri tra 2024 e 2025
-          per la stessa casa vacanze, nello stesso portale. L’obiettivo non è solo riempire
-          il calendario, ma farlo con soggiorni più lunghi e ricavi più stabili.
-        </p>
-      </div>
-
-      <article class="case-card">
-        <div class="case-meta">
-          ROMA • <strong>APPARTAMENTO TURISTICO</strong> • AIRBNB
+    <div class="kpi-grid">
+      <article class="kpi-card">
+        <div class="kpi-title">Occupazione</div>
+        <div class="kpi-value">+130 notti</div>
+        <div class="kpi-label">
+          Incremento su una singola struttura (da 123 a 253 notti in un anno).
         </div>
+        <p class="kpi-note">
+          Calendario più pieno e soggiorni più lunghi sulla stessa casa vacanze,
+          nello stesso quartiere e sullo stesso portale.
+        </p>
+      </article>
 
-        <h3>Calendario più pieno, soggiorni più lunghi</h3>
+      <article class="kpi-card">
+        <div class="kpi-title">Ricavi stimati</div>
+        <div class="kpi-value">+7.800 €</div>
+        <div class="kpi-label">
+          Delta stimato di ricavi su 12 mesi.
+        </div>
+        <p class="kpi-note">
+          Differenza tra il ritmo di incassi del 2024 e quello del 2025 nella stessa struttura,
+          considerando solo i dati mostrati nel portale.
+        </p>
+      </article>
 
-        <div class="case-columns">
-          <!-- Colonna testo -->
-          <div>
-            <div class="case-stats">
-              <p><strong>Ricavi anno 2024:</strong> 5.696,02 €*</p>
-              <p><strong>Notti prenotate 2024:</strong> 123</p>
-              <p><strong>Durata media soggiorno 2024:</strong> 2,7 notti</p>
+      <article class="kpi-card">
+        <div class="kpi-title">Picchi mensili</div>
+        <div class="kpi-value">3.600 €</div>
+        <div class="kpi-label">
+          Picchi mensili su singole case vacanze.
+        </div>
+        <p class="kpi-note">
+          In alta stagione una sola casa vacanze può superare i 3.000&nbsp;€/mese,
+          senza che il proprietario debba gestire messaggi, pulizie e calendario.
+        </p>
+      </article>
+    </div>
+  </section>
 
-              <p style="margin-top:10px;"><strong>Ricavi anno 2025:</strong> 21.949,05 €*</p>
-              <p><strong>Notti prenotate 2025:</strong> 253</p>
-              <p><strong>Durata media soggiorno 2025:</strong> 4,3 notti</p>
-            </div>
+  <!-- CASE STUDY 1 – EVOLUZIONE ANNUALE -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-eyebrow">Case study 1</div>
+      <h2>Evoluzione anno su anno della stessa struttura</h2>
+      <p>
+        Qui sotto un cruscotto annuale reale: si vede come cambiano i numeri tra 2024 e 2025
+        per la stessa casa vacanze, nello stesso portale.
+      </p>
+    </div>
 
-            <p class="footnote">
-              *Valori presi direttamente dal riepilogo annuale del portale (somma già corrisposta
-              al proprietario, senza considerare altre transazioni future).
-            </p>
+    <article class="case-card">
+      <div class="case-layout">
+        <div>
+          <div class="case-meta">Roma · appartamento turistico · Airbnb</div>
+          <h3>Calendario più pieno e soggiorni più lunghi</h3>
 
-            <p style="margin-top:10px;">
-              Il grafico annuale nello screenshot mostra chiaramente l’aumento della barra 2025
-              rispetto al 2024: più notti vendute, soggiorni più lunghi e flusso di cassa
-              più stabile per il proprietario.
-            </p>
+          <p class="case-lead">
+            L’obiettivo non è solo riempire il calendario, ma farlo con numeri che hanno senso:
+            più notti vendute, soggiorni più lunghi e un flusso di cassa più stabile per il proprietario.
+          </p>
 
-            <div class="case-pill-row">
-              <div class="case-pill">
-                <span class="case-pill-dot"></span>
-                Strategia prezzi
-              </div>
-              <div class="case-pill">
-                <span class="case-pill-dot"></span>
-                Minimo soggiorno
-              </div>
-              <div class="case-pill">
-                <span class="case-pill-dot"></span>
-                Messaggi automatici
-              </div>
-            </div>
+          <div class="case-grid-numbers">
+            <span>Ricavi anno 2024: <strong>5.696,02&nbsp;€*</strong></span>
+            <span>Ricavi anno 2025: <strong>21.949,05&nbsp;€*</strong></span>
+
+            <span>Notti prenotate 2024: <strong>123</strong></span>
+            <span>Notti prenotate 2025: <strong>253</strong></span>
+
+            <span>Durata media soggiorno 2024: <strong>2,7 notti</strong></span>
+            <span>Durata media soggiorno 2025: <strong>4,3 notti</strong></span>
           </div>
 
-          <!-- Colonna immagine -->
-          <figure class="case-figure">
-            <!-- usa lo screen principale annuale (es. screen1) -->
-            <img src="assets/proof/screen1.jpg" alt="Cruscotto annuale con confronto tra ricavi 2024 e 2025">
-            <figcaption>
-              Screenshot annuale: si vede il salto di ricavi e notti vendute nel 2025 rispetto al 2024
-              sulla stessa casa vacanze.
-            </figcaption>
-          </figure>
+          <p class="case-lead" style="font-size:0.9rem; color:var(--muted);">
+            *Valori presi direttamente dal riepilogo annuale del portale (somma già corrisposta al
+            proprietario, senza considerare altre transazioni future).
+          </p>
+
+          <p class="case-lead" style="font-size:0.9rem;">
+            Il grafico annuale nello screenshot mostra chiaramente l’aumento della barra 2025 rispetto al 2024:
+            più notti vendute, soggiorni più lunghi e flusso di cassa più stabile.
+          </p>
+
+          <div class="case-pill-row">
+            <span class="pill">Strategia prezzi</span>
+            <span class="pill">Minimo soggiorno</span>
+            <span class="pill">Messaggi automatici</span>
+          </div>
         </div>
-      </article>
-    </section>
 
-    <hr class="divider" />
-
-    <!-- ALTRI SCREEN: RISULTATI MENSILI E RIEPILOGHI -->
-    <section class="section">
-      <div class="section-header">
-        <div class="section-tag">Altri esempi</div>
-        <h2>Altri esempi dal cruscotto dei portali</h2>
-        <p>
-          Alcune schermate mensili e annuali di diverse strutture.
-          Non ci sono simulazioni: sono gli stessi grafici che i proprietari vedono
-          nelle loro app quando controllano rendimenti, incassi e prenotazioni.
-        </p>
+        <div class="case-image-shell">
+          <img src="assets/proof/screen1.jpg" alt="Cruscotto annuale con confronto tra 2024 e 2025">
+          <div class="case-caption">
+            Cruscotto annuale reale: stessa casa vacanze, stesso portale. Nel 2025 la barra delle entrate
+            e delle notti vendute è nettamente più alta rispetto al 2024.
+          </div>
+        </div>
       </div>
+    </article>
+  </section>
 
-      <div class="gallery-grid">
-        <article class="gallery-item">
-          <img src="assets/proof/screen2.jpg" alt="Guadagni mensili ottobre">
-          <strong>Picco mensile oltre 3.600 €</strong>
-          <span>
-            3.610,47 € nel mese di ottobre su una singola struttura.
-            Esempio di alta stagione con calendario ben ottimizzato.
-          </span>
-        </article>
-
-        <article class="gallery-item">
-          <img src="assets/proof/screen3.jpg" alt="Guadagni mensili struttura 2">
-          <strong>Altra struttura monitorata</strong>
-          <span>
-            Oltre 3.200 € in un mese con un’altra struttura, sempre con gestione
-            centralizzata da Federica.
-          </span>
-        </article>
-
-        <article class="gallery-item">
-          <img src="assets/proof/screen4.jpg" alt="Guadagni mensili altra struttura">
-          <strong>Oltre 3.200 € in un mese</strong>
-          <span>
-            3.206,21 € in un mese, con oltre 400 € ancora in arrivo dal portale:
-            il cruscotto mostra sia incassi ricevuti che futuri.
-          </span>
-        </article>
-
-        <article class="gallery-item">
-          <img src="assets/proof/screen5.jpg" alt="Guadagni mensili Anna Maria">
-          <strong>Anna Maria – mese monitorato</strong>
-          <span>
-            Oltre 2.000 € nel mese monitorato, più ulteriori incassi già programmati
-            nei mesi successivi.
-          </span>
-        </article>
-
-        <article class="gallery-item">
-          <img src="assets/proof/screen6.jpg" alt="Altra struttura mensile">
-          <strong>Struttura con flusso costante</strong>
-          <span>
-            Quasi 2.000 € in un mese con prenotazioni distribuite,
-            utile per stabilizzare il cashflow del proprietario.
-          </span>
-        </article>
-
-        <article class="gallery-item">
-          <img src="assets/proof/screen7.jpg" alt="Calendario prenotazioni annuale">
-          <strong>Calendario con stagionalità</strong>
-          <span>
-            Il calendario evidenzia i periodi di picco e le aree da riempire,
-            base per la strategia prezzi di Federica.
-          </span>
-        </article>
-
-        <article class="gallery-item">
-          <img src="assets/proof/screen8.jpg" alt="Dettaglio prenotazioni e incassi">
-          <strong>Dettaglio entrate e notti vendute</strong>
-          <span>
-            Vista di dettaglio con somma già corrisposta e transazioni future:
-            il proprietario vede sempre la situazione aggiornata.
-          </span>
-        </article>
-      </div>
-    </section>
-
-    <hr class="divider" />
-
-    <!-- SEZIONE QUALITÀ, RECENSIONI E 365 GIORNI -->
-    <section class="section">
-      <div class="section-header">
-        <div class="section-tag">Performance 365 giorni</div>
-        <h2>Qualità, notti prenotate e rendimenti su 12 mesi</h2>
-        <p>
-          Qui vengono raccolti alcuni estratti dei pannelli “ultimi 365 giorni” di vari profili:
-          notti prenotate, valore prenotazioni e percentuale di recensioni a 5 stelle.
-        </p>
-      </div>
-
-      <div class="gallery-grid">
-        <article class="gallery-item">
-          <img src="assets/proof/screen9.jpg" alt="Riepilogo 365 giorni 949 notti prenotate">
-          <strong>Riepilogo 365 giorni – 949 notti prenotate</strong>
-          <span>
-            949 notti prenotate, 107.000 € di valore prenotazioni e
-            89,7% di recensioni a 5 stelle.
-          </span>
-        </article>
-
-        <article class="gallery-item">
-          <img src="assets/proof/screen10.jpg" alt="Riepilogo dall'inizio dell'anno">
-          <strong>Riepilogo dall’inizio dell’anno</strong>
-          <span>
-            21.341,35 € totali per il proprietario dopo costi, correzioni e commissioni del portale.
-          </span>
-        </article>
-
-        <article class="gallery-item">
-          <img src="assets/proof/screen11.jpg" alt="Performance 365 giorni 980 notti">
-          <strong>Performance 365 giorni – 980 notti</strong>
-          <span>
-            980 notti prenotate, 109.000 € di prenotazioni e 89,8% di valutazioni a 5 stelle.
-          </span>
-        </article>
-
-        <article class="gallery-item">
-          <img src="assets/proof/screen12.jpg" alt="Altro profilo 1002 notti prenotate">
-          <strong>Altro profilo – oltre 1.000 notti</strong>
-          <span>
-            1.002 notti prenotate, 111.000 € di prenotazioni e 89,4% di valutazioni con il massimo dei voti.
-          </span>
-        </article>
-      </div>
-
-      <p class="footnote" style="margin-top:14px;">
-        Ogni screenshot corrisponde a un profilo reale gestito o monitorato da Federica:
-        la metrica chiave non è solo il fatturato, ma la combinazione tra notti vendute,
-        qualità delle recensioni e tempo risparmiato dal proprietario.
+  <!-- ALTRI ESTRATTI MENSILI -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-eyebrow">Estratti mensili</div>
+      <h2>Altri esempi dal cruscotto mensile</h2>
+      <p>
+        Alcune schermate mensili di diverse strutture. Non sono simulazioni:
+        sono gli stessi grafici che i proprietari vedono nelle loro app quando
+        controllano i risultati del mese.
       </p>
-    </section>
-  </main>
+    </div>
+
+    <div class="gallery-grid">
+      <article class="gallery-item">
+        <div class="gallery-thumb-shell">
+          <img src="assets/proof/screen2.jpg" alt="Guadagni mensili struttura 1">
+        </div>
+        <div class="gallery-title">3.610,47&nbsp;€ in un mese</div>
+        <p class="gallery-text">
+          3.610,47&nbsp;€ nel mese di ottobre su una singola struttura. Il grafico mostra
+          più mesi con un’occupazione costante e picchi in alta stagione.
+        </p>
+      </article>
+
+      <article class="gallery-item">
+        <div class="gallery-thumb-shell">
+          <img src="assets/proof/screen3.jpg" alt="Guadagni mensili struttura 2">
+        </div>
+        <div class="gallery-title">Oltre 3.200&nbsp;€ in un mese</div>
+        <p class="gallery-text">
+          Altra struttura che supera i 3.200&nbsp;€ in un singolo mese, con altre entrate
+          già confermate nei mesi successivi.
+        </p>
+      </article>
+
+      <article class="gallery-item">
+        <div class="gallery-thumb-shell">
+          <img src="assets/proof/screen4.jpg" alt="Guadagni mensili struttura con entrate future">
+        </div>
+        <div class="gallery-title">3.206,21&nbsp;€ + entrate future</div>
+        <p class="gallery-text">
+          3.206,21&nbsp;€ nel mese monitorato, con oltre 400&nbsp;€ ancora in arrivo dal portale:
+          il cruscotto mostra sia le somme già corrisposte che le prenotazioni future.
+        </p>
+      </article>
+
+      <article class="gallery-item">
+        <div class="gallery-thumb-shell">
+          <img src="assets/proof/screen5.jpg" alt="Guadagni mensili Anna Maria">
+        </div>
+        <div class="gallery-title">Anna Maria: oltre 2.600&nbsp;€</div>
+        <p class="gallery-text">
+          2.099,56&nbsp;€ già incassati nel mese, più 535,03&nbsp;€ in arrivo. Il portale
+          separa chiaramente gli importi già liquidati dalle prenotazioni future.
+        </p>
+      </article>
+
+      <article class="gallery-item">
+        <div class="gallery-thumb-shell">
+          <img src="assets/proof/screen6.jpg" alt="Guadagni mensili altra struttura">
+        </div>
+        <div class="gallery-title">Altra struttura monitorata</div>
+        <p class="gallery-text">
+          Un’altra casa vacanze con quasi 2.000&nbsp;€ nel mese e prenotazioni già confermate
+          per i mesi successivi: il lavoro non è solo “riempire”, ma stabilizzare il flusso.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 365 GIORNI -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-eyebrow">Performance 365 giorni</div>
+      <h2>Panoramica 365 giorni: notti, valore prenotazioni e recensioni</h2>
+      <p>
+        Qui vengono raccolti alcuni estratti dai pannelli “ultimi 365 giorni” di vari profili:
+        notti prenotate, valore prenotazioni e percentuale di recensioni a 5 stelle.
+      </p>
+    </div>
+
+    <div class="gallery-grid">
+      <article class="gallery-item">
+        <div class="gallery-thumb-shell">
+          <img src="assets/proof/screen9.jpg" alt="Riepilogo 365 giorni con 949 notti prenotate">
+        </div>
+        <div class="gallery-365-title">Riepilogo 365 giorni – 949 notti</div>
+        <p class="gallery-text">
+          949 notti prenotate, 107.000&nbsp;€ di valore prenotazioni e 89,7% di
+          recensioni a 5 stelle su 365 giorni.
+        </p>
+      </article>
+
+      <article class="gallery-item">
+        <div class="gallery-thumb-shell">
+          <img src="assets/proof/screen10.jpg" alt="Riepilogo dall'inizio dell'anno">
+        </div>
+        <div class="gallery-365-title">Riepilogo inizio anno</div>
+        <p class="gallery-text">
+          21.341,35&nbsp;€ totali per il proprietario dall’inizio dell’anno, dopo costi,
+          correzioni e commissioni del portale.
+        </p>
+      </article>
+
+      <article class="gallery-item">
+        <div class="gallery-thumb-shell">
+          <img src="assets/proof/screen11.jpg" alt="Performance 365 giorni con 980 notti">
+        </div>
+        <div class="gallery-365-title">Performance 365 giorni – 980 notti</div>
+        <p class="gallery-text">
+          980 notti prenotate, 109.000&nbsp;€ di prenotazioni e 89,8% di recensioni a 5 stelle.
+          Il grafico mostra l’andamento della qualità mese per mese.
+        </p>
+      </article>
+
+      <article class="gallery-item">
+        <div class="gallery-thumb-shell">
+          <img src="assets/proof/screen12.jpg" alt="Altro profilo con oltre 1000 notti prenotate">
+        </div>
+        <div class="gallery-365-title">Altro profilo – oltre 1.000 notti</div>
+        <p class="gallery-text">
+          1.002 notti prenotate, 111.000&nbsp;€ di prenotazioni e 89,4% di recensioni
+          a 5 stelle: profilo stabile, con qualità alta e problemi recenti sotto controllo.
+        </p>
+      </article>
+    </div>
+
+    <p class="note-bottom">
+      Ogni screenshot corrisponde a un profilo reale gestito o monitorato da Federica:
+      la metrica chiave non è solo il fatturato, ma la combinazione tra notti vendute,
+      qualità delle recensioni e tempo risparmiato dal proprietario.
+    </p>
+  </section>
+
+</main>
 </body>
 </html>
