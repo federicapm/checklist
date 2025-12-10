@@ -7,14 +7,14 @@
   <meta name="robots" content="noindex,nofollow" />
   <style>
     :root {
-      --bg: #020617;
-      --bg-soft: #030712;
+      --bg: #0b1220;
+      --bg-soft: #111827;
       --bg-soft-2: #020617;
       --text: #f9fafb;
       --muted: #9ca3af;
       --accent: #facc15;
       --accent-dark: #eab308;
-      --pill: #111827;
+      --pill: #1f2937;
       --border: rgba(148,163,184,0.35);
     }
 
@@ -22,7 +22,7 @@
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #020617, #000000 60%);
+      background: radial-gradient(circle at top, #111827, #020617 55%);
       color: var(--text);
       line-height: 1.6;
     }
@@ -46,8 +46,8 @@
 
     .hero {
       border-radius: 24px;
-      background: radial-gradient(circle at top left, #020617, #020617);
-      padding: 28px 20px 22px;
+      background: radial-gradient(circle at top left, #1e293b, #020617);
+      padding: 32px 20px 28px;
       border: 1px solid var(--border);
       margin-bottom: 32px;
       text-align: left;
@@ -94,23 +94,6 @@
       color: var(--muted);
     }
 
-    .hero-note {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-top: 6px;
-      max-width: 260px;
-    }
-
-    .hero-pill {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
     .section {
       margin-bottom: 36px;
     }
@@ -131,7 +114,7 @@
 
     .kpi-card {
       border-radius: 18px;
-      background: #020617;
+      background: linear-gradient(135deg, #020617, #020617);
       border: 1px solid var(--border);
       padding: 16px 16px 14px;
     }
@@ -154,12 +137,17 @@
       margin-top: 6px;
     }
 
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
     .case-card {
       border-radius: 20px;
       background: #020617;
       border: 1px solid var(--border);
-      padding: 18px 18px 14px;
-      margin-bottom: 20px;
+      padding: 16px 16px 18px;
     }
 
     .case-meta {
@@ -167,20 +155,7 @@
       text-transform: uppercase;
       letter-spacing: 0.12em;
       color: var(--muted);
-      margin-bottom: 8px;
-    }
-
-    .case-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
-      gap: 18px;
-      align-items: flex-start;
-    }
-
-    .case-col p { margin-bottom: 4px; }
-
-    .case-pill-row {
-      margin-top: 10px;
+      margin-bottom: 6px;
     }
 
     .case-pill {
@@ -191,31 +166,46 @@
       padding: 2px 8px;
       font-size: 0.75rem;
       color: var(--muted);
-      margin-right: 6px;
       margin-top: 4px;
+      margin-right: 6px;
     }
 
-    .case-image {
-      margin-top: 6px;
+    .case-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 4px 12px;
+      font-size: 0.85rem;
+      margin: 6px 0 10px;
     }
 
-    .case-image img {
+    .case-stats span strong {
+      color: #e5e7eb;
+    }
+
+    .case-images {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .case-images img {
       width: 100%;
-      border-radius: 12px;
+      border-radius: 10px;
       border: 1px solid rgba(148,163,184,0.4);
       display: block;
     }
 
-    .case-image figcaption {
+    .case-images figcaption {
       font-size: 0.75rem;
       color: var(--muted);
-      margin-top: 4px;
-      text-align: left;
+      margin-top: 3px;
+      text-align: center;
     }
 
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 12px;
     }
 
@@ -239,19 +229,16 @@
       color: var(--muted);
     }
 
-    .small-note {
-      font-size: 0.75rem;
+    .cta-note {
+      font-size: 0.78rem;
       color: var(--muted);
       margin-top: 6px;
     }
 
-    @media (max-width: 900px) {
-      .case-layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
     @media (max-width: 720px) {
+      .hero {
+        text-align: left;
+      }
       .hero-top {
         flex-direction: column;
         align-items: flex-start;
@@ -281,15 +268,11 @@
         <div class="hero-right">
           <div class="hero-kpi">+37%</div>
           <div class="hero-kpi-label">Incremento medio dei ricavi dopo 6–12 mesi*</div>
-          <p class="hero-note">
-            *Valore indicativo calcolato su un gruppo di case vacanze seguite in modo
-            continuativo. I risultati variano in base alla zona, alla partenza e al tipo di gestione.
+          <p class="cta-note" style="margin-top:8px; max-width:260px;">
+            *Valore indicativo calcolato su un gruppo di case vacanze seguite in modo continuativo.
+            I risultati variano in base alla zona, alla partenza e al tipo di gestione.
           </p>
         </div>
-      </div>
-
-      <div class="hero-pill">
-        Pagina privata di riepilogo risultati – nessun link esterno o form.
       </div>
     </section>
 
@@ -298,8 +281,8 @@
       <div class="section-header">
         <h2>In sintesi: cosa cambia per i proprietari</h2>
         <p>
-          Qui sotto trovi alcuni numeri sintetici che riassumono l’effetto del lavoro
-          su annunci, prezzi e processi di gestione.
+          Qui sotto trovi alcuni numeri sintetici che riassumono l’effetto del lavoro su annunci,
+          prezzi e processi di gestione.
         </p>
       </div>
 
@@ -308,8 +291,8 @@
           <div class="kpi-value">+130 notti</div>
           <div class="kpi-label">Incremento su una singola struttura (da 123 a 253 notti)</div>
           <p class="kpi-note">
-            Da calendario “riempito a metà” a un anno con molte più notti vendute
-            e soggiorni più lunghi.
+            Il calendario passa da “riempito a metà” a occupazione quasi raddoppiata,
+            con soggiorni più lunghi (2,7 → 4,3 notti).
           </p>
         </article>
 
@@ -317,8 +300,8 @@
           <div class="kpi-value">+7.800 €</div>
           <div class="kpi-label">Delta stimato di ricavi su 12 mesi*</div>
           <p class="kpi-note">
-            Differenza tra il ritmo di incassi 2024 e quello 2025 nella stessa struttura,
-            a parità di appartamento e zona.
+            Somma già corrisposta + transazioni future rispetto al ritmo precedente,
+            a parità di appartamento e città.
           </p>
         </article>
 
@@ -326,14 +309,14 @@
           <div class="kpi-value">3.600 €</div>
           <div class="kpi-label">Picchi mensili su singole case vacanze</div>
           <p class="kpi-note">
-            In alta stagione una sola casa può superare i 3.000 €/mese, con gestione
-            operativa affidata a Federica.
+            In alta stagione una sola casa vacanze può superare i 3.000 €/mese,
+            senza che il proprietario debba occuparsi di messaggi e calendario.
           </p>
         </article>
       </div>
     </section>
 
-    <!-- CASE STUDY PRINCIPALE: 2024 vs 2025 nello stesso screen -->
+    <!-- CASE STUDY PRINCIPALE: ANNO SU ANNO -->
     <section class="section">
       <div class="section-header">
         <h2>Case study 1 – Evoluzione anno su anno della stessa struttura</h2>
@@ -347,45 +330,38 @@
         <div class="case-meta">Roma • Appartamento turistico • Airbnb</div>
         <h3>Calendario più pieno, soggiorni più lunghi</h3>
 
-        <div class="case-layout">
-          <div class="case-col">
-            <p><strong>Ricavi anno 2024:</strong> 5.696,02 €*</p>
-            <p><strong>Notti prenotate 2024:</strong> 123</p>
-            <p><strong>Durata media soggiorno 2024:</strong> 2,7 notti</p>
+        <div class="case-stats">
+          <span>Ricavi anno 2024: <strong>5.696,02 €*</strong></span>
+          <span>Ricavi anno 2025: <strong>21.949,05 €*</strong></span>
+          <span>Notti prenotate 2024: <strong>123</strong></span>
+          <span>Notti prenotate 2025: <strong>253</strong></span>
+          <span>Durata media soggiorno 2024: <strong>2,7 notti</strong></span>
+          <span>Durata media soggiorno 2025: <strong>4,3 notti</strong></span>
+        </div>
 
-            <div style="height: 10px;"></div>
+        <p>
+          Il grafico annuale nello screenshot mostra chiaramente l’aumento della barra 2025 rispetto al
+          2024: più notti vendute, soggiorni più lunghi e flusso di cassa più stabile.
+        </p>
 
-            <p><strong>Ricavi anno 2025:</strong> 21.949,05 €*</p>
-            <p><strong>Notti prenotate 2025:</strong> 253</p>
-            <p><strong>Durata media soggiorno 2025:</strong> 4,3 notti</p>
+        <p class="cta-note" style="margin-top:4px;">
+          *Valori presi direttamente dal riepilogo annuale del portale (somma già corrisposta al
+          proprietario, senza considerare altre transazioni future).
+        </p>
 
-            <p class="small-note" style="margin-top:10px;">
-              *Valori presi direttamente dal riepilogo annuale del portale (somma già corrisposta
-              al proprietario, senza considerare altre transazioni future).
-            </p>
+        <span class="case-pill">Strategia prezzi</span>
+        <span class="case-pill">Minimo soggiorno</span>
+        <span class="case-pill">Messaggi automatici</span>
 
-            <p class="small-note">
-              Il grafico annuale nello screenshot mostra chiaramente l’aumento della barra 2025
-              rispetto al 2024: più notti vendute, soggiorni più lunghi e flusso di cassa più stabile.
-            </p>
-
-            <div class="case-pill-row">
-              <span class="case-pill">Strategia prezzi</span>
-              <span class="case-pill">Minimo soggiorno</span>
-              <span class="case-pill">Messaggi automatici</span>
-            </div>
-          </div>
-
-          <div class="case-col">
-            <figure class="case-image">
-              <!-- SCREEN PRINCIPALE 2024 vs 2025 -->
-              <img src="assets/proof/screen1.jpg" alt="Cruscotto annuale con confronto 2024–2025">
-              <figcaption>
-                Cruscotto annuale della stessa struttura: la barra 2025 mostra più notti, più ricavi
-                e una durata media del soggiorno più alta rispetto al 2024.
-              </figcaption>
-            </figure>
-          </div>
+        <div class="case-images" style="margin-top:12px;">
+          <figure>
+            <img src="assets/proof/screen2.jpg" alt="Cruscotto annuale struttura – anno precedente">
+            <figcaption>Cruscotto annuale: anno di partenza, con meno notti vendute.</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/proof/screen3.jpg" alt="Cruscotto annuale struttura – anno successivo">
+            <figcaption>Cruscotto annuale: anno successivo con più notti e più ricavi.</figcaption>
+          </figure>
         </div>
       </article>
     </section>
@@ -395,53 +371,106 @@
       <div class="section-header">
         <h2>Altri esempi dal cruscotto</h2>
         <p>
-          Altre schermate mensili e annuali di strutture diverse. Sono gli stessi grafici
-          che i proprietari vedono nelle loro app: qui sono solo raccolti in un’unica pagina.
+          Alcune schermate mensili, annuali e di performance generale su più strutture.
+          Sono gli stessi numeri che i proprietari vedono nelle loro app.
         </p>
       </div>
 
       <div class="gallery-grid">
         <div class="gallery-item">
-          <img src="assets/proof/screen2.jpg" alt="Guadagni mensili ottobre">
-          <span>3.610,47 € nel mese di ottobre, con 29 notti prenotate e durata media 2,9 notti.</span>
-        </div>
-
-        <div class="gallery-item">
-          <img src="assets/proof/screen3.jpg" alt="Guadagni ottobre dettaglio testo">
-          <span>Dettaglio del riepilogo: il portale indica chiaramente l’importo incassato nel mese.</span>
-        </div>
-
-        <div class="gallery-item">
-          <img src="assets/proof/screen4.jpg" alt="Riepilogo annuale 2025 altra struttura">
-          <span>Riepilogo annuale 2025 di un’altra struttura: oltre 11.900 € già corrisposti,
-          più prenotazioni future.</span>
+          <img src="assets/proof/screen4.jpg" alt="Guadagni mensili ottobre">
+          <span>3.610,47 € nel mese di ottobre su una singola struttura.</span>
         </div>
 
         <div class="gallery-item">
           <img src="assets/proof/screen5.jpg" alt="Guadagni mensili struttura 2">
-          <span>Una struttura supera i 3.200 € in un mese, con altre entrate già in arrivo.</span>
+          <span>
+            Altra struttura: 3.206,21 € in un mese, con oltre 400 € ancora in arrivo dal portale.
+          </span>
         </div>
 
         <div class="gallery-item">
-          <img src="assets/proof/screen6.jpg" alt="Guadagni mensili proprietario 1">
-          <span>Guadagni mensili con importo in arrivo evidenziato dal portale.</span>
+          <img src="assets/proof/screen6.jpg" alt="Guadagni mensili struttura 3">
+          <span>
+            Terza struttura: oltre 2.000 € nel mese monitorato, con altre entrate in arrivo.
+          </span>
         </div>
 
         <div class="gallery-item">
-          <img src="assets/proof/screen7.jpg" alt="Guadagni mensili Anna Maria">
-          <span>Anna Maria: 2.099,56 € nel mese monitorato, più 535,03 € già in arrivo.</span>
+          <img src="assets/proof/screen7.jpg" alt="Guadagni mensili altra struttura">
+          <span>
+            Altra struttura: 1.987,38 € in un mese, con prenotazioni già confermate per i mesi successivi.
+          </span>
+        </div>
+
+        <!-- NUOVI 4 SCREEN -->
+        <div class="gallery-item">
+          <img src="assets/proof/screen9.jpg" alt="Riepilogo 365 giorni – 949 notti prenotate">
+          <span>
+            Riepilogo ultimi 365 giorni: 949 notti prenotate, 107.000 € di valore prenotazioni,
+            89,7% di valutazioni a 5 stelle.
+          </span>
         </div>
 
         <div class="gallery-item">
-          <img src="assets/proof/screen8.jpg" alt="Guadagni mensili altra struttura">
-          <span>Altra struttura: 1.987,38 € in un mese, con 738,65 € già confermati in arrivo.</span>
+          <img src="assets/proof/screen10.jpg" alt="Riepilogo dall'inizio dell'anno – guadagni lordi e netti">
+          <span>
+            Riepilogo dall’inizio dell’anno: 21.341,35 € totali per il proprietario dopo costi e correzioni.
+          </span>
+        </div>
+
+        <div class="gallery-item">
+          <img src="assets/proof/screen11.jpg" alt="Riepilogo 365 giorni – 980 notti prenotate">
+          <span>
+            Performance 365 giorni: 980 notti prenotate, 109.000 € di prenotazioni, 89,8% recensioni a 5 stelle.
+          </span>
+        </div>
+
+        <div class="gallery-item">
+          <img src="assets/proof/screen12.jpg" alt="Riepilogo 365 giorni – 1002 notti prenotate">
+          <span>
+            Altro profilo: 1.002 notti prenotate, 111.000 € di prenotazioni, 89,4% di valutazioni con 5 stelle.
+          </span>
         </div>
       </div>
+    </section>
 
-      <p class="small-note">
-        Alcuni importi sono stati arrotondati a scopo di lettura, ma gli screenshot mostrano i valori
-        esatti così come riportati dai portali.
-      </p>
+    <!-- METODO BREVE -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Come vengono generati questi numeri</h2>
+        <p>
+          Non è magia né un “trucco di algoritmo”. È un lavoro molto concreto su tre fronti:
+          annuncio, prezzi e processi. Tutto misurato mese per mese.
+        </p>
+      </div>
+
+      <div class="kpi-grid">
+        <article class="kpi-card">
+          <div class="kpi-label" style="font-weight:600;margin-bottom:4px;">1 • Analisi iniziale</div>
+          <p>
+            Si parte dai numeri attuali: estratti conto, calendario, storico
+            recensioni e posizionamento dell’annuncio. L’obiettivo è capire dove
+            si stanno perdendo soldi o tempo.
+          </p>
+        </article>
+
+        <article class="kpi-card">
+          <div class="kpi-label" style="font-weight:600;margin-bottom:4px;">2 • Strategia prezzi & annunci</div>
+          <p>
+            Revisione di titolo, cover, descrizione e foto; impostazione di una
+            strategia prezzi legata a stagionalità, eventi e domanda reale.
+          </p>
+        </article>
+
+        <article class="kpi-card">
+          <div class="kpi-label" style="font-weight:600;margin-bottom:4px;">3 • Gestione & controllo</div>
+          <p>
+            Messaggi automatici, regole di calendario, monitoraggio mensile dei
+            risultati e aggiustamenti continui per evitare di tornare alla situazione iniziale.
+          </p>
+        </article>
+      </div>
     </section>
   </main>
 </body>
