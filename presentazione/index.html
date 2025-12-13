@@ -1,789 +1,977 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Federica Property Manager — Presentazione Vendita (Pacchetto PRO)</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Federica Property Manager – Presentazione</title>
 
+  <!-- Font (pulito, leggibile su schermo) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
+    /* ===========================================================
+      PALETTE (Federica: navy + oro)
+      Nota: colori scelti per leggibilità in condivisione schermo.
+    ============================================================ */
     :root{
-      /* Palette Federica (navy + gold) */
       --navy:#0A2540;
-      --navy2:#0f2f52;
+      --navy2:#0b2e52;
       --gold:#D4AF37;
+      --gold2:#b99222;
 
-      --bg:#f4f6fb;
-      --card:#ffffff;
-      --text:#0b1220;
-      --muted:#5b6473;
-      --line:#e7ebf3;
+      --bg:#F4F6F8;
+      --card:#FFFFFF;
+      --text:#0f172a;
+      --muted:#64748b;
 
-      --radius:18px;
-      --shadow:0 18px 60px rgba(10,37,64,.14);
-      --shadow2:0 10px 24px rgba(10,37,64,.10);
+      --shadow:0 18px 45px rgba(2, 8, 23, .10);
+      --shadow2:0 10px 26px rgba(2, 8, 23, .12);
+
+      --radius-xl:22px;
+      --radius-lg:18px;
+      --radius-md:14px;
+      --radius-sm:12px;
+
+      --border:1px solid rgba(15, 23, 42, .10);
+
+      --safe-top:26px;
+      --safe-bottom:26px;
+
+      --maxw:1280px;
+
+      --t-fast: 140ms;
+      --t-med: 220ms;
+      --t-slow: 340ms;
+
+      --slide-padding: 52px;
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    /* ===========================================================
+      RESET
+    ============================================================ */
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
     body{
       margin:0;
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background: radial-gradient(1200px 600px at 14% 18%, rgba(212,175,55,.18), transparent 55%),
-                  radial-gradient(900px 520px at 88% 12%, rgba(10,37,64,.12), transparent 60%),
-                  var(--bg);
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(900px 420px at 20% 12%, rgba(212,175,55,.12) 0%, transparent 60%),
+        radial-gradient(800px 380px at 90% 18%, rgba(10,37,64,.10) 0%, transparent 60%),
+        var(--bg);
       color:var(--text);
-      overflow:hidden; /* deck */
+      overflow:hidden;
     }
 
-    /* Top bar */
+    a{ color:inherit; text-decoration:none; }
+    button{ font-family:inherit; }
+    img{ max-width:100%; display:block; }
+
+    /* ===========================================================
+      WRAPPER
+    ============================================================ */
+    .app{
+      height:100%;
+      display:flex;
+      flex-direction:column;
+    }
+
+    /* ===========================================================
+      TOP BAR
+    ============================================================ */
     .topbar{
-      position:fixed; inset:18px 18px auto 18px;
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px;
-      z-index:50;
-      pointer-events:none;
+      padding: 16px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      user-select:none;
     }
-    .brand{
-      pointer-events:auto;
-      display:flex; align-items:center; gap:10px;
-      background:rgba(255,255,255,.78);
-      border:1px solid rgba(231,235,243,.9);
-      backdrop-filter: blur(10px);
-      border-radius:999px;
-      padding:10px 14px;
-      box-shadow:var(--shadow2);
-    }
-    .dot{
-      width:10px; height:10px; border-radius:50%;
-      background:var(--gold);
-      box-shadow:0 0 0 6px rgba(212,175,55,.20);
-    }
-    .brand b{color:var(--navy)}
-    .brand small{color:var(--muted); font-weight:600}
 
-    .hud{
-      pointer-events:auto;
-      display:flex; align-items:center; gap:10px;
-      background:rgba(255,255,255,.78);
-      border:1px solid rgba(231,235,243,.9);
-      backdrop-filter: blur(10px);
-      border-radius:999px;
-      padding:10px 14px;
-      box-shadow:var(--shadow2);
-      color:var(--muted);
-      font-weight:700;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:260px;
     }
-    .kbd{
+
+    .brand-dot{
+      width:12px;
+      height:12px;
+      border-radius:999px;
+      background: var(--gold);
+      box-shadow: 0 0 0 6px rgba(212,175,55,.15);
+    }
+
+    .brand-title{
+      display:flex;
+      flex-direction:column;
+      line-height:1.1;
+    }
+    .brand-title strong{
       font-weight:800;
       color:var(--navy);
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:10px;
-      padding:6px 10px;
+      font-size:14px;
+      letter-spacing:.2px;
     }
-    .progress{
-      width:160px; height:10px;
-      background:rgba(10,37,64,.10);
-      border-radius:999px;
-      overflow:hidden;
-      border:1px solid rgba(231,235,243,.9);
-    }
-    .bar{
-      height:100%;
-      width:0%;
-      background:linear-gradient(90deg, var(--gold), #e8c85b);
-      border-radius:999px;
-      transition:width .25s ease;
+    .brand-title span{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:600;
     }
 
-    /* Stage */
+    .top-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .pill{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.70);
+      border: 1px solid rgba(15,23,42,.08);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 22px rgba(2,8,23,.08);
+      color: var(--muted);
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .pill kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size:11px;
+      font-weight:800;
+      padding:4px 8px;
+      border-radius:10px;
+      background:#fff;
+      border:1px solid rgba(15,23,42,.12);
+      color:#0f172a;
+    }
+
+    .btn{
+      border:none;
+      cursor:pointer;
+      border-radius:12px;
+      padding:10px 12px;
+      font-weight:800;
+      font-size:12px;
+      transition: transform var(--t-fast) ease, box-shadow var(--t-fast) ease, background var(--t-fast) ease;
+      user-select:none;
+    }
+
+    .btn:active{ transform: translateY(1px); }
+
+    .btn-ghost{
+      background: rgba(255,255,255,.70);
+      border: 1px solid rgba(15,23,42,.10);
+      color: var(--navy);
+      box-shadow: 0 10px 22px rgba(2,8,23,.08);
+    }
+    .btn-ghost:hover{ background:#fff; }
+
+    .btn-gold{
+      background: linear-gradient(180deg, var(--gold) 0%, #caa12a 100%);
+      color: #0a2540;
+      box-shadow: 0 16px 34px rgba(212,175,55,.20);
+    }
+    .btn-gold:hover{ box-shadow: 0 18px 38px rgba(212,175,55,.26); }
+
+    /* ===========================================================
+      PROGRESS
+    ============================================================ */
+    .progress-wrap{
+      width: min(520px, 42vw);
+      display:flex;
+      align-items:center;
+      gap:12px;
+      justify-content:flex-end;
+    }
+
+    .progress{
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(15,23,42,.10);
+      overflow:hidden;
+      border: 1px solid rgba(15,23,42,.08);
+    }
+    .progress > div{
+      width: 0%;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--gold) 0%, rgba(212,175,55,.65) 100%);
+      transition: width var(--t-med) ease;
+    }
+
+    .counter{
+      min-width:72px;
+      text-align:right;
+      font-size:12px;
+      font-weight:900;
+      color: var(--muted);
+    }
+
+    /* ===========================================================
+      STAGE (area slide)
+    ============================================================ */
     .stage{
-      position:fixed; inset:0;
+      flex:1;
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:90px 28px 28px;
+      padding: 0 22px var(--safe-bottom);
+    }
+
+    .frame{
+      width: min(var(--maxw), 94vw);
+      height: min(740px, 82vh);
+      background: rgba(255,255,255,.65);
+      border: 1px solid rgba(15,23,42,.08);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      overflow:hidden;
+      position:relative;
     }
 
     .slide{
-      width:min(1280px, calc(100vw - 56px));
-      height:min(720px, calc(100vh - 140px));
-      background:var(--card);
-      border:1px solid rgba(231,235,243,.9);
-      border-radius:28px;
-      box-shadow:var(--shadow);
-      overflow:hidden;
+      position:absolute;
+      inset:0;
+      padding: var(--slide-padding);
       display:none;
-      position:relative;
     }
-    .slide.active{display:block}
+    .slide.active{ display:block; }
 
-    .slide::before{
-      content:"";
-      position:absolute; inset:-2px -2px auto -2px;
-      height:10px;
-      background:linear-gradient(90deg, rgba(212,175,55,.55), rgba(10,37,64,.12));
-      opacity:.9;
-    }
-
-    .content{
-      height:100%;
-      padding:42px 46px;
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap:26px;
-      align-items:stretch;
-    }
-
-    .full .content{
-      grid-template-columns:1fr;
-      gap:18px;
-    }
-
-    h1,h2,h3{margin:0}
-    .kicker{
+    /* ===========================================================
+      SLIDE HEADER
+    ============================================================ */
+    .s-tag{
       display:inline-flex;
       align-items:center;
       gap:10px;
-      font-weight:900;
-      letter-spacing:.06em;
-      color:var(--navy);
-      text-transform:uppercase;
-      font-size:12px;
-    }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      background:rgba(212,175,55,.16);
-      border:1px solid rgba(212,175,55,.35);
-      color:var(--navy);
+      padding:8px 12px;
       border-radius:999px;
-      padding:6px 10px;
+      background: rgba(212,175,55,.16);
+      border: 1px solid rgba(212,175,55,.30);
+      color: #7a5c00;
       font-weight:900;
       font-size:12px;
+      letter-spacing:.3px;
+      text-transform:uppercase;
+    }
+    .s-tag .dot{
+      width:10px;
+      height:10px;
+      border-radius:999px;
+      background: var(--gold);
+      box-shadow: 0 0 0 6px rgba(212,175,55,.14);
     }
 
     .title{
-      margin-top:14px;
-      font-size:54px;
-      line-height:1.03;
-      color:var(--navy);
-      letter-spacing:-.03em;
-      font-weight:900;
+      margin: 18px 0 10px;
+      font-size: 48px;
+      line-height: 1.05;
+      font-weight: 900;
+      color: var(--navy);
+      letter-spacing: -0.8px;
     }
     .subtitle{
-      margin-top:12px;
-      font-size:18px;
-      line-height:1.5;
-      color:var(--muted);
-      font-weight:600;
-      max-width:60ch;
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: #334155;
+      max-width: 980px;
+      line-height: 1.55;
     }
 
-    .grid{
-      margin-top:22px;
+    /* ===========================================================
+      TWO COLUMN LAYOUT
+    ============================================================ */
+    .cols{
+      margin-top: 34px;
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:14px;
-    }
-    .mini{
-      border:1px solid var(--line);
-      border-radius:16px;
-      background:#fff;
-      padding:14px;
-    }
-    .mini b{
-      display:block;
-      font-size:16px;
-      color:var(--navy);
-      margin-bottom:4px;
-    }
-    .mini span{
-      color:var(--muted);
-      font-weight:600;
-      font-size:13px;
-      line-height:1.35;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 34px;
+      height: calc(100% - 160px);
+      align-items: stretch;
     }
 
-    .box{
-      border:1px solid var(--line);
-      border-radius:20px;
-      background:linear-gradient(180deg, #fff, #fbfcff);
-      padding:18px 18px;
-    }
-    .box h3{
-      color:var(--navy);
-      font-size:16px;
-      font-weight:900;
-      margin-bottom:10px;
-    }
-    .bullets{
-      margin:0; padding-left:18px;
-      color:var(--text);
-      font-weight:650;
-      line-height:1.55;
-      font-size:16px;
-    }
-    .bullets li{margin:10px 0}
-    .bullets b{color:var(--navy)}
-
-    .impact{
-      margin-top:14px;
+    .panel{
+      background: var(--card);
+      border: var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
       display:flex;
-      align-items:flex-start;
-      gap:12px;
-      border-radius:18px;
-      border:1px solid rgba(212,175,55,.35);
-      background:rgba(212,175,55,.12);
-      padding:14px 14px;
-      color:var(--navy);
-      font-weight:800;
-    }
-    .tag{
-      flex:0 0 auto;
-      background:var(--gold);
-      color:var(--navy);
-      border-radius:12px;
-      padding:6px 10px;
-      font-weight:1000;
-      font-size:12px;
-      letter-spacing:.04em;
-      text-transform:uppercase;
-    }
-    .impact span{
-      color:var(--navy2);
-      font-weight:800;
-      line-height:1.35;
+      flex-direction:column;
+      min-height: 0;
     }
 
-    /* Right (screenshot) */
-    .shotWrap{
-      height:100%;
-      border:1px dashed rgba(10,37,64,.20);
-      background:linear-gradient(180deg, rgba(10,37,64,.03), rgba(10,37,64,.00));
-      border-radius:24px;
-      padding:16px;
+    .panel.pad{ padding: 26px; }
+
+    /* ===========================================================
+      TEXT BLOCKS
+    ============================================================ */
+    .h3{
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--navy);
+      margin: 0 0 12px;
+    }
+
+    .list{
+      margin:0;
+      padding-left: 18px;
+    }
+    .list li{
+      margin: 10px 0;
+      font-size: 16px;
+      color: #0f172a;
+      line-height: 1.5;
+      font-weight: 600;
+    }
+
+    .note{
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(212,175,55,.35);
+      background: rgba(212,175,55,.14);
+      color: #0f172a;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .mini-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    /* ===========================================================
+      IMAGE PANEL
+    ============================================================ */
+    .imgwrap{
+      position:relative;
+      background: #fff;
+      border: var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      min-height: 0;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      padding: 16px;
+    }
+
+    .imgwrap img{
+      width: 100%;
+      height: 100%;
+      max-height: 100%;
+      object-fit: contain;       /* IMPORTANT: niente tagli */
+      border-radius: var(--radius-lg);
+      box-shadow: 0 10px 30px rgba(2,8,23,.18);
+    }
+
+    .imgcaption{
+      position:absolute;
+      left:18px;
+      top:18px;
+      background: rgba(10,37,64,.90);
+      color: #fff;
+      font-weight: 900;
+      font-size: 12px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.15);
+      letter-spacing:.2px;
+    }
+
+    /* ===========================================================
+      RESULTS SLIDE GRID (4 immagini)
+    ============================================================ */
+    .results{
+      margin-top: 28px;
+      height: calc(100% - 140px);
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .shot{
+      background:#fff;
+      border: var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      padding: 14px;
       display:flex;
       align-items:center;
       justify-content:center;
-      position:relative;
-      overflow:hidden;
-    }
-    .shotWrap .label{
-      position:absolute; top:14px; left:14px;
-      display:inline-flex; align-items:center; gap:8px;
-      background:rgba(255,255,255,.86);
-      border:1px solid rgba(231,235,243,.9);
-      padding:8px 10px;
-      border-radius:999px;
-      color:var(--muted);
-      font-weight:800;
-      font-size:12px;
-      backdrop-filter: blur(10px);
-    }
-    .shot{
-      max-width:100%;
-      max-height:100%;
-      border-radius:18px;
-      box-shadow:0 18px 40px rgba(10,37,64,.16);
-      border:1px solid rgba(231,235,243,.9);
-      background:#fff;
-      object-fit:contain;
-    }
-
-    /* Proof grid slide */
-    .proofGrid{
-      display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap:14px;
-      margin-top:18px;
-    }
-    .proofItem{
-      border-radius:18px;
-      border:1px solid var(--line);
-      background:#fff;
-      overflow:hidden;
-      box-shadow:0 10px 24px rgba(10,37,64,.08);
-      display:flex;
-      flex-direction:column;
       min-height:0;
     }
-    .proofItem img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-    .proofItem .cap{
-      padding:10px 12px;
-      color:var(--navy);
-      font-weight:900;
-      font-size:12px;
-      border-top:1px solid var(--line);
-      background:linear-gradient(180deg,#fff,#fbfcff);
+
+    .shot img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* IMPORTANT */
+      border-radius: var(--radius-lg);
+      box-shadow: 0 10px 28px rgba(2,8,23,.18);
     }
 
-    /* Controls bottom */
-    .controls{
-      position:fixed; inset:auto 18px 18px 18px;
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px;
-      z-index:60;
-      pointer-events:none;
+    /* ===========================================================
+      BOTTOM NAV
+    ============================================================ */
+    .nav{
+      position:absolute;
+      right: 22px;
+      bottom: 18px;
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      z-index: 10;
     }
+
+    .nav .btn{
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-size: 12px;
+    }
+
     .hint{
-      pointer-events:auto;
-      color:var(--muted);
-      font-weight:700;
-      font-size:13px;
-      background:rgba(255,255,255,.74);
-      border:1px solid rgba(231,235,243,.9);
-      border-radius:999px;
-      padding:10px 12px;
-      box-shadow:var(--shadow2);
+      position:absolute;
+      left: 22px;
+      bottom: 20px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      user-select:none;
     }
-    .btns{
-      pointer-events:auto;
-      display:flex; gap:10px;
-    }
-    button{
-      appearance:none;
-      border:1px solid rgba(231,235,243,.9);
-      background:rgba(255,255,255,.78);
-      backdrop-filter: blur(10px);
-      color:var(--navy);
-      font-weight:900;
-      border-radius:14px;
-      padding:10px 14px;
-      cursor:pointer;
-      box-shadow:var(--shadow2);
-    }
-    button.primary{
-      background:linear-gradient(180deg, var(--gold), #e7c35a);
-      border-color:rgba(212,175,55,.55);
-      color:var(--navy);
-    }
-    button:active{transform:translateY(1px)}
 
-    /* Responsive */
-    @media (max-width: 980px){
-      body{overflow:auto}
-      .stage{position:relative; padding:86px 14px 80px}
-      .slide{height:auto; min-height:calc(100vh - 170px); overflow:visible}
-      .content{grid-template-columns:1fr}
-      .proofGrid{grid-template-columns:repeat(2, 1fr)}
+    /* ===========================================================
+      FULLSCREEN TIP (solo UI, niente “note” nel contenuto)
+    ============================================================ */
+    .toast{
+      position: fixed;
+      left: 22px;
+      top: 74px;
+      background: rgba(15,23,42,.88);
+      color:#fff;
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 16px 34px rgba(2,8,23,.22);
+      opacity:0;
+      pointer-events:none;
+      transform: translateY(-6px);
+      transition: opacity var(--t-med) ease, transform var(--t-med) ease;
+      z-index: 999;
+    }
+    .toast.show{
+      opacity:1;
+      transform: translateY(0px);
+    }
+
+    /* ===========================================================
+      RESPONSIVE (desktop-first, ma regge anche ridimensioni)
+    ============================================================ */
+    @media (max-width: 1100px){
+      .title{ font-size: 40px; }
+      .frame{ height: min(760px, 86vh); }
+      .slide{ padding: 40px; }
+      .cols{ grid-template-columns: 1fr; height:auto; }
+      .results{ grid-template-columns: 1fr; }
+      body{ overflow:auto; }
+      .stage{ padding-bottom: 40px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="topbar">
-    <div class="brand">
-      <span class="dot"></span>
-      <div>
-        <b>Federica Property Manager</b>
-        <small>• presentazione per call vendita</small>
+  <div class="app">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-dot"></div>
+        <div class="brand-title">
+          <strong>Federica Property Manager</strong>
+          <span>Ottimizzazione annuncio · metodo pratico · risultati misurabili</span>
+        </div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress" aria-label="Avanzamento">
+          <div id="progressBar"></div>
+        </div>
+        <div class="counter" id="counter">1 / 8</div>
+
+        <button class="btn btn-ghost" id="btnHelp" type="button" title="Comandi">
+          Comandi
+        </button>
+        <button class="btn btn-gold" id="btnFull" type="button" title="Schermo intero">
+          Schermo intero
+        </button>
       </div>
     </div>
 
-    <div class="hud">
-      <span>Avanza:</span>
-      <span class="kbd">Click</span>
-      <span class="kbd">→</span>
-      <span class="kbd">Spazio</span>
-      <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
-      <span id="count">1/1</span>
-    </div>
-  </div>
+    <!-- STAGE -->
+    <div class="stage">
+      <div class="frame" id="frame">
 
-  <div class="stage" id="stage">
-
-    <!-- SLIDE 1: Cover + posizionamento pacchetto -->
-    <section class="slide active" data-title="cover">
-      <div class="content">
-        <div>
-          <div class="kicker">
-            <span class="pill">Pacchetto PRO</span>
-            <span class="pill">Operativo + Formazione</span>
-            <span class="pill">+ Affiancamento 30 giorni</span>
-          </div>
-
-          <h1 class="title">Il pacchetto che trasforma i numeri</h1>
+        <!-- SLIDE 1 -->
+        <section class="slide active" data-title="Introduzione">
+          <span class="s-tag"><span class="dot"></span> Presentazione</span>
+          <h1 class="title">Cosa comprerai<br>e cosa ottieni</h1>
           <p class="subtitle">
-            Questa presentazione è uno strumento per il venditore in call: spiega <b>cosa viene fatto</b>, <b>come</b> e
-            <b>quali risultati</b> genera (annuncio, pricing, comunicazione, qualità, ricavi).
+            In questa consulenza si lavora su ciò che fa davvero la differenza:
+            <strong>annuncio</strong>, <strong>prezzi</strong>, <strong>visibilità</strong> e <strong>gestione</strong>.
+            L’obiettivo è semplice: rendere la tua casa vacanze più chiara, più scelta e più stabile nei risultati.
           </p>
 
-          <div class="grid">
-            <div class="mini"><b>Annuncio</b><span>refresh + competitor → più conversione</span></div>
-            <div class="mini"><b>Pricing</b><span>formazione + metodo → margine più alto</span></div>
-            <div class="mini"><b>30 giorni</b><span>affiancamento → esecuzione guidata</span></div>
-          </div>
+          <div class="cols" style="grid-template-columns: 1fr 1fr;">
+            <div class="panel pad">
+              <div class="h3">In sintesi</div>
+              <ul class="list">
+                <li>Rifacciamo o miglioriamo l’annuncio con una logica di conversione.</li>
+                <li>Confronto con i competitor per capire dove stai perdendo prenotazioni.</li>
+                <li>Formazione pratica su prezzi e impostazioni importanti.</li>
+                <li>Modelli di messaggi per ridurre caos e aumentare qualità.</li>
+                <li>Valorizzazione dell’immobile (da remoto) per migliorare foto e resa.</li>
+                <li>Affiancamento 30 giorni: ti accompagno mentre metti tutto in pratica.</li>
+              </ul>
 
-          <div class="impact">
-            <div class="tag">Obiettivo</div>
-            <span>Passare da “gestione a sensazione” a un sistema replicabile: più prenotazioni buone e più controllo.</span>
-          </div>
-        </div>
-
-        <div class="shotWrap">
-          <div class="label">Proof • performance / ricavi</div>
-          <img class="shot"
-               data-src="./assets/img/screen1.jpg"
-               data-alt="./assets/img/screen1.jpg"
-               alt="Risultati - screenshot" />
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 2: Proof wall (tutti gli screenshot) -->
-    <section class="slide full" data-title="proof">
-      <div class="content">
-        <div>
-          <div class="kicker"><span class="pill">Proof</span> <span>Screenshot reali (esempi)</span></div>
-          <h2 class="title" style="font-size:44px">Risultati che il cliente può ottenere</h2>
-          <p class="subtitle" style="max-width:none">
-            Qui si lavora su leve misurabili: <b>valore prenotazioni</b>, <b>notti</b>, <b>qualità</b> e <b>ricavi</b>.
-          </p>
-
-          <div class="proofGrid">
-            <div class="proofItem">
-              <img data-src="./assets/img/screen9,jpg" data-alt="./assets/img/screen9.jpg" alt="screen9" />
-              <div class="cap">Guadagni mensili • esempio 1</div>
-            </div>
-            <div class="proofItem">
-              <img data-src="./assets/img/screen10.jpg" data-alt="./assets/img/screen10.jpg" alt="screen10" />
-              <div class="cap">Guadagni mensili • esempio 2</div>
-            </div>
-            <div class="proofItem">
-              <img data-src="./assets/img/screen11.jpg" data-alt="./assets/img/screen11.jpg" alt="screen11" />
-              <div class="cap">Qualità • valutazioni / trend</div>
-            </div>
-            <div class="proofItem">
-              <img data-src="./assets/img/screen12.jpg" data-alt="./assets/img/screen12.jpg" alt="screen12" />
-              <div class="cap">Calendario • occupazione e andamento</div>
-            </div>
-
-            <div class="proofItem">
-              <img data-src="./assets/img/screen%202.jpg" data-alt="./assets/img/screen2.jpg" alt="screen 2" />
-              <div class="cap">Notti / valore prenotazioni (365 giorni)</div>
-            </div>
-            <div class="proofItem">
-              <img data-src="./assets/img/screen5.jpg" data-alt="./assets/img/screen%205.jpg" alt="screen5" />
-              <div class="cap">Riepilogo anno • totale (EUR)</div>
-            </div>
-            <div class="proofItem">
-              <img data-src="./assets/img/screen1.jpg" data-alt="./assets/img/screen1.jpg" alt="screen1" />
-              <div class="cap">Risultato mese corrente</div>
-            </div>
-            <div class="proofItem">
-              <div style="padding:18px">
-                <h3 style="margin:0;color:var(--navy);font-weight:900;font-size:18px">Come usarla in call</h3>
-                <p style="margin:10px 0 0;color:var(--muted);font-weight:650;line-height:1.55">
-                  1) Mostra proof (credibilità)<br>
-                  2) Spiega i 5 servizi (cosa include)<br>
-                  3) Collega ogni servizio a un effetto: conversione / margine / qualità
-                </p>
+              <div class="note">
+                Lavoro pratico: a fine percorso hai un annuncio più forte e una gestione più ordinata.
               </div>
-              <div class="cap">Script venditore • semplice</div>
+            </div>
+
+            <div class="imgwrap">
+              <div class="imgcaption">Esempio reale</div>
+              <img src="assets/img/screen1.jpg" alt="Risultati - esempio reale">
             </div>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- SLIDE 3: Servizio 1 -->
-    <section class="slide" data-title="annuncio-competitor">
-      <div class="content">
-        <div>
-          <div class="kicker"><span class="pill">Servizio 1</span> <span>Creazione/refresh annuncio + analisi competitor</span></div>
-          <h2 class="title" style="font-size:46px">Annuncio rifatto per vendere</h2>
+          <div class="hint">Spazio / Freccia destra = avanti · Freccia sinistra = indietro · 1–8 = vai alla pagina</div>
+          <div class="nav">
+            <button class="btn btn-ghost" type="button" id="prev1">Indietro</button>
+            <button class="btn btn-gold" type="button" id="next1">Avanti</button>
+          </div>
+        </section>
+
+        <!-- SLIDE 2 -->
+        <section class="slide" data-title="Risultati di Federica">
+          <span class="s-tag"><span class="dot"></span> Risultati</span>
+          <h2 class="title" style="font-size:44px;">Risultati di Federica</h2>
           <p class="subtitle">
-            Non è solo “sistemare l’annuncio”: è capire <b>perché i competitor vendono</b> e riposizionare il tuo in modo più forte.
+            Esempi di numeri reali. Qui vedi l’effetto di un lavoro fatto bene su
+            <strong>prenotazioni</strong>, <strong>valore</strong> e <strong>qualità</strong>.
           </p>
 
-          <div class="box">
-            <h3>Cosa fa Federica (operativo)</h3>
-            <ul class="bullets">
-              <li><b>Analisi competitor</b>: prezzi, punti forti, recensioni, foto, leve di scelta</li>
-              <li><b>Refresh totale annuncio</b>: titolo, descrizione, servizi, regole, contenuti mancanti</li>
-              <li><b>Ordine foto</b> orientato conversione (prime 5 immagini decisive)</li>
-              <li>Impostazioni annuncio coerenti con target (coppie/business/famiglie)</li>
-            </ul>
+          <div class="results">
+            <div class="shot">
+              <img src="assets/img/screen9.jpg" alt="Risultati - screen9">
+            </div>
+            <div class="shot">
+              <img src="assets/img/screen10.jpg" alt="Risultati - screen10">
+            </div>
+            <div class="shot">
+              <img src="assets/img/screen11.jpg" alt="Risultati - screen11">
+            </div>
+            <div class="shot">
+              <img src="assets/img/screen12.jpg" alt="Risultati - screen12">
+            </div>
           </div>
 
-          <div class="impact">
-            <div class="tag">Effetto</div>
-            <span>Più click “giusti” + più fiducia → più richieste e più conversione.</span>
+          <div class="hint">Suggerimento: se condividi lo schermo, vai in “Schermo intero” per farle vedere grandi.</div>
+          <div class="nav">
+            <button class="btn btn-ghost" type="button" id="prev2">Indietro</button>
+            <button class="btn btn-gold" type="button" id="next2">Avanti</button>
           </div>
-        </div>
+        </section>
 
-        <div class="shotWrap">
-          <div class="label">Proof • notti / valore prenotazioni</div>
-          <img class="shot"
-               data-src="./assets/img/screen%202.jpg"
-               data-alt="./assets/img/screen2.jpg"
-               alt="Notti e valore - screenshot" />
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 4: Servizio 2 -->
-    <section class="slide" data-title="formazione-5h">
-      <div class="content">
-        <div>
-          <div class="kicker"><span class="pill">Servizio 2</span> <span>5 ore di formazione (pricing + impostazioni annuncio)</span></div>
-          <h2 class="title" style="font-size:46px">Formazione: pricing e settaggi corretti</h2>
+        <!-- SLIDE 3 -->
+        <section class="slide" data-title="Creazione / refresh annuncio + competitor">
+          <span class="s-tag"><span class="dot"></span> Servizio 1</span>
+          <h2 class="title" style="font-size:44px;">Creazione / refresh annuncio<br>+ analisi competitor</h2>
           <p class="subtitle">
-            Qui il cliente impara un metodo: come impostare prezzi e regole senza “sparare numeri”.
-            Obiettivo: <b>margine</b>, non solo calendario pieno.
+            L’annuncio non deve “piacere”: deve farsi scegliere. Qui lavoriamo su testi, foto e posizionamento
+            per aumentare la probabilità che chi guarda… prenoti.
           </p>
 
-          <div class="box">
-            <h3>Cosa include (in pratica)</h3>
-            <ul class="bullets">
-              <li><b>Metodo pricing</b>: stagionalità, domanda, eventi, giorni deboli/forti</li>
-              <li><b>Minimi notti & gap</b>: riempire bene senza rovinare la marginalità</li>
-              <li><b>Impostazioni annuncio</b>: regole, policy, offerte, visibilità, filtri</li>
-              <li>Checklist operativa per aggiornare i prezzi con cadenza corretta</li>
-            </ul>
+          <div class="cols">
+            <div class="panel pad">
+              <div class="h3">Cosa facciamo (chiaro e pratico)</div>
+              <ul class="list">
+                <li>Controllo completo dell’annuncio: punti deboli, cose mancanti, incoerenze.</li>
+                <li>Analisi dei competitor nella tua zona: cosa mostrano, a che prezzo, come si vendono.</li>
+                <li>Riscrittura o miglioramento di titolo e descrizione: più chiari, più “vendibili”.</li>
+                <li>Ordine foto e scelta foto: prima ciò che convince, poi il resto.</li>
+              </ul>
+
+              <div class="note">
+                Obiettivo: aumentare conversione e qualità percepita senza “promesse”, solo con un annuncio costruito bene.
+              </div>
+            </div>
+
+            <div class="imgwrap">
+              <div class="imgcaption">Esempio</div>
+              <img src="assets/img/screen5.jpg" alt="Esempio annuncio e dati">
+            </div>
           </div>
 
-          <div class="impact">
-            <div class="tag">Effetto</div>
-            <span>Stesse notti (o anche meno) ma più margine: il cliente smette di “lavorare gratis”.</span>
+          <div class="nav">
+            <button class="btn btn-ghost" type="button" id="prev3">Indietro</button>
+            <button class="btn btn-gold" type="button" id="next3">Avanti</button>
           </div>
-        </div>
+        </section>
 
-        <div class="shotWrap">
-          <div class="label">Proof • riepilogo anno (EUR)</div>
-          <img class="shot"
-               data-src="./assets/img/screen5.jpg"
-               data-alt="./assets/img/screen%205.jpg"
-               alt="Riepilogo anno - screenshot" />
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 5: Servizio 3 -->
-    <section class="slide" data-title="template-messaggi">
-      <div class="content">
-        <div>
-          <div class="kicker"><span class="pill">Servizio 3</span> <span>Template messaggi automatici</span></div>
-          <h2 class="title" style="font-size:46px">Messaggi automatici (senza perdere qualità)</h2>
+        <!-- SLIDE 4 -->
+        <section class="slide" data-title="Formazione 5 ore: prezzi + impostazioni">
+          <span class="s-tag"><span class="dot"></span> Servizio 2</span>
+          <h2 class="title" style="font-size:44px;">5 ore di formazione<br>(prezzi + impostazioni annuncio)</h2>
           <p class="subtitle">
-            Template = meno caos, tempi di risposta più rapidi e aspettative gestite: questo alza la qualità e riduce i problemi.
+            Non teoria. Ti spiego cosa toccare e perché, così capisci dove si guadagna e dove si perde.
           </p>
 
-          <div class="box">
-            <h3>Cosa riceve il cliente</h3>
-            <ul class="bullets">
-              <li><b>Pre-checkin</b> (dati ospiti, documenti, arrivo)</li>
-              <li><b>Check-in / self check-in</b> (istruzioni chiare, zero frizioni)</li>
-              <li><b>Durante soggiorno</b> (FAQ + gestione imprevisti)</li>
-              <li><b>Check-out + recensione</b> (chiusura e richiesta review)</li>
-            </ul>
+          <div class="cols">
+            <div class="panel pad">
+              <div class="h3">PrezzI (senza confusione)</div>
+              <ul class="list">
+                <li>Come costruire prezzi sensati in base a domanda e periodo.</li>
+                <li>Come evitare i periodi “pieni ma poco profittevoli”.</li>
+                <li>Come leggere i segnali: quando alzare, quando proteggere margine.</li>
+              </ul>
+
+              <div class="h3" style="margin-top:18px;">Impostazioni che contano</div>
+              <ul class="list">
+                <li>Regole, minimi notti e disponibilità: evitare buchi e incastri sbagliati.</li>
+                <li>Policy: ridurre frizioni e aumentare prenotazioni buone.</li>
+                <li>Offerte e promozioni: usarle nel modo giusto, non a caso.</li>
+              </ul>
+
+              <div class="note">
+                Obiettivo: tu sai cosa stai facendo, e l’annuncio lavora con una logica chiara.
+              </div>
+            </div>
+
+            <div class="imgwrap">
+              <div class="imgcaption">Dati e qualità</div>
+              <!-- ATTENZIONE: nel repo il file è "screen 2.jpg" con spazio -->
+              <img src="assets/img/screen%202.jpg" alt="Schermata qualità - screen 2">
+            </div>
           </div>
 
-          <div class="impact">
-            <div class="tag">Effetto</div>
-            <span>Più 5 stelle e meno stress: l’esperienza ospite diventa “guidata”.</span>
+          <div class="nav">
+            <button class="btn btn-ghost" type="button" id="prev4">Indietro</button>
+            <button class="btn btn-gold" type="button" id="next4">Avanti</button>
           </div>
-        </div>
+        </section>
 
-        <div class="shotWrap">
-          <div class="label">Proof • qualità / valutazioni</div>
-          <img class="shot"
-               data-src="./assets/img/screen11.jpg"
-               data-alt="./assets/img/screen11.jpg"
-               alt="Qualità - screenshot" />
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 6: Servizio 4 -->
-    <section class="slide" data-title="home-staging">
-      <div class="content">
-        <div>
-          <div class="kicker"><span class="pill">Servizio 4</span> <span>Home staging (da remoto + foto/video del cliente)</span></div>
-          <h2 class="title" style="font-size:46px">Home staging da remoto</h2>
+        <!-- SLIDE 5 -->
+        <section class="slide" data-title="Modelli di messaggi automatici">
+          <span class="s-tag"><span class="dot"></span> Servizio 3</span>
+          <h2 class="title" style="font-size:44px;">Modelli di messaggi<br>e risposte pronte</h2>
           <p class="subtitle">
-            Anche senza ristrutturare, spesso bastano interventi mirati per aumentare percezione, foto e “desiderabilità”.
+            La gestione non deve mangiarti il tempo. Qui creiamo messaggi pronti per ridurre stress,
+            velocizzare risposte e aumentare il punteggio qualità.
           </p>
 
-          <div class="box">
-            <h3>Come funziona (step by step)</h3>
-            <ul class="bullets">
-              <li>Il cliente invia <b>foto/video</b> (stanze, punti critici, dettagli)</li>
-              <li>Federica prepara una <b>lista interventi</b>: ordine, luci, tessili, decor, set fotografico</li>
-              <li>Priorità: cambiamenti <b>a costo basso</b> ma impatto alto</li>
-              <li>Indicazioni per foto migliori (angoli, luce, composizione)</li>
-            </ul>
+          <div class="cols">
+            <div class="panel pad">
+              <div class="h3">Cosa ricevi</div>
+              <ul class="list">
+                <li>Messaggi prima dell’arrivo: indicazioni, accessi, regole chiare.</li>
+                <li>Messaggi durante il soggiorno: check rapido, gestione richieste comuni.</li>
+                <li>Messaggi dopo: recensioni e chiusura corretta dell’esperienza.</li>
+                <li>Risposte pronte alle domande tipiche (senza perdere tempo a scrivere ogni volta).</li>
+              </ul>
+
+              <div class="note">
+                Obiettivo: tempi di risposta più rapidi e gestione più ordinata (meno errori, meno caos).
+              </div>
+            </div>
+
+            <div class="imgwrap">
+              <div class="imgcaption">Esempio calendario</div>
+              <img src="assets/img/screen10.jpg" alt="Esempio calendario e occupazione">
+            </div>
           </div>
 
-          <div class="impact">
-            <div class="tag">Effetto</div>
-            <span>Foto più forti → più click → più conversione. L’annuncio “sembra più caro” (e può esserlo).</span>
+          <div class="nav">
+            <button class="btn btn-ghost" type="button" id="prev5">Indietro</button>
+            <button class="btn btn-gold" type="button" id="next5">Avanti</button>
           </div>
-        </div>
+        </section>
 
-        <div class="shotWrap">
-          <div class="label">Proof • performance / ricavi</div>
-          <img class="shot"
-               data-src="./assets/img/screen10.jpg"
-               data-alt="./assets/img/screen10.jpg"
-               alt="Ricavi - screenshot" />
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 7: Servizio 5 -->
-    <section class="slide" data-title="affiancamento-30gg">
-      <div class="content">
-        <div>
-          <div class="kicker"><span class="pill">Servizio 5</span> <span>Affiancamento di 30 giorni (mini avviamento seguito)</span></div>
-          <h2 class="title" style="font-size:46px">30 giorni di affiancamento (esecuzione guidata)</h2>
+        <!-- SLIDE 6 -->
+        <section class="slide" data-title="Valorizzazione immobile da remoto">
+          <span class="s-tag"><span class="dot"></span> Servizio 4</span>
+          <h2 class="title" style="font-size:44px;">Valorizzazione dell’immobile<br>(da remoto)</h2>
           <p class="subtitle">
-            Il punto è far implementare tutto davvero: non lasciamo il cliente “con un PDF”.
-            Per 30 giorni si lavora per consolidare risultati e routine.
+            Se le foto non rendono, l’annuncio non converte. Qui ti dico cosa sistemare davvero
+            per far percepire più valore, senza spese inutili.
           </p>
 
-          <div class="box">
-            <h3>Cosa succede nei 30 giorni</h3>
-            <ul class="bullets">
-              <li>Checklist settimanale: prezzi, calendario, promo, messaggi, correzioni annuncio</li>
-              <li>Controllo errori tipici: gap, notti minime, policy, contenuti mancanti</li>
-              <li>Micro-ottimizzazioni su ciò che impatta il risultato (conversione/qualità)</li>
-              <li>Il cliente esce con un sistema replicabile e sostenibile</li>
-            </ul>
+          <div class="cols">
+            <div class="panel pad">
+              <div class="h3">Come funziona</div>
+              <ul class="list">
+                <li>Tu mi mandi foto e video degli ambienti (anche da telefono, guidati).</li>
+                <li>Ti dico cosa migliorare: luci, ordine, dettagli, punti che “sporcano” la percezione.</li>
+                <li>Indicazioni pratiche su cosa aggiungere/togliere per rendere le foto più forti.</li>
+                <li>Consigli su inquadrature e sequenza, per dare subito il “wow” giusto.</li>
+              </ul>
+
+              <div class="note">
+                Obiettivo: aumentare qualità percepita e fiducia di chi guarda, già dai primi 3 secondi.
+              </div>
+            </div>
+
+            <div class="imgwrap">
+              <div class="imgcaption">Qualità e recensioni</div>
+              <img src="assets/img/screen11.jpg" alt="Qualità e recensioni">
+            </div>
           </div>
 
-          <div class="impact">
-            <div class="tag">Effetto</div>
-            <span>Risultato più stabile: non “migliora 1 settimana”, ma costruisce routine che regge.</span>
+          <div class="nav">
+            <button class="btn btn-ghost" type="button" id="prev6">Indietro</button>
+            <button class="btn btn-gold" type="button" id="next6">Avanti</button>
           </div>
-        </div>
+        </section>
 
-        <div class="shotWrap">
-          <div class="label">Proof • calendario / andamento</div>
-          <img class="shot"
-               data-src="./assets/img/screen12.jpg"
-               data-alt="./assets/img/screen12.jpg"
-               alt="Calendario - screenshot" />
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 8: Recap -->
-    <section class="slide full" data-title="recap">
-      <div class="content">
-        <div>
-          <div class="kicker"><span class="pill">Recap</span> <span>cosa include (Pacchetto PRO)</span></div>
-          <h2 class="title" style="font-size:44px">In sintesi: cosa compra il cliente</h2>
-          <p class="subtitle" style="max-width:none">
-            Questa è la lista “da vendita”: 5 deliverable chiari, con effetto diretto sui numeri.
+        <!-- SLIDE 7 -->
+        <section class="slide" data-title="Affiancamento 30 giorni">
+          <span class="s-tag"><span class="dot"></span> Servizio 5</span>
+          <h2 class="title" style="font-size:44px;">Affiancamento 30 giorni<br>(mini avviamento)</h2>
+          <p class="subtitle">
+            La differenza la fa l’applicazione. Per 30 giorni ti seguo mentre metti in pratica tutto:
+            così non resti fermo e non lasci il lavoro “a metà”.
           </p>
 
-          <div class="box">
-            <ul class="bullets">
-              <li><b>Creazione/refresh annuncio + analisi competitor</b> → annuncio più vendibile e differenziato</li>
-              <li><b>5 ore di formazione (pricing + impostazioni)</b> → metodo per aumentare marginalità</li>
-              <li><b>Template messaggi automatici</b> → qualità più alta e meno problemi operativi</li>
-              <li><b>Home staging da remoto</b> → foto/percezione migliori (più click e conversione)</li>
-              <li><b>Affiancamento 30 giorni</b> → implementazione guidata, risultati più stabili</li>
-            </ul>
+          <div class="cols">
+            <div class="panel pad">
+              <div class="h3">Cosa succede nei 30 giorni</div>
+              <ul class="list">
+                <li>Controlliamo che annuncio e impostazioni siano messi correttamente.</li>
+                <li>Verifichiamo se i risultati stanno andando nella direzione giusta.</li>
+                <li>Correggiamo gli errori che bloccano (foto, testi, regole, prezzi, disponibilità).</li>
+                <li>Ti aiuto a rendere stabile la gestione: procedure semplici, poche cose ma fatte bene.</li>
+              </ul>
+
+              <div class="note">
+                Obiettivo: portarti a una gestione ordinata e a risultati più continui, non “a botte di fortuna”.
+              </div>
+            </div>
+
+            <div class="imgwrap">
+              <div class="imgcaption">Esempio</div>
+              <img src="assets/img/screen12.jpg" alt="Andamento qualità e recensioni">
+            </div>
           </div>
 
-          <div class="impact">
-            <div class="tag">Nota</div>
-            <span>Questa presentazione non contiene CTA: è un supporto visivo per il venditore in call.</span>
+          <div class="nav">
+            <button class="btn btn-ghost" type="button" id="prev7">Indietro</button>
+            <button class="btn btn-gold" type="button" id="next7">Avanti</button>
           </div>
-        </div>
+        </section>
+
+        <!-- SLIDE 8 -->
+        <section class="slide" data-title="Riepilogo">
+          <span class="s-tag"><span class="dot"></span> Riepilogo</span>
+          <h2 class="title" style="font-size:44px;">Riepilogo: cosa comprerai</h2>
+          <p class="subtitle">
+            Una soluzione costruita su misura, basata sui tuoi numeri e sulla tua struttura.
+            Qui sotto vedi, in modo semplice, cosa include.
+          </p>
+
+          <div class="cols" style="grid-template-columns: 1fr 1fr;">
+            <div class="panel pad">
+              <div class="h3">Incluso</div>
+              <ul class="list">
+                <li>Creazione / refresh annuncio + analisi competitor</li>
+                <li>5 ore di formazione (prezzi + impostazioni annuncio)</li>
+                <li>Modelli di messaggi e risposte pronte</li>
+                <li>Valorizzazione dell’immobile da remoto</li>
+                <li>Affiancamento di 30 giorni (mini avviamento)</li>
+              </ul>
+
+              <div class="note">
+                Se vuoi, durante la chiamata possiamo anche chiarire qual è il punto che oggi ti sta facendo perdere più soldi o più tempo:
+                così ti è chiaro dove agire per primo.
+              </div>
+            </div>
+
+            <div class="imgwrap">
+              <div class="imgcaption">Risultati</div>
+              <img src="assets/img/screen9.jpg" alt="Risultati - esempio">
+            </div>
+          </div>
+
+          <div class="nav">
+            <button class="btn btn-ghost" type="button" id="prev8">Indietro</button>
+            <button class="btn btn-gold" type="button" id="next8">Ricomincia</button>
+          </div>
+        </section>
+
       </div>
-    </section>
-
-  </div>
-
-  <div class="controls">
-    <div class="hint">Tip: <b>Spazio</b> / <b>→</b> avanti • <b>←</b> indietro • <b>1–9</b> salta • <b>F</b> full screen</div>
-    <div class="btns">
-      <button id="prev">← Indietro</button>
-      <button class="primary" id="next">Avanti →</button>
     </div>
   </div>
+
+  <div class="toast" id="toast">Suggerimento: usa Spazio / Frecce · tasti 1–8 · F per schermo intero</div>
 
   <script>
-    // --- helper: set img src + fallback ---
-    function hydrateImages(scope=document){
-      const imgs = scope.querySelectorAll('img[data-src]');
-      imgs.forEach(img=>{
-        const primary = img.getAttribute('data-src');
-        const alt = img.getAttribute('data-alt');
-        img.src = primary;
-        img.onerror = () => {
-          if (alt && img.src !== alt) img.src = alt;
-        };
-      });
-    }
+    /* ===========================================================
+      PRESENTAZIONE A CLICK
+      - Spazio / Frecce: avanti e indietro
+      - 1..8: vai direttamente
+      - F: schermo intero
+      - Click sullo sfondo: avanti
+    ============================================================ */
 
     const slides = Array.from(document.querySelectorAll('.slide'));
-    let idx = 0;
+    const counter = document.getElementById('counter');
+    const progressBar = document.getElementById('progressBar');
+    const frame = document.getElementById('frame');
 
-    const bar = document.getElementById('bar');
-    const count = document.getElementById('count');
+    const btnFull = document.getElementById('btnFull');
+    const btnHelp = document.getElementById('btnHelp');
+    const toast = document.getElementById('toast');
 
-    function show(i){
-      idx = Math.max(0, Math.min(slides.length-1, i));
-      slides.forEach((s,k)=>s.classList.toggle('active', k===idx));
-      const pct = ((idx+1)/slides.length)*100;
-      bar.style.width = pct + '%';
-      count.textContent = (idx+1) + '/' + slides.length;
-      hydrateImages(slides[idx]);
+    let index = 0;
+
+    // Bottoni per slide (mappati per semplicità)
+    const mapButtons = [
+      ['prev1','next1'], ['prev2','next2'], ['prev3','next3'], ['prev4','next4'],
+      ['prev5','next5'], ['prev6','next6'], ['prev7','next7'], ['prev8','next8']
+    ];
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(showToast.t);
+      showToast.t = setTimeout(()=>toast.classList.remove('show'), 1800);
     }
 
-    function next(){ show(idx+1); }
-    function prev(){ show(idx-1); }
+    function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
 
-    document.getElementById('next').addEventListener('click', next);
-    document.getElementById('prev').addEventListener('click', prev);
+    function updateUI(){
+      slides.forEach((s,i)=>s.classList.toggle('active', i===index));
 
-    // Click ovunque per avanti (ma non sui bottoni)
-    document.getElementById('stage').addEventListener('click', (e)=>{
+      const total = slides.length;
+      counter.textContent = (index+1) + ' / ' + total;
+
+      const pct = ((index+1)/total)*100;
+      progressBar.style.width = pct + '%';
+    }
+
+    function goTo(i){
+      index = clamp(i, 0, slides.length - 1);
+      updateUI();
+    }
+
+    function next(){
+      if(index < slides.length - 1){
+        index++;
+      } else {
+        index = 0;
+      }
+      updateUI();
+    }
+
+    function prev(){
+      if(index > 0){
+        index--;
+      }
+      updateUI();
+    }
+
+    // Hook pulsanti prev/next interni
+    mapButtons.forEach((pair, i)=>{
+      const [p,n] = pair;
+      const prevBtn = document.getElementById(p);
+      const nextBtn = document.getElementById(n);
+
+      if(prevBtn) prevBtn.addEventListener('click', (e)=>{ e.stopPropagation(); prev(); });
+      if(nextBtn) nextBtn.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        if(i === slides.length - 1){ goTo(0); }
+        else next();
+      });
+    });
+
+    // Click sul frame: avanti (tranne click su bottoni)
+    frame.addEventListener('click', (e)=>{
       const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
-      if(tag === 'button') return;
+      if(tag === 'button' || tag === 'a') return;
       next();
     });
 
-    // Tastiera: spazio/→ avanti, ← indietro, numeri jump, F fullscreen
+    // Tastiera
     document.addEventListener('keydown', (e)=>{
-      if(e.key === 'ArrowRight' || e.key === ' '){ e.preventDefault(); next(); }
-      if(e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+      // evita scorrimenti strani
+      if(['ArrowUp','ArrowDown',' '].includes(e.key)) e.preventDefault();
 
-      const n = parseInt(e.key, 10);
-      if(!isNaN(n) && n >= 1 && n <= slides.length){
-        show(n-1);
+      if(e.key === 'ArrowRight' || e.key === ' '){
+        next(); return;
       }
-
+      if(e.key === 'ArrowLeft'){
+        prev(); return;
+      }
       if(e.key.toLowerCase() === 'f'){
-        if(!document.fullscreenElement){
-          document.documentElement.requestFullscreen?.();
-        }else{
-          document.exitFullscreen?.();
-        }
+        toggleFullscreen(); return;
       }
-      if(e.key === 'Escape' && document.fullscreenElement){
-        document.exitFullscreen?.();
+      // Numeri 1..8
+      if(/^[1-8]$/.test(e.key)){
+        goTo(parseInt(e.key, 10) - 1);
+        return;
       }
+      // Esc: esci fullscreen (gestito dal browser, ma aggiungiamo feedback)
+      if(e.key === 'Escape'){
+        showToast('Uscita schermo intero');
+      }
+    }, {passive:false});
+
+    // Fullscreen
+    function isFullscreen(){
+      return !!document.fullscreenElement;
+    }
+    function toggleFullscreen(){
+      const el = document.documentElement;
+      if(!isFullscreen()){
+        if(el.requestFullscreen) el.requestFullscreen();
+        showToast('Schermo intero');
+      } else {
+        if(document.exitFullscreen) document.exitFullscreen();
+        showToast('Uscita schermo intero');
+      }
+    }
+
+    btnFull.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      toggleFullscreen();
     });
 
-    // Init
-    hydrateImages(document);
-    show(0);
+    btnHelp.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      showToast('Comandi: Spazio/Frecce · 1–8 · F schermo intero');
+    });
+
+    // Aggiorna al caricamento
+    updateUI();
+
+    // Piccolo promemoria iniziale (solo UI)
+    setTimeout(()=>showToast('Spazio/Frecce per avanzare · F schermo intero'), 600);
   </script>
 </body>
 </html>
