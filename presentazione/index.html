@@ -1,873 +1,821 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Federica Property Manager – Presentazione</title>
+  <title>Federica Property Manager — Presentazione</title>
 
-  <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    /* ============================================================
-      PALETTE (navy + oro) + base layout (desktop-first)
-    ============================================================ */
     :root{
+      /* Palette Federica (navy + gold) */
       --navy:#0A2540;
-      --navy-2:#0b2e52;
+      --navy2:#0f2f52;
       --gold:#D4AF37;
-      --gold-2:#b99222;
 
-      --bg:#F3F5F8;
+      --bg:#f4f6fb;
       --card:#ffffff;
-      --text:#0f172a;
-      --muted:#64748b;
+      --text:#0b1220;
+      --muted:#5b6473;
+      --line:#e7ebf3;
 
-      --border:1px solid rgba(15,23,42,.10);
-      --shadow:0 18px 45px rgba(2, 8, 23, .10);
-      --shadow2:0 10px 26px rgba(2, 8, 23, .12);
-
-      --radius-xl:22px;
-      --radius-lg:18px;
-      --radius-md:14px;
-      --radius-sm:12px;
-
-      --maxw:1280px;
-      --frameH: min(780px, 84vh);
-
-      --slidePad: 54px;
-
-      --t-fast: 140ms;
-      --t-med: 220ms;
-      --t-slow: 340ms;
+      --radius:18px;
+      --shadow:0 18px 60px rgba(10,37,64,.14);
+      --shadow2:0 10px 24px rgba(10,37,64,.10);
     }
 
-    *{ box-sizing:border-box; }
-    html, body{ height:100%; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background: radial-gradient(1200px 600px at 14% 18%, rgba(212,175,55,.18), transparent 55%),
+                  radial-gradient(900px 520px at 88% 12%, rgba(10,37,64,.12), transparent 60%),
+                  var(--bg);
       color:var(--text);
-      background:
-        radial-gradient(900px 420px at 18% 12%, rgba(212,175,55,.14) 0%, transparent 60%),
-        radial-gradient(820px 420px at 92% 18%, rgba(10,37,64,.12) 0%, transparent 60%),
-        var(--bg);
-      overflow:hidden;
+      overflow:hidden; /* deck */
     }
-    img{ display:block; max-width:100%; }
-    button{ font-family:inherit; }
 
-    /* ============================================================
-      TOP BAR
-    ============================================================ */
+    /* Top bar */
     .topbar{
-      padding: 16px 22px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      user-select:none;
+      position:fixed; inset:18px 18px auto 18px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      z-index:50;
+      pointer-events:none;
     }
-
     .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width: 320px;
+      pointer-events:auto;
+      display:flex; align-items:center; gap:10px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(231,235,243,.9);
+      backdrop-filter: blur(10px);
+      border-radius:999px;
+      padding:10px 14px;
+      box-shadow:var(--shadow2);
     }
-
     .dot{
-      width:12px; height:12px;
-      border-radius:999px;
-      background: var(--gold);
-      box-shadow: 0 0 0 6px rgba(212,175,55,.14);
+      width:10px; height:10px; border-radius:50%;
+      background:var(--gold);
+      box-shadow:0 0 0 6px rgba(212,175,55,.20);
     }
+    .brand b{color:var(--navy)}
+    .brand small{color:var(--muted); font-weight:600}
 
-    .brandText{ line-height:1.1; }
-    .brandText strong{
-      display:block;
-      font-weight:900;
-      color:var(--navy);
-      font-size:14px;
-      letter-spacing:.2px;
-    }
-    .brandText span{
-      display:block;
-      margin-top:2px;
-      font-weight:700;
-      font-size:12px;
+    .hud{
+      pointer-events:auto;
+      display:flex; align-items:center; gap:10px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(231,235,243,.9);
+      backdrop-filter: blur(10px);
+      border-radius:999px;
+      padding:10px 14px;
+      box-shadow:var(--shadow2);
       color:var(--muted);
+      font-weight:700;
     }
-
-    .right{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      width:min(640px, 52vw);
-      justify-content:flex-end;
+    .kbd{
+      font-weight:800;
+      color:var(--navy);
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:10px;
+      padding:6px 10px;
     }
-
     .progress{
-      width: min(420px, 34vw);
-      height: 10px;
+      width:160px; height:10px;
+      background:rgba(10,37,64,.10);
       border-radius:999px;
-      background: rgba(15,23,42,.10);
-      border: 1px solid rgba(15,23,42,.08);
       overflow:hidden;
+      border:1px solid rgba(231,235,243,.9);
     }
-    .progress > div{
+    .bar{
       height:100%;
       width:0%;
+      background:linear-gradient(90deg, var(--gold), #e8c85b);
       border-radius:999px;
-      background: linear-gradient(90deg, var(--gold) 0%, rgba(212,175,55,.65) 100%);
-      transition: width var(--t-med) ease;
+      transition:width .25s ease;
     }
 
-    .counter{
-      min-width:72px;
-      text-align:right;
-      font-size:12px;
-      font-weight:900;
-      color:var(--muted);
-    }
-
-    .btn{
-      border:none;
-      cursor:pointer;
-      border-radius: 12px;
-      padding: 10px 12px;
-      font-size:12px;
-      font-weight:900;
-      transition: transform var(--t-fast) ease, box-shadow var(--t-fast) ease, background var(--t-fast) ease;
-      user-select:none;
-    }
-    .btn:active{ transform: translateY(1px); }
-
-    .btnGhost{
-      background: rgba(255,255,255,.70);
-      border: 1px solid rgba(15,23,42,.10);
-      color: var(--navy);
-      box-shadow: 0 10px 22px rgba(2,8,23,.08);
-    }
-    .btnGhost:hover{ background:#fff; }
-
-    .btnGold{
-      background: linear-gradient(180deg, var(--gold) 0%, #caa12a 100%);
-      color: #0a2540;
-      box-shadow: 0 16px 34px rgba(212,175,55,.20);
-    }
-    .btnGold:hover{ box-shadow: 0 18px 38px rgba(212,175,55,.26); }
-
-    .kbd{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-size:11px;
-      font-weight:900;
-      padding: 4px 8px;
-      border-radius:10px;
-      background:#fff;
-      border:1px solid rgba(15,23,42,.12);
-      color:#0f172a;
-    }
-
-    .pill{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      padding: 10px 12px;
-      border-radius:999px;
-      background: rgba(255,255,255,.70);
-      border: 1px solid rgba(15,23,42,.08);
-      backdrop-filter: blur(8px);
-      box-shadow: 0 10px 22px rgba(2,8,23,.08);
-      color: var(--muted);
-      font-size:12px;
-      font-weight:900;
-      white-space:nowrap;
-    }
-
-    /* ============================================================
-      STAGE + FRAME
-    ============================================================ */
+    /* Stage */
     .stage{
-      height: calc(100% - 64px);
+      position:fixed; inset:0;
       display:flex;
       align-items:center;
       justify-content:center;
-      padding: 0 22px 22px;
-    }
-
-    .frame{
-      width: min(var(--maxw), 94vw);
-      height: var(--frameH);
-      background: rgba(255,255,255,.65);
-      border: 1px solid rgba(15,23,42,.08);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      overflow:hidden;
-      position:relative;
-      cursor: pointer; /* click avanti */
+      padding:90px 28px 28px;
     }
 
     .slide{
-      position:absolute;
-      inset:0;
-      padding: var(--slidePad);
+      width:min(1280px, calc(100vw - 56px));
+      height:min(720px, calc(100vh - 140px));
+      background:var(--card);
+      border:1px solid rgba(231,235,243,.9);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
       display:none;
+      position:relative;
     }
-    .slide.active{ display:block; }
+    .slide.active{display:block}
 
-    /* ============================================================
-      SLIDE HEADER
-    ============================================================ */
-    .tag{
+    .slide::before{
+      content:"";
+      position:absolute; inset:-2px -2px auto -2px;
+      height:10px;
+      background:linear-gradient(90deg, rgba(212,175,55,.55), rgba(10,37,64,.12));
+      opacity:.9;
+    }
+
+    .content{
+      height:100%;
+      padding:42px 46px;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:26px;
+      align-items:stretch;
+    }
+
+    .full .content{
+      grid-template-columns:1fr;
+      gap:18px;
+    }
+
+    h1,h2,h3{margin:0}
+    .kicker{
       display:inline-flex;
       align-items:center;
       gap:10px;
-      padding:8px 12px;
+      font-weight:900;
+      letter-spacing:.06em;
+      color:var(--navy);
+      text-transform:uppercase;
+      font-size:12px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background:rgba(212,175,55,.16);
+      border:1px solid rgba(212,175,55,.35);
+      color:var(--navy);
       border-radius:999px;
-      background: rgba(212,175,55,.16);
-      border: 1px solid rgba(212,175,55,.30);
-      color:#7a5c00;
+      padding:6px 10px;
       font-weight:900;
       font-size:12px;
-      letter-spacing:.3px;
-      text-transform:uppercase;
-    }
-    .tag .tDot{
-      width:10px; height:10px;
-      border-radius:999px;
-      background: var(--gold);
-      box-shadow: 0 0 0 6px rgba(212,175,55,.14);
     }
 
     .title{
-      margin: 18px 0 10px;
-      font-size: 48px;
-      line-height: 1.05;
-      font-weight: 900;
-      color: var(--navy);
-      letter-spacing: -0.8px;
-    }
-
-    .subtitle{
-      margin:0;
-      font-size: 18px;
-      font-weight:700;
-      color:#334155;
-      line-height:1.55;
-      max-width: 980px;
-    }
-
-    /* ============================================================
-      LAYOUT: LEFT TEXT + RIGHT IMAGE
-    ============================================================ */
-    .grid{
-      margin-top: 34px;
-      display:grid;
-      grid-template-columns: 1.06fr .94fr;
-      gap: 32px;
-      height: calc(100% - 160px);
-      align-items: stretch;
-    }
-
-    .card{
-      background: var(--card);
-      border: var(--border);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow2);
-      overflow:hidden;
-      min-height:0;
-      display:flex;
-      flex-direction:column;
-    }
-
-    .pad{ padding: 26px; }
-
-    .h3{
-      margin:0 0 12px;
-      font-weight:900;
+      margin-top:14px;
+      font-size:54px;
+      line-height:1.03;
       color:var(--navy);
+      letter-spacing:-.03em;
+      font-weight:900;
+    }
+    .subtitle{
+      margin-top:12px;
       font-size:18px;
-    }
-
-    .list{
-      margin:0;
-      padding-left: 18px;
-    }
-    .list li{
-      margin: 10px 0;
-      font-size: 16px;
-      font-weight:700;
-      color:#0f172a;
       line-height:1.5;
+      color:var(--muted);
+      font-weight:600;
+      max-width:60ch;
     }
 
-    .note{
-      margin-top: 16px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      border: 1px solid rgba(212,175,55,.35);
-      background: rgba(212,175,55,.14);
-      color:#0f172a;
-      font-weight:800;
-      line-height:1.45;
+    .grid{
+      margin-top:22px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
     }
-
-    .imgbox{
-      position:relative;
+    .mini{
+      border:1px solid var(--line);
+      border-radius:16px;
       background:#fff;
-      border: var(--border);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow2);
-      overflow:hidden;
-      min-height:0;
-      padding: 14px;
+      padding:14px;
+    }
+    .mini b{
+      display:block;
+      font-size:16px;
+      color:var(--navy);
+      margin-bottom:4px;
+    }
+    .mini span{
+      color:var(--muted);
+      font-weight:600;
+      font-size:13px;
+      line-height:1.35;
+    }
+
+    .box{
+      border:1px solid var(--line);
+      border-radius:20px;
+      background:linear-gradient(180deg, #fff, #fbfcff);
+      padding:18px 18px;
+    }
+    .box h3{
+      color:var(--navy);
+      font-size:16px;
+      font-weight:900;
+      margin-bottom:10px;
+    }
+    .bullets{
+      margin:0; padding-left:18px;
+      color:var(--text);
+      font-weight:650;
+      line-height:1.55;
+      font-size:16px;
+    }
+    .bullets li{margin:10px 0}
+    .bullets b{color:var(--navy)}
+
+    .impact{
+      margin-top:14px;
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      border-radius:18px;
+      border:1px solid rgba(212,175,55,.35);
+      background:rgba(212,175,55,.12);
+      padding:14px 14px;
+      color:var(--navy);
+      font-weight:800;
+    }
+    .tag{
+      flex:0 0 auto;
+      background:var(--gold);
+      color:var(--navy);
+      border-radius:12px;
+      padding:6px 10px;
+      font-weight:1000;
+      font-size:12px;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .impact span{
+      color:var(--navy2);
+      font-weight:800;
+      line-height:1.35;
+    }
+
+    /* Right (screenshot) */
+    .shotWrap{
+      height:100%;
+      border:1px dashed rgba(10,37,64,.20);
+      background:linear-gradient(180deg, rgba(10,37,64,.03), rgba(10,37,64,.00));
+      border-radius:24px;
+      padding:16px;
       display:flex;
       align-items:center;
       justify-content:center;
+      position:relative;
+      overflow:hidden;
     }
-
-    .imglabel{
-      position:absolute;
-      left:18px;
-      top:18px;
-      background: rgba(10,37,64,.92);
-      color:#fff;
-      font-weight:900;
+    .shotWrap .label{
+      position:absolute; top:14px; left:14px;
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(255,255,255,.86);
+      border:1px solid rgba(231,235,243,.9);
+      padding:8px 10px;
+      border-radius:999px;
+      color:var(--muted);
+      font-weight:800;
       font-size:12px;
-      padding: 8px 10px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.16);
-      letter-spacing:.2px;
-      z-index:2;
-    }
-
-    .imgbox img{
-      width: 100%;
-      height: 100%;
-      max-height: 100%;
-      object-fit: contain; /* niente tagli */
-      border-radius: var(--radius-lg);
-      box-shadow: 0 10px 30px rgba(2,8,23,.18);
-      background:#fff;
-    }
-
-    /* ============================================================
-      RISULTATI (grid 2x2 con immagini grandi, no “cose nostre”)
-    ============================================================ */
-    .shots{
-      margin-top: 28px;
-      height: calc(100% - 140px);
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      align-items: stretch;
+      backdrop-filter: blur(10px);
     }
     .shot{
+      max-width:100%;
+      max-height:100%;
+      border-radius:18px;
+      box-shadow:0 18px 40px rgba(10,37,64,.16);
+      border:1px solid rgba(231,235,243,.9);
       background:#fff;
-      border: var(--border);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow2);
+      object-fit:contain;
+    }
+
+    /* Slide 2: griglia risultati (niente crop) */
+    .proofGrid{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:14px;
+      margin-top:18px;
+    }
+    .proofItem{
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:#fff;
       overflow:hidden;
-      padding: 14px;
+      box-shadow:0 10px 24px rgba(10,37,64,.08);
+      display:flex;
+      flex-direction:column;
+      min-height:0;
+    }
+    .proofItem .imgBox{
+      padding:12px;
       display:flex;
       align-items:center;
       justify-content:center;
-      min-height:0;
+      background:linear-gradient(180deg,#fff,#fbfcff);
+      border-bottom:1px solid var(--line);
+      /* Screenshot verticali: più leggibili in condivisione schermo */
+      aspect-ratio: 9 / 16;
+      min-height: 220px;
     }
-    .shot img{
+    .proofItem img{
       width:100%;
       height:100%;
-      object-fit: contain;
-      border-radius: var(--radius-lg);
-      box-shadow: 0 10px 28px rgba(2,8,23,.18);
+      object-fit:contain; /* IMPORTANT: niente tagli */
+      display:block;
+      background:#fff;
+      border-radius:14px;
+      border:1px solid rgba(231,235,243,.9);
+      box-shadow:0 12px 26px rgba(10,37,64,.10);
+    }
+    .proofItem .cap{
+      padding:10px 12px;
+      color:var(--navy);
+      font-weight:900;
+      font-size:12px;
       background:#fff;
     }
 
-    /* ============================================================
-      BOTTOM NAV + HINT
-    ============================================================ */
-    .nav{
-      position:absolute;
-      right: 22px;
-      bottom: 18px;
-      display:flex;
-      gap: 10px;
-      align-items:center;
-      z-index:10;
-      cursor: default;
-    }
-
-    .hint{
-      position:absolute;
-      left: 22px;
-      bottom: 20px;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 900;
-      user-select:none;
-      cursor: default;
-    }
-
-    /* ============================================================
-      TOAST (solo comandi)
-    ============================================================ */
-    .toast{
-      position: fixed;
-      left: 22px;
-      top: 74px;
-      background: rgba(15,23,42,.88);
-      color:#fff;
-      padding: 10px 12px;
-      border-radius: 14px;
-      font-weight: 900;
-      font-size: 12px;
-      border: 1px solid rgba(255,255,255,.16);
-      box-shadow: 0 16px 34px rgba(2,8,23,.22);
-      opacity:0;
+    /* Controls bottom */
+    .controls{
+      position:fixed; inset:auto 18px 18px 18px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      z-index:60;
       pointer-events:none;
-      transform: translateY(-6px);
-      transition: opacity var(--t-med) ease, transform var(--t-med) ease;
-      z-index:999;
     }
-    .toast.show{
-      opacity:1;
-      transform: translateY(0px);
+    .hint{
+      pointer-events:auto;
+      color:var(--muted);
+      font-weight:700;
+      font-size:13px;
+      background:rgba(255,255,255,.74);
+      border:1px solid rgba(231,235,243,.9);
+      border-radius:999px;
+      padding:10px 12px;
+      box-shadow:var(--shadow2);
     }
+    .btns{
+      pointer-events:auto;
+      display:flex; gap:10px;
+    }
+    button{
+      appearance:none;
+      border:1px solid rgba(231,235,243,.9);
+      background:rgba(255,255,255,.78);
+      backdrop-filter: blur(10px);
+      color:var(--navy);
+      font-weight:900;
+      border-radius:14px;
+      padding:10px 14px;
+      cursor:pointer;
+      box-shadow:var(--shadow2);
+    }
+    button.primary{
+      background:linear-gradient(180deg, var(--gold), #e7c35a);
+      border-color:rgba(212,175,55,.55);
+      color:var(--navy);
+    }
+    button:active{transform:translateY(1px)}
 
-    /* ============================================================
-      RESPONSIVE (se ridimensioni)
-    ============================================================ */
-    @media (max-width: 1100px){
-      body{ overflow:auto; }
-      .stage{ height:auto; padding-bottom: 40px; }
-      .frame{ height:auto; min-height: 860px; cursor: default; }
-      .slide{ position:relative; display:block; padding: 34px; }
-      .slide.active{ display:block; }
-      .grid{ grid-template-columns: 1fr; height:auto; }
-      .shots{ grid-template-columns: 1fr; height:auto; }
-      .nav{ position:relative; right:auto; bottom:auto; margin-top: 18px; justify-content:flex-end; }
-      .hint{ position:relative; left:auto; bottom:auto; margin-top: 14px; }
+    /* Responsive */
+    @media (max-width: 980px){
+      body{overflow:auto}
+      .stage{position:relative; padding:86px 14px 80px}
+      .slide{height:auto; min-height:calc(100vh - 170px); overflow:visible}
+      .content{grid-template-columns:1fr}
+      .proofGrid{grid-template-columns:repeat(2, 1fr)}
     }
   </style>
 </head>
 
 <body>
-  <!-- TOP BAR -->
   <div class="topbar">
     <div class="brand">
-      <div class="dot"></div>
-      <div class="brandText">
-        <strong>Federica Property Manager</strong>
-        <span>presentazione in chiamata · chiara · concreta</span>
+      <span class="dot"></span>
+      <div>
+        <b>Federica Property Manager</b>
+        <small>• presentazione</small>
       </div>
     </div>
 
-    <div class="right">
-      <div class="pill">Avanza: <span class="kbd">Click</span> <span class="kbd">→</span> <span class="kbd">Spazio</span></div>
-      <div class="progress" aria-label="Avanzamento"><div id="progressBar"></div></div>
-      <div class="counter" id="counter">1 / 7</div>
-
-      <button class="btn btnGhost" id="btnHelp" type="button">Comandi</button>
-      <button class="btn btnGold" id="btnFull" type="button">Schermo intero</button>
+    <div class="hud">
+      <span>Avanza:</span>
+      <span class="kbd">Click</span>
+      <span class="kbd">→</span>
+      <span class="kbd">Spazio</span>
+      <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+      <span id="count">1/1</span>
     </div>
   </div>
 
-  <!-- STAGE -->
-  <div class="stage">
-    <div class="frame" id="frame">
+  <div class="stage" id="stage">
 
-      <!-- SLIDE 1 -->
-      <section class="slide active" data-title="Introduzione">
-        <span class="tag"><span class="tDot"></span> Introduzione</span>
-        <h1 class="title">Cosa comprerai<br>e cosa ottieni</h1>
-        <p class="subtitle">
-          Qui non si va a sensazione: si lavora su annuncio, prezzi, visibilità e gestione.
-          Obiettivo: farti avere una casa vacanze più chiara, più scelta e più stabile nei risultati.
-        </p>
+    <!-- SLIDE 1 -->
+    <section class="slide active" data-title="cover">
+      <div class="content">
+        <div>
+          <div class="kicker">
+            <span class="pill">Operativo + formazione</span>
+            <span class="pill">Affiancamento 30 giorni</span>
+          </div>
 
-        <div class="grid">
-          <div class="card pad">
-            <div class="h3">In breve</div>
-            <ul class="list">
-              <li>Rifacciamo o miglioriamo l’annuncio per farlo scegliere più spesso.</li>
-              <li>Analisi competitor: capiamo dove stai perdendo prenotazioni e valore.</li>
-              <li>Formazione pratica su prezzi e impostazioni importanti.</li>
-              <li>Modelli di messaggi: meno caos, più ordine, più qualità.</li>
-              <li>Valorizzazione da remoto: foto e resa più “forti”.</li>
-              <li>Affiancamento 30 giorni: ti seguo mentre metti tutto in pratica.</li>
-            </ul>
+          <h1 class="title">Il percorso che migliora i numeri</h1>
+          <p class="subtitle">
+            In questa presentazione vedrai <b>cosa faremo</b>, <b>come lo faremo</b> e
+            <b>quali risultati puoi ottenere</b> lavorando su annuncio, prezzi, comunicazione e qualità.
+          </p>
 
-            <div class="note">
-              Risultato: un annuncio più vendibile e una gestione più ordinata.
+          <div class="grid">
+            <div class="mini"><b>Annuncio</b><span>migliorato + competitor → più conversione</span></div>
+            <div class="mini"><b>Prezzi</b><span>metodo chiaro → margine più alto</span></div>
+            <div class="mini"><b>30 giorni</b><span>affiancamento → esecuzione guidata</span></div>
+          </div>
+
+          <div class="impact">
+            <div class="tag">Obiettivo</div>
+            <span>Passare da “gestione a sensazione” a un sistema ordinato: prenotazioni migliori e più controllo.</span>
+          </div>
+        </div>
+
+        <div class="shotWrap">
+          <div class="label">Esempio • risultati</div>
+          <img class="shot"
+               data-src="./assets/img/screen1.jpg"
+               data-alt="./assets/img/screen1.jpg"
+               alt="Risultati - screenshot" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: Risultati -->
+    <section class="slide full" data-title="risultati">
+      <div class="content">
+        <div>
+          <div class="kicker"><span class="pill">Risultati</span> <span>screen reali</span></div>
+          <h2 class="title" style="font-size:44px">Risultati di Federica</h2>
+          <p class="subtitle" style="max-width:none">
+            Esempi di numeri e andamento: <b>valore prenotazioni</b>, <b>notti</b>, <b>qualità</b> e <b>ricavi</b>.
+          </p>
+
+          <div class="proofGrid">
+            <div class="proofItem">
+              <div class="imgBox">
+                <img data-src="./assets/img/screen9.jpg" data-alt="./assets/img/screen9.jpg" alt="screen9" />
+              </div>
+              <div class="cap">Esempio • qualità e valore (365 giorni)</div>
+            </div>
+
+            <div class="proofItem">
+              <div class="imgBox">
+                <img data-src="./assets/img/screen10.jpg" data-alt="./assets/img/screen10.jpg" alt="screen10" />
+              </div>
+              <div class="cap">Esempio • riepilogo guadagni</div>
+            </div>
+
+            <div class="proofItem">
+              <div class="imgBox">
+                <img data-src="./assets/img/screen11.jpg" data-alt="./assets/img/screen11.jpg" alt="screen11" />
+              </div>
+              <div class="cap">Esempio • valutazioni e trend</div>
+            </div>
+
+            <div class="proofItem">
+              <div class="imgBox">
+                <img data-src="./assets/img/screen12.jpg" data-alt="./assets/img/screen12.jpg" alt="screen12" />
+              </div>
+              <div class="cap">Esempio • andamento nel tempo</div>
+            </div>
+
+            <div class="proofItem">
+              <div class="imgBox">
+                <img data-src="./assets/img/screen2.jpg" data-alt="./assets/img/screen2.jpg" alt="screen2" />
+              </div>
+              <div class="cap">Esempio • notti e valore prenotazioni</div>
+            </div>
+
+            <div class="proofItem">
+              <div class="imgBox">
+                <img data-src="./assets/img/screen5.jpg" data-alt="./assets/img/screen5.jpg" alt="screen5" />
+              </div>
+              <div class="cap">Esempio • riepilogo anno (totale)</div>
+            </div>
+
+            <div class="proofItem">
+              <div class="imgBox">
+                <img data-src="./assets/img/screen1.jpg" data-alt="./assets/img/screen1.jpg" alt="screen1" />
+              </div>
+              <div class="cap">Esempio • guadagno del mese</div>
+            </div>
+
+            <div class="proofItem">
+              <div style="padding:16px">
+                <h3 style="margin:0;color:var(--navy);font-weight:900;font-size:18px">Come leggerla in 20 secondi</h3>
+                <p style="margin:10px 0 0;color:var(--muted);font-weight:650;line-height:1.55">
+                  1) Numeri e qualità (qui sopra)<br>
+                  2) Poi ti spiego i 5 servizi<br>
+                  3) Ogni servizio ha un effetto: più conversione / più margine / più qualità
+                </p>
+              </div>
+              <div class="cap">Guida rapida</div>
             </div>
           </div>
-
-          <div class="imgbox">
-            <div class="imglabel">Esempio reale</div>
-            <img src="assets/img/screen1.jpg" alt="Esempio risultati screen1">
-          </div>
         </div>
+      </div>
+    </section>
 
-        <div class="hint">Spazio / → avanti · ← indietro · 1–7 vai alla pagina · F schermo intero</div>
-        <div class="nav">
-          <button class="btn btnGhost" id="prev1" type="button">Indietro</button>
-          <button class="btn btnGold"  id="next1" type="button">Avanti</button>
-        </div>
-      </section>
+    <!-- SLIDE 3 -->
+    <section class="slide" data-title="annuncio-competitor">
+      <div class="content">
+        <div>
+          <div class="kicker"><span class="pill">Servizio 1</span> <span>Creazione/refresh annuncio + analisi competitor</span></div>
+          <h2 class="title" style="font-size:46px">Annuncio rifatto per farti scegliere</h2>
+          <p class="subtitle">
+            Non è “sistemare due cose”: è capire perché gli altri vendono e rendere il tuo annuncio più forte e più chiaro.
+          </p>
 
-      <!-- SLIDE 2 (RISULTATI) -->
-      <section class="slide" data-title="Risultati di Federica">
-        <span class="tag"><span class="tDot"></span> Risultati</span>
-        <h2 class="title" style="font-size:44px;">Risultati di Federica</h2>
-        <p class="subtitle">
-          Esempi di numeri reali su prenotazioni, valore e qualità. (Immagini grandi e leggibili in condivisione schermo)
-        </p>
-
-        <div class="shots">
-          <div class="shot"><img src="assets/img/screen9.jpg"  alt="Risultati screen9"></div>
-          <div class="shot"><img src="assets/img/screen10.jpg" alt="Risultati screen10"></div>
-          <div class="shot"><img src="assets/img/screen11.jpg" alt="Risultati screen11"></div>
-          <div class="shot"><img src="assets/img/screen12.jpg" alt="Risultati screen12"></div>
-        </div>
-
-        <div class="hint">Suggerimento: premi “Schermo intero” prima di mostrare questa pagina.</div>
-        <div class="nav">
-          <button class="btn btnGhost" id="prev2" type="button">Indietro</button>
-          <button class="btn btnGold"  id="next2" type="button">Avanti</button>
-        </div>
-      </section>
-
-      <!-- SLIDE 3 -->
-      <section class="slide" data-title="Annuncio + competitor">
-        <span class="tag"><span class="tDot"></span> Servizio 1</span>
-        <h2 class="title" style="font-size:44px;">Creazione / refresh annuncio<br>+ analisi competitor</h2>
-        <p class="subtitle">
-          L’annuncio deve farsi scegliere. Qui lavoriamo su foto, testo e posizionamento
-          per aumentare prenotazioni buone e valore.
-        </p>
-
-        <div class="grid">
-          <div class="card pad">
-            <div class="h3">Cosa facciamo</div>
-            <ul class="list">
-              <li>Controllo completo dell’annuncio: cosa manca, cosa confonde, cosa fa perdere fiducia.</li>
-              <li>Analisi competitor in zona: come si presentano, cosa mostrano, dove ti stanno davanti.</li>
-              <li>Riscrittura o miglioramento di titolo e descrizione: più chiari, più “convincente”.</li>
-              <li>Ordine foto e priorità: prima ciò che vende, poi il resto.</li>
+          <div class="box">
+            <h3>Cosa facciamo (operativo)</h3>
+            <ul class="bullets">
+              <li><b>Analisi competitor</b>: foto, punti forti, recensioni, prezzi e posizionamento</li>
+              <li><b>Refresh annuncio</b>: titolo, descrizione, servizi, regole, contenuti mancanti</li>
+              <li><b>Ordine foto</b> orientato conversione (le prime immagini contano più di tutto)</li>
+              <li>Impostazioni coerenti con il tipo di ospite che vuoi attirare</li>
             </ul>
-
-            <div class="note">
-              Obiettivo: aumentare conversione e qualità percepita, senza fumo.
-            </div>
           </div>
 
-          <div class="imgbox">
-            <div class="imglabel">Esempio</div>
-            <img src="assets/img/screen5.jpg" alt="Esempio screen5">
+          <div class="impact">
+            <div class="tag">Effetto</div>
+            <span>Più fiducia + più chiarezza → più richieste e più conversione.</span>
           </div>
         </div>
 
-        <div class="nav">
-          <button class="btn btnGhost" id="prev3" type="button">Indietro</button>
-          <button class="btn btnGold"  id="next3" type="button">Avanti</button>
+        <div class="shotWrap">
+          <div class="label">Esempio • notti e valore</div>
+          <img class="shot"
+               data-src="./assets/img/screen2.jpg"
+               data-alt="./assets/img/screen2.jpg"
+               alt="Notti e valore - screenshot" />
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- SLIDE 4 -->
-      <section class="slide" data-title="Formazione 5 ore">
-        <span class="tag"><span class="tDot"></span> Servizio 2</span>
-        <h2 class="title" style="font-size:44px;">5 ore di formazione<br>(prezzi + impostazioni annuncio)</h2>
-        <p class="subtitle">
-          Ti spiego cosa toccare e perché: così capisci dove si guadagna e dove si perde.
-        </p>
+    <!-- SLIDE 4 -->
+    <section class="slide" data-title="formazione-5h">
+      <div class="content">
+        <div>
+          <div class="kicker"><span class="pill">Servizio 2</span> <span>5 ore di formazione (prezzi + impostazioni annuncio)</span></div>
+          <h2 class="title" style="font-size:46px">Formazione: prezzi e settaggi corretti</h2>
+          <p class="subtitle">
+            Qui impari un metodo semplice: come impostare prezzi e regole senza “sparare numeri”.
+            Obiettivo: <b>margine</b>, non solo calendario pieno.
+          </p>
 
-        <div class="grid">
-          <div class="card pad">
-            <div class="h3">Prezzi (in modo semplice)</div>
-            <ul class="list">
-              <li>Come impostare prezzi sensati per periodo e domanda.</li>
-              <li>Come evitare “pieno ma poco profitto”.</li>
-              <li>Quando alzare, quando proteggere il margine.</li>
+          <div class="box">
+            <h3>Cosa include (in pratica)</h3>
+            <ul class="bullets">
+              <li><b>Metodo prezzi</b>: stagionalità, domanda, eventi, giorni deboli/forti</li>
+              <li><b>Minimi notti e buchi</b>: riempire bene senza rovinare il margine</li>
+              <li><b>Impostazioni annuncio</b>: regole, policy, offerte e visibilità</li>
+              <li>Checklist per aggiornare i prezzi con la cadenza giusta</li>
             </ul>
+          </div>
 
-            <div class="h3" style="margin-top:18px;">Impostazioni che contano</div>
-            <ul class="list">
-              <li>Minimi notti, disponibilità, regole: meno buchi e incastri sbagliati.</li>
-              <li>Policy: ridurre frizioni e aumentare prenotazioni buone.</li>
-              <li>Offerte e promozioni: usarle nel modo corretto.</li>
+          <div class="impact">
+            <div class="tag">Effetto</div>
+            <span>Anche con le stesse notti, puoi guadagnare di più perché il prezzo è più intelligente.</span>
+          </div>
+        </div>
+
+        <div class="shotWrap">
+          <div class="label">Esempio • riepilogo anno</div>
+          <img class="shot"
+               data-src="./assets/img/screen5.jpg"
+               data-alt="./assets/img/screen5.jpg"
+               alt="Riepilogo anno - screenshot" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5 -->
+    <section class="slide" data-title="messaggi">
+      <div class="content">
+        <div>
+          <div class="kicker"><span class="pill">Servizio 3</span> <span>Template messaggi automatici</span></div>
+          <h2 class="title" style="font-size:46px">Messaggi automatici (senza perdere qualità)</h2>
+          <p class="subtitle">
+            Meno caos, risposte più rapide e aspettative gestite: questo alza la qualità e riduce i problemi.
+          </p>
+
+          <div class="box">
+            <h3>Cosa ricevi</h3>
+            <ul class="bullets">
+              <li><b>Prima dell’arrivo</b> (dati ospiti, documenti, arrivo)</li>
+              <li><b>Check-in</b> (istruzioni chiare, meno frizioni)</li>
+              <li><b>Durante il soggiorno</b> (FAQ + gestione imprevisti)</li>
+              <li><b>Dopo</b> (check-out + richiesta recensione fatta bene)</li>
             </ul>
-
-            <div class="note">
-              Obiettivo: decisioni più chiare e gestione più stabile.
-            </div>
           </div>
 
-          <div class="imgbox">
-            <div class="imglabel">Qualità</div>
-            <img src="assets/img/screen2.jpg" alt="Qualità screen2">
+          <div class="impact">
+            <div class="tag">Effetto</div>
+            <span>Più ordine e più qualità: l’ospite si sente seguito e tu hai meno stress.</span>
           </div>
         </div>
 
-        <div class="nav">
-          <button class="btn btnGhost" id="prev4" type="button">Indietro</button>
-          <button class="btn btnGold"  id="next4" type="button">Avanti</button>
+        <div class="shotWrap">
+          <div class="label">Esempio • qualità</div>
+          <img class="shot"
+               data-src="./assets/img/screen11.jpg"
+               data-alt="./assets/img/screen11.jpg"
+               alt="Qualità - screenshot" />
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- SLIDE 5 -->
-      <section class="slide" data-title="Modelli messaggi">
-        <span class="tag"><span class="tDot"></span> Servizio 3</span>
-        <h2 class="title" style="font-size:44px;">Modelli di messaggi automatici</h2>
-        <p class="subtitle">
-          La gestione non deve mangiarti il tempo: qui costruisci messaggi pronti per ridurre caos e aumentare qualità.
-        </p>
+    <!-- SLIDE 6 -->
+    <section class="slide" data-title="home-staging">
+      <div class="content">
+        <div>
+          <div class="kicker"><span class="pill">Servizio 4</span> <span>Home staging (da remoto + foto/video)</span></div>
+          <h2 class="title" style="font-size:46px">Home staging da remoto</h2>
+          <p class="subtitle">
+            Anche senza ristrutturare, spesso bastano interventi mirati per migliorare foto e “percezione”.
+          </p>
 
-        <div class="grid">
-          <div class="card pad">
-            <div class="h3">Cosa ottieni</div>
-            <ul class="list">
-              <li>Messaggi prima dell’arrivo: accessi, indicazioni, regole chiare.</li>
-              <li>Messaggi durante: risposte rapide alle richieste più comuni.</li>
-              <li>Messaggi dopo: chiusura corretta e richiesta recensione fatta bene.</li>
-              <li>Risposte pronte: meno tempo perso, più ordine.</li>
+          <div class="box">
+            <h3>Come funziona (step by step)</h3>
+            <ul class="bullets">
+              <li>Mi invii <b>foto e video</b> degli ambienti (anche da telefono)</li>
+              <li>Ti preparo una <b>lista interventi</b>: ordine, luce, dettagli, set foto</li>
+              <li>Priorità: cambiamenti <b>a costo basso</b> ma impatto alto</li>
+              <li>Indicazioni pratiche per foto migliori (angoli, luce, composizione)</li>
             </ul>
-
-            <div class="note">
-              Obiettivo: tempi di risposta più rapidi e gestione più fluida.
-            </div>
           </div>
 
-          <div class="imgbox">
-            <div class="imglabel">Esempio</div>
-            <img src="assets/img/screen10.jpg" alt="Esempio screen10">
+          <div class="impact">
+            <div class="tag">Effetto</div>
+            <span>Foto più forti → più click → più conversione. E puoi anche sostenere prezzi migliori.</span>
           </div>
         </div>
 
-        <div class="nav">
-          <button class="btn btnGhost" id="prev5" type="button">Indietro</button>
-          <button class="btn btnGold"  id="next5" type="button">Avanti</button>
+        <div class="shotWrap">
+          <div class="label">Esempio • guadagni</div>
+          <img class="shot"
+               data-src="./assets/img/screen10.jpg"
+               data-alt="./assets/img/screen10.jpg"
+               alt="Guadagni - screenshot" />
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- SLIDE 6 -->
-      <section class="slide" data-title="Valorizzazione da remoto">
-        <span class="tag"><span class="tDot"></span> Servizio 4</span>
-        <h2 class="title" style="font-size:44px;">Home staging da remoto<br>(con foto/video da telefono)</h2>
-        <p class="subtitle">
-          Se le foto non rendono, l’annuncio non converte. Ti dico cosa sistemare davvero, senza spese inutili.
-        </p>
+    <!-- SLIDE 7 -->
+    <section class="slide" data-title="affiancamento-30gg">
+      <div class="content">
+        <div>
+          <div class="kicker"><span class="pill">Servizio 5</span> <span>Affiancamento 30 giorni</span></div>
+          <h2 class="title" style="font-size:46px">30 giorni di affiancamento</h2>
+          <p class="subtitle">
+            Il punto è far implementare tutto davvero: per 30 giorni ti seguo mentre metti in pratica.
+          </p>
 
-        <div class="grid">
-          <div class="card pad">
-            <div class="h3">Come funziona</div>
-            <ul class="list">
-              <li>Mi mandi foto e video degli ambienti (guidati, anche da telefono).</li>
-              <li>Ti dico cosa migliorare: luce, ordine, dettagli e punti “critici”.</li>
-              <li>Indicazioni pratiche su cosa aggiungere/togliere per alzare la percezione.</li>
-              <li>Consigli su inquadrature e sequenza foto per dare subito fiducia.</li>
+          <div class="box">
+            <h3>Cosa succede nei 30 giorni</h3>
+            <ul class="bullets">
+              <li>Checklist settimanale: prezzi, calendario, promozioni, messaggi, correzioni annuncio</li>
+              <li>Controllo errori tipici: buchi, notti minime, policy, contenuti mancanti</li>
+              <li>Ottimizzazioni su ciò che impatta davvero (conversione / qualità / margine)</li>
+              <li>Esci con un sistema che puoi ripetere senza confusione</li>
             </ul>
-
-            <div class="note">
-              Obiettivo: foto più forti e qualità percepita più alta.
-            </div>
           </div>
 
-          <div class="imgbox">
-            <div class="imglabel">Qualità</div>
-            <img src="assets/img/screen11.jpg" alt="Qualità screen11">
+          <div class="impact">
+            <div class="tag">Effetto</div>
+            <span>Risultati più stabili: non “migliora una settimana”, ma costruisci una routine che regge.</span>
           </div>
         </div>
 
-        <div class="nav">
-          <button class="btn btnGhost" id="prev6" type="button">Indietro</button>
-          <button class="btn btnGold"  id="next6" type="button">Avanti</button>
+        <div class="shotWrap">
+          <div class="label">Esempio • andamento</div>
+          <img class="shot"
+               data-src="./assets/img/screen12.jpg"
+               data-alt="./assets/img/screen12.jpg"
+               alt="Andamento - screenshot" />
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- SLIDE 7 (RIEPILOGO FINALE) -->
-      <section class="slide" data-title="Riepilogo">
-        <span class="tag"><span class="tDot"></span> Riepilogo</span>
-        <h2 class="title" style="font-size:44px;">Riepilogo: cosa comprerai</h2>
-        <p class="subtitle">
-          Una soluzione costruita su misura, basata sui tuoi numeri e sulla tua struttura.
-          Qui trovi in modo semplice cosa include.
-        </p>
+    <!-- SLIDE 8: Recap -->
+    <section class="slide full" data-title="recap">
+      <div class="content">
+        <div>
+          <div class="kicker"><span class="pill">Riepilogo</span> <span>cosa comprerai</span></div>
+          <h2 class="title" style="font-size:44px">In sintesi: cosa comprerai</h2>
+          <p class="subtitle" style="max-width:none">
+            5 servizi chiari, costruiti su misura in base alla tua casa e ai tuoi obiettivi.
+          </p>
 
-        <div class="grid" style="grid-template-columns: 1.05fr .95fr;">
-          <div class="card pad">
-            <div class="h3">Incluso</div>
-            <ul class="list">
-              <li>Creazione / refresh annuncio + analisi competitor</li>
-              <li>5 ore di formazione (prezzi + impostazioni annuncio)</li>
-              <li>Template messaggi automatici (modelli pronti + risposte rapide)</li>
-              <li>Home staging da remoto (foto/video del tuo immobile)</li>
-              <li>Affiancamento di 30 giorni (mini avviamento seguito)</li>
+          <div class="box">
+            <ul class="bullets">
+              <li><b>Creazione/refresh annuncio + analisi competitor</b> → annuncio più vendibile e differenziato</li>
+              <li><b>5 ore di formazione (prezzi + impostazioni)</b> → metodo per aumentare il margine</li>
+              <li><b>Template messaggi automatici</b> → qualità più alta e meno problemi operativi</li>
+              <li><b>Home staging da remoto</b> → foto/percezione migliori (più click e conversione)</li>
+              <li><b>Affiancamento 30 giorni</b> → implementazione guidata, risultati più stabili</li>
             </ul>
-
-            <div class="note">
-              Se vuoi, nella chiamata chiarisci subito qual è il punto che oggi ti fa perdere più soldi o più tempo:
-              così sai da dove partire.
-            </div>
           </div>
 
-          <div class="imgbox">
-            <div class="imglabel">Esempio</div>
-            <img src="assets/img/screen9.jpg" alt="Risultati screen9">
+          <div class="impact">
+            <div class="tag">Focus</div>
+            <span>Annuncio + prezzi + qualità: sono le 3 leve che cambiano i risultati.</span>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="hint">Spazio / → avanti = ricomincia · ← indietro · F schermo intero</div>
-        <div class="nav">
-          <button class="btn btnGhost" id="prev7" type="button">Indietro</button>
-          <button class="btn btnGold"  id="next7" type="button">Ricomincia</button>
-        </div>
-      </section>
-
-    </div>
   </div>
 
-  <div class="toast" id="toast">Comandi: Spazio / Frecce · 1–7 · F schermo intero</div>
+  <div class="controls">
+    <div class="hint">Tip: <b>Spazio</b> / <b>→</b> avanti • <b>←</b> indietro • <b>1–9</b> salta • <b>F</b> schermo intero</div>
+    <div class="btns">
+      <button id="prev">← Indietro</button>
+      <button class="primary" id="next">Avanti →</button>
+    </div>
+  </div>
 
   <script>
-    // ============================================================
-    //  PRESENTAZIONE A SLIDE (impronta "prima")
-    //  - Click sul frame: avanti
-    //  - Spazio / Freccia destra: avanti
-    //  - Freccia sinistra: indietro
-    //  - 1..7: vai a slide
-    //  - F: schermo intero
-    //  NOTE: niente note interne nel contenuto delle slide
-    // ============================================================
+    // --- helper: set img src + fallback ---
+    function hydrateImages(scope=document){
+      const imgs = scope.querySelectorAll('img[data-src]');
+      imgs.forEach(img=>{
+        const primary = img.getAttribute('data-src');
+        const alt = img.getAttribute('data-alt');
+        img.src = primary;
+        img.onerror = () => {
+          if (alt && img.src !== alt) img.src = alt;
+        };
+      });
+    }
 
     const slides = Array.from(document.querySelectorAll('.slide'));
-    const frame = document.getElementById('frame');
-    const progressBar = document.getElementById('progressBar');
-    const counter = document.getElementById('counter');
-
-    const btnFull = document.getElementById('btnFull');
-    const btnHelp = document.getElementById('btnHelp');
-    const toast = document.getElementById('toast');
-
     let idx = 0;
 
-    function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+    const bar = document.getElementById('bar');
+    const count = document.getElementById('count');
 
-    function showToast(msg){
-      toast.textContent = msg;
-      toast.classList.add('show');
-      clearTimeout(showToast.t);
-      showToast.t = setTimeout(()=>toast.classList.remove('show'), 1600);
+    function show(i){
+      idx = Math.max(0, Math.min(slides.length-1, i));
+      slides.forEach((s,k)=>s.classList.toggle('active', k===idx));
+      const pct = ((idx+1)/slides.length)*100;
+      bar.style.width = pct + '%';
+      count.textContent = (idx+1) + '/' + slides.length;
+      hydrateImages(slides[idx]);
     }
 
-    function update(){
-      slides.forEach((s,i)=>s.classList.toggle('active', i === idx));
+    function next(){ show(idx+1); }
+    function prev(){ show(idx-1); }
 
-      const total = slides.length;
-      counter.textContent = (idx + 1) + " / " + total;
-      progressBar.style.width = ((idx + 1) / total * 100) + "%";
-    }
+    document.getElementById('next').addEventListener('click', next);
+    document.getElementById('prev').addEventListener('click', prev);
 
-    function goTo(i){
-      idx = clamp(i, 0, slides.length - 1);
-      update();
-    }
-
-    function next(){
-      if(idx < slides.length - 1) idx++;
-      else idx = 0; // ricomincia
-      update();
-    }
-
-    function prev(){
-      if(idx > 0) idx--;
-      update();
-    }
-
-    // Bottoni di navigazione
-    const btns = [
-      ['prev1','next1'],
-      ['prev2','next2'],
-      ['prev3','next3'],
-      ['prev4','next4'],
-      ['prev5','next5'],
-      ['prev6','next6'],
-      ['prev7','next7'],
-    ];
-
-    btns.forEach(([p,n], i)=>{
-      const bp = document.getElementById(p);
-      const bn = document.getElementById(n);
-
-      if(bp) bp.addEventListener('click', (e)=>{ e.stopPropagation(); prev(); });
-
-      if(bn) bn.addEventListener('click', (e)=>{
-        e.stopPropagation();
-        // ultimo bottone ricomincia
-        if(i === btns.length - 1) goTo(0);
-        else next();
-      });
-    });
-
-    // Click sul frame (avanti). Evita click su bottoni/elementi interattivi.
-    frame.addEventListener('click', (e)=>{
+    // Click ovunque per avanti (ma non sui bottoni)
+    document.getElementById('stage').addEventListener('click', (e)=>{
       const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
-      if(tag === 'button' || tag === 'a') return;
+      if(tag === 'button') return;
       next();
     });
 
-    // Tastiera
+    // Tastiera: spazio/→ avanti, ← indietro, numeri jump, F fullscreen
     document.addEventListener('keydown', (e)=>{
-      if(['ArrowUp','ArrowDown',' '].includes(e.key)) e.preventDefault();
+      if(e.key === 'ArrowRight' || e.key === ' '){ e.preventDefault(); next(); }
+      if(e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
 
-      if(e.key === 'ArrowRight' || e.key === ' '){ next(); return; }
-      if(e.key === 'ArrowLeft'){ prev(); return; }
-
-      if(/^[1-7]$/.test(e.key)){
-        goTo(parseInt(e.key,10) - 1);
-        return;
+      const n = parseInt(e.key, 10);
+      if(!isNaN(n) && n >= 1 && n <= slides.length){
+        show(n-1);
       }
 
-      if(e.key.toLowerCase() === 'f'){ toggleFullscreen(); return; }
-    }, {passive:false});
-
-    // Fullscreen
-    function isFullscreen(){ return !!document.fullscreenElement; }
-    function toggleFullscreen(){
-      const el = document.documentElement;
-      if(!isFullscreen()){
-        if(el.requestFullscreen) el.requestFullscreen();
-        showToast('Schermo intero');
-      } else {
-        if(document.exitFullscreen) document.exitFullscreen();
-        showToast('Uscita schermo intero');
+      if(e.key.toLowerCase() === 'f'){
+        if(!document.fullscreenElement){
+          document.documentElement.requestFullscreen?.();
+        }else{
+          document.exitFullscreen?.();
+        }
       }
-    }
-
-    btnFull.addEventListener('click', (e)=>{ e.stopPropagation(); toggleFullscreen(); });
-    btnHelp.addEventListener('click', (e)=>{ e.stopPropagation(); showToast('Spazio/→ avanti · ← indietro · 1–7 pagine · F schermo intero'); });
+      if(e.key === 'Escape' && document.fullscreenElement){
+        document.exitFullscreen?.();
+      }
+    });
 
     // Init
-    update();
-    setTimeout(()=>showToast('Spazio/→ avanti · F schermo intero'), 650);
-
-    // Preload immagini (evita “vuoti” in chiamata)
-    const preload = [
-      'assets/img/screen1.jpg',
-      'assets/img/screen2.jpg',
-      'assets/img/screen5.jpg',
-      'assets/img/screen9.jpg',
-      'assets/img/screen10.jpg',
-      'assets/img/screen11.jpg',
-      'assets/img/screen12.jpg'
-    ];
-    preload.forEach(src=>{
-      const im = new Image();
-      im.src = src;
-    });
+    hydrateImages(document);
+    show(0);
   </script>
 </body>
 </html>
