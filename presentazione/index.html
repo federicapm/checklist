@@ -1,213 +1,782 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Presentazione Servizi – Federica Cellini</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Presentazione Vendita — Federica Property Manager</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
-<style>
-:root{
-  --navy:#0A2540;
-  --gold:#D4AF37;
-  --text:#101828;
-  --muted:#667085;
-  --bg:#F9FAFB;
-  --card:#FFFFFF;
-  --radius:16px;
-}
+  <style>
+    :root{
+      --navy:#0A2540;
+      --gold:#D4AF37;
+      --ink:#0B1220;
+      --muted:#5B667A;
+      --bg:#F5F7FB;
+      --card:#FFFFFF;
+      --line:rgba(10,37,64,.12);
+      --shadow: 0 14px 40px rgba(10,37,64,.14);
+      --radius: 18px;
+    }
 
-*{box-sizing:border-box}
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 800px at 20% 0%, rgba(212,175,55,.10), transparent 55%),
+                  radial-gradient(1000px 700px at 90% 10%, rgba(10,37,64,.10), transparent 60%),
+                  var(--bg);
+      color:var(--ink);
+      overflow:hidden; /* slideshow */
+    }
 
-body{
-  margin:0;
-  font-family:Inter,system-ui,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
+    /* --- Top bar --- */
+    .topbar{
+      position:fixed; inset: 18px 18px auto 18px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      z-index:50;
+      pointer-events:none;
+    }
+    .brand{
+      pointer-events:auto;
+      display:flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.72);
+      backdrop-filter: blur(10px);
+      border-radius:999px;
+      box-shadow: 0 8px 24px rgba(10,37,64,.10);
+    }
+    .dot{
+      width:12px; height:12px; border-radius:999px;
+      background: var(--gold);
+      box-shadow: 0 0 0 6px rgba(212,175,55,.18);
+    }
+    .brand strong{ font-weight:800; color:var(--navy); letter-spacing:.2px; }
+    .brand span{ color:var(--muted); font-weight:600; font-size:12px; margin-left:6px; }
 
-.wrapper{
-  max-width:1200px;
-  margin:0 auto;
-  padding:80px 40px;
-}
+    .controls{
+      pointer-events:auto;
+      display:flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.72);
+      backdrop-filter: blur(10px);
+      border-radius:999px;
+      box-shadow: 0 8px 24px rgba(10,37,64,.10);
+    }
+    .pill{
+      font-size:12px; font-weight:700;
+      color:var(--navy);
+      display:flex; align-items:center; gap:8px;
+    }
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size:11px;
+      padding:4px 8px;
+      border-radius:8px;
+      border:1px solid var(--line);
+      background:#fff;
+      color:#111827;
+    }
+    .progress{
+      min-width:140px;
+      height:8px;
+      border-radius:999px;
+      background:rgba(10,37,64,.10);
+      overflow:hidden;
+      border:1px solid rgba(10,37,64,.10);
+    }
+    .progress > i{
+      display:block;
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, var(--gold), #F2D27A);
+    }
 
-section{
-  margin-bottom:120px;
-}
+    /* --- Slides stage --- */
+    .stage{
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:76px 18px 18px;
+    }
 
-h1{
-  font-size:56px;
-  font-weight:800;
-  color:var(--navy);
-  margin-bottom:24px;
-}
+    .deck{
+      width: min(1400px, calc(100vw - 36px));
+      height: min(820px, calc(100vh - 110px));
+      position:relative;
+    }
 
-h2{
-  font-size:40px;
-  font-weight:800;
-  color:var(--navy);
-  margin-bottom:32px;
-}
+    .slide{
+      position:absolute; inset:0;
+      opacity:0;
+      transform: translateY(10px) scale(.995);
+      transition: opacity .25s ease, transform .25s ease;
+      pointer-events:none;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:18px;
+      padding:26px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.76);
+      backdrop-filter: blur(10px);
+      border:1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .slide.active{
+      opacity:1;
+      transform: translateY(0) scale(1);
+      pointer-events:auto;
+    }
 
-h3{
-  font-size:26px;
-  font-weight:700;
-  margin-bottom:12px;
-}
+    .left, .right{
+      min-height:0;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
 
-p{
-  font-size:18px;
-  line-height:1.6;
-  color:var(--muted);
-  max-width:820px;
-}
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      font-weight:800;
+      color:var(--navy);
+      letter-spacing:.35px;
+      text-transform:uppercase;
+      font-size:12px;
+    }
+    .kicker::before{
+      content:"";
+      width:12px; height:12px;
+      border-radius:999px;
+      background: var(--gold);
+      box-shadow: 0 0 0 6px rgba(212,175,55,.16);
+    }
 
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:48px;
-  align-items:center;
-}
+    h1{
+      margin:0;
+      font-size: clamp(34px, 3.2vw, 56px);
+      line-height:1.03;
+      letter-spacing:-.7px;
+      color: var(--navy);
+      font-weight:900;
+    }
+    h2{
+      margin:0;
+      font-size: clamp(24px, 2.2vw, 36px);
+      line-height:1.08;
+      letter-spacing:-.4px;
+      color: var(--navy);
+      font-weight:900;
+    }
+    p{
+      margin:0;
+      color:var(--muted);
+      font-size: 16px;
+      line-height:1.55;
+      font-weight:600;
+    }
 
-.card{
-  background:var(--card);
-  padding:40px;
-  border-radius:var(--radius);
-  box-shadow:0 20px 40px rgba(10,37,64,.08);
-}
+    .card{
+      background: var(--card);
+      border:1px solid var(--line);
+      border-radius: 16px;
+      padding:16px;
+    }
 
-ul{
-  margin:0;
-  padding-left:20px;
-}
+    .bullets{
+      margin:0;
+      padding-left:18px;
+      color:#23324A;
+      font-weight:700;
+      line-height:1.45;
+      font-size:16px;
+    }
+    .bullets li{ margin:10px 0; }
+    .bullets li strong{ color:var(--navy); }
 
-li{
-  font-size:18px;
-  margin-bottom:14px;
-}
+    .valueRow{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    .metric{
+      padding:14px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, #fff, #fbfbff);
+    }
+    .metric .label{
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.35px;
+    }
+    .metric .num{
+      margin-top:6px;
+      font-size:24px;
+      font-weight:900;
+      color:var(--navy);
+    }
+    .metric .hint{
+      margin-top:6px;
+      color:#6B7280;
+      font-size:12px;
+      font-weight:700;
+    }
+    .metric .num em{
+      font-style:normal;
+      color: #C81E1E;
+    }
 
-img{
-  width:100%;
-  border-radius:14px;
-  box-shadow:0 20px 40px rgba(0,0,0,.15);
-}
-</style>
+    .shot{
+      position:relative;
+      width:100%;
+      height:100%;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:#fff;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px;
+    }
+    .shot img{
+      max-width:100%;
+      max-height:100%;
+      object-fit:contain;
+      border-radius:14px;
+      box-shadow: 0 12px 28px rgba(10,37,64,.14);
+      border:1px solid rgba(10,37,64,.10);
+    }
+    .caption{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      padding:14px 14px;
+      border-radius:14px;
+      border:1px solid rgba(212,175,55,.35);
+      background: rgba(212,175,55,.10);
+      color:#2B2F38;
+      font-weight:800;
+      line-height:1.35;
+    }
+    .caption .badge{
+      flex:0 0 auto;
+      padding:6px 10px;
+      border-radius:999px;
+      background: var(--gold);
+      color: var(--navy);
+      font-weight:900;
+      font-size:12px;
+      letter-spacing:.2px;
+    }
+
+    .footerHint{
+      margin-top:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      color:#64748B;
+      font-size:12px;
+      font-weight:800;
+    }
+    .footerHint .sep{
+      width:1px;height:12px;background:rgba(10,37,64,.18);
+    }
+
+    /* Full width slide variant */
+    .slide.full{
+      grid-template-columns: 1fr;
+    }
+    .twoCols{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:18px;
+      min-height:0;
+    }
+
+    /* Buttons hidden-ish (still usable) */
+    .navBtns{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      display:flex;
+      gap:10px;
+      z-index:60;
+    }
+    .btn{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.78);
+      backdrop-filter: blur(10px);
+      border-radius:14px;
+      padding:10px 12px;
+      cursor:pointer;
+      font-weight:900;
+      color:var(--navy);
+      box-shadow: 0 10px 24px rgba(10,37,64,.12);
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn .small{
+      font-size:12px;
+      font-weight:800;
+      color:#64748B;
+    }
+
+    /* Responsive */
+    @media (max-width: 1020px){
+      body{ overflow:auto; } /* fallback mobile */
+      .stage{ padding: 86px 12px 12px; align-items:flex-start; }
+      .deck{ height:auto; }
+      .slide{
+        position:relative;
+        opacity:1;
+        transform:none;
+        pointer-events:auto;
+        margin-bottom:14px;
+        height:auto;
+        grid-template-columns: 1fr;
+      }
+      .navBtns{ display:none; }
+    }
+  </style>
 </head>
 
 <body>
+  <div class="topbar">
+    <div class="brand">
+      <i class="dot"></i>
+      <strong>Federica Property Manager</strong>
+      <span>• presentazione per call vendita</span>
+    </div>
 
-<div class="wrapper">
-
-<!-- INTRO -->
-<section>
-  <h1>Consulenza Strategica<br>per Affitti Brevi</h1>
-  <p>
-    Questa presentazione viene utilizzata in chiamata per spiegare, in modo chiaro e concreto,
-    il valore del lavoro svolto da Federica Cellini sulla gestione e sull’ottimizzazione
-    delle strutture in affitto breve.
-  </p>
-</section>
-
-<!-- METODO -->
-<section class="grid">
-  <div>
-    <h2>Il metodo di lavoro</h2>
-    <p>
-      Ogni consulenza parte dall’analisi reale dei numeri, del posizionamento
-      dell’annuncio e della qualità della gestione.
-      Non si lavora “a sensazione”, ma su dati e leve concrete.
-    </p>
+    <div class="controls">
+      <div class="pill">
+        <span>Avanza:</span>
+        <span class="kbd">Click</span>
+        <span class="kbd">→</span>
+        <span class="kbd">Spazio</span>
+      </div>
+      <div class="progress" aria-label="progress">
+        <i id="bar"></i>
+      </div>
+      <div class="pill">
+        <span id="counter">1/1</span>
+      </div>
+    </div>
   </div>
-  <img src="img/screen9.jpg" alt="">
-</section>
 
-<!-- SERVIZIO 1 -->
-<section class="grid">
-  <div class="card">
-    <h3>3 ore di consulenza strategica</h3>
-    <p>
-      Sessioni operative in cui vengono analizzati annuncio, gestione,
-      margini di miglioramento e priorità di intervento.
-    </p>
+  <div class="stage" id="stage">
+    <div class="deck" id="deck">
+
+      <!-- 1) COVER -->
+      <section class="slide active">
+        <div class="left">
+          <div class="kicker">Consulenza Strategica (3 ore)</div>
+          <h1>Ottimizzazione Annuncio &amp; Performance</h1>
+          <p>
+            Questa presentazione è pensata per essere mostrata <strong>in chiamata</strong>.
+            L’obiettivo è far capire <strong>cosa viene fatto, perché conta</strong> e quali risultati può generare,
+            lavorando su dati, posizionamento e qualità dell’annuncio.
+          </p>
+
+          <div class="valueRow">
+            <div class="metric">
+              <div class="label">Focus</div>
+              <div class="num">Ricavi</div>
+              <div class="hint">prezzi, conversione, visibilità</div>
+            </div>
+            <div class="metric">
+              <div class="label">Focus</div>
+              <div class="num">Qualità</div>
+              <div class="hint">punteggio annuncio + recensioni</div>
+            </div>
+            <div class="metric">
+              <div class="label">Focus</div>
+              <div class="num">Controllo</div>
+              <div class="hint">messaggi, procedure, tempi risposta</div>
+            </div>
+          </div>
+
+          <div class="footerHint">
+            <span>Tip: tasti <span class="kbd">1–9</span> per saltare alle slide</span>
+            <span class="sep"></span>
+            <span>Esc per uscire da full-screen (se attivo)</span>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="shot">
+            <img src="assets/img/screen9.jpg" alt="Risultati - screenshot" />
+          </div>
+          <div class="caption">
+            <span class="badge">PROVA</span>
+            <div>
+              La consulenza parte dai numeri reali e mette mano alle leve che impattano direttamente
+              <strong>guadagni, visibilità e punteggio qualità</strong>.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2) RISULTATI (annuale) -->
+      <section class="slide">
+        <div class="left">
+          <div class="kicker">Risultati monitorabili</div>
+          <h2>Quando si lavora bene, i numeri si vedono.</h2>
+          <p>
+            Il punto non è “fare più notti a caso”, ma aumentare <strong>valore per notte</strong> e stabilità.
+            In consulenza si lavora sulle leve che alzano i ricavi e riducono gli sprechi.
+          </p>
+
+          <div class="card">
+            <ul class="bullets">
+              <li><strong>Pricing</strong> e strategia stagionale</li>
+              <li><strong>Conversione</strong>: titolo, descrizione, foto, ordine immagini</li>
+              <li><strong>Visibilità</strong>: promo/offerte e strumenti della piattaforma</li>
+            </ul>
+          </div>
+
+          <div class="caption">
+            <span class="badge">OBIETTIVO</span>
+            <div>Trasformare l’annuncio in un asset: più margine, più controllo, meno improvvisazione.</div>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="shot">
+            <img src="assets/img/screen10.jpg" alt="Risultati annuali - screenshot" />
+          </div>
+        </div>
+      </section>
+
+      <!-- 3) QUALITÀ / RECENSIONI -->
+      <section class="slide">
+        <div class="left">
+          <div class="kicker">Qualità = più visibilità</div>
+          <h2>Il punteggio qualità non è un dettaglio.</h2>
+          <p>
+            L’algoritmo premia chi risponde bene, gestisce bene e comunica bene.
+            Migliorare qualità e comunicazioni vuol dire <strong>salire</strong> e pagare meno “invisibilità”.
+          </p>
+
+          <div class="card">
+            <ul class="bullets">
+              <li><strong>Tempi risposta</strong> e gestione comunicazioni</li>
+              <li><strong>Messaggistica</strong>: template + automazioni (smart messaging)</li>
+              <li><strong>Prevenzione problemi</strong>: istruzioni chiare, aspettative corrette</li>
+            </ul>
+          </div>
+
+          <div class="caption">
+            <span class="badge">IMPATTO</span>
+            <div>Più qualità → più ranking → più richieste → prezzi più alti sostenibili.</div>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="shot">
+            <img src="assets/img/screen11.jpg" alt="Qualità e recensioni - screenshot" />
+          </div>
+        </div>
+      </section>
+
+      <!-- 4) QUALITÀ / CONSISTENZA -->
+      <section class="slide">
+        <div class="left">
+          <div class="kicker">Continuità nel tempo</div>
+          <h2>La differenza la fa la costanza dei 5★.</h2>
+          <p>
+            Non basta “un mese buono”. Si costruisce un sistema che mantiene standard alti,
+            riduce attriti con gli ospiti e stabilizza le performance.
+          </p>
+
+          <div class="card">
+            <ul class="bullets">
+              <li><strong>Check</strong> dotazioni e contenuti mancanti</li>
+              <li><strong>Policy</strong> e regole chiare (meno contestazioni)</li>
+              <li><strong>Processi</strong> di comunicazione pre/durante/post soggiorno</li>
+            </ul>
+          </div>
+
+          <div class="caption">
+            <span class="badge">RISULTATO</span>
+            <div>Più serenità operativa e meno “incidenti”, senza perdere prenotazioni.</div>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="shot">
+            <img src="assets/img/screen12.jpg" alt="Qualità e andamento - screenshot" />
+          </div>
+        </div>
+      </section>
+
+      <!-- 5) ESEMPIO GUADAGNI (mensile) -->
+      <section class="slide">
+        <div class="left">
+          <div class="kicker">Leve di ricavo</div>
+          <h2>Guadagni mensili: non è “fortuna”.</h2>
+          <p>
+            Un annuncio ottimizzato converte meglio e sostiene prezzi migliori.
+            La consulenza interviene su elementi che impattano direttamente il fatturato.
+          </p>
+
+          <div class="card">
+            <ul class="bullets">
+              <li><strong>Ordine foto</strong> e prime 5 immagini</li>
+              <li><strong>Storytelling</strong> della struttura e della zona</li>
+              <li><strong>Offerte e promo</strong> impostate correttamente</li>
+            </ul>
+          </div>
+
+          <div class="caption">
+            <span class="badge">FOCUS</span>
+            <div>Far aumentare il valore percepito → aumenta la conversione → aumenta il prezzo medio.</div>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="shot">
+            <img src="assets/img/screen1.jpg" alt="Guadagni mensili - screenshot" />
+          </div>
+        </div>
+      </section>
+
+      <!-- 6) RIEPILOGO (dettaglio numeri) -->
+      <section class="slide">
+        <div class="left">
+          <div class="kicker">Numeri leggibili</div>
+          <h2>Si lavora su dati, non su sensazioni.</h2>
+          <p>
+            In consulenza si analizza cosa sta funzionando e cosa sta “mangiando” margine:
+            correzioni, costi e dinamiche che vanno controllate.
+          </p>
+
+          <div class="card">
+            <ul class="bullets">
+              <li><strong>Analisi ricavi</strong> e struttura dei costi</li>
+              <li><strong>Azioni correttive</strong> sulla strategia prezzi</li>
+              <li><strong>Decisioni</strong> basate su numeri e stagionalità</li>
+            </ul>
+          </div>
+
+          <div class="caption">
+            <span class="badge">METODO</span>
+            <div>Ogni intervento ha un perché: impatto su ricavi, conversione o qualità.</div>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="shot">
+            <img src="assets/img/screen5.jpg" alt="Riepilogo numeri - screenshot" />
+          </div>
+        </div>
+      </section>
+
+      <!-- 7) OCCUPAZIONE / CALENDARIO -->
+      <section class="slide">
+        <div class="left">
+          <div class="kicker">Calendario e domanda</div>
+          <h2>Occupazione intelligente: riempire bene.</h2>
+          <p>
+            Non serve solo “riempire”. Serve riempire <strong>con il prezzo giusto</strong> e con regole/policy coerenti,
+            evitando buchi e prenotazioni non profittevoli.
+          </p>
+
+          <div class="card">
+            <ul class="bullets">
+              <li><strong>Strategia minimi</strong> (notti) e gap</li>
+              <li><strong>Policy cancellazione</strong> ottimizzata</li>
+              <li><strong>Promo</strong> mirate sui periodi giusti</li>
+            </ul>
+          </div>
+
+          <div class="caption">
+            <span class="badge">EFFETTO</span>
+            <div>Meno buchi + più controllo + meno stress operativo.</div>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="shot">
+            <img src="assets/img/screen%202.jpg" alt="Calendario e occupazione - screenshot" />
+          </div>
+        </div>
+      </section>
+
+      <!-- 8) COSA INCLUDE (tutti i servizi) -->
+      <section class="slide full">
+        <div class="left" style="gap:18px;">
+          <div class="kicker">Cosa include la consulenza (3 ore)</div>
+          <h2>Interventi concreti sull’annuncio (step by step)</h2>
+          <p>
+            Questa consulenza serve a sistemare ciò che impatta davvero:
+            <strong>conversione, qualità e visibilità</strong>.
+          </p>
+
+          <div class="twoCols">
+            <div class="card">
+              <ul class="bullets">
+                <li><strong>Revisione completa</strong> di titolo, descrizione e storytelling</li>
+                <li><strong>Aggiornamento foto</strong> + ordine immagini (priorità conversione)</li>
+                <li><strong>Policy cancellazione</strong> ottimizzata (meno frizioni, più prenotazioni buone)</li>
+                <li><strong>Servizi e dotazioni</strong>: revisione e contenuti mancanti</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <ul class="bullets">
+                <li><strong>Smart messaging</strong>: template e risposte automatiche</li>
+                <li><strong>Offerte e promozioni</strong> + strumenti visibilità impostati correttamente</li>
+                <li><strong>Operatività</strong>: ridurre tempi di risposta e alzare punteggio qualità</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="caption">
+            <span class="badge">VALORE</span>
+            <div>
+              Non è “teoria”: è ottimizzazione guidata su ciò che sposta il risultato.
+              Il cliente esce con un annuncio più vendibile e una gestione più ordinata.
+            </div>
+          </div>
+
+          <div class="footerHint">
+            <span>Slide 8/9 • riepilogo servizi</span>
+            <span class="sep"></span>
+            <span>Click per continuare</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9) OUTPUT (cosa si porta a casa) -->
+      <section class="slide">
+        <div class="left">
+          <div class="kicker">Output della consulenza</div>
+          <h2>Cosa ottiene il cliente, in modo pratico</h2>
+          <p>
+            La consulenza non finisce con “idee”. Si traduce in asset riutilizzabili,
+            utili anche se il proprietario gestisce in autonomia.
+          </p>
+
+          <div class="card">
+            <ul class="bullets">
+              <li><strong>Annuncio riposizionato</strong> (testo + struttura + priorità)</li>
+              <li><strong>Sequenza messaggi</strong> pronta (pre/durante/post soggiorno)</li>
+              <li><strong>Set di promo/offerte</strong> impostato correttamente</li>
+              <li><strong>Piano operativo</strong> per alzare qualità e ridurre i tempi risposta</li>
+            </ul>
+          </div>
+
+          <div class="caption">
+            <span class="badge">SINTESI</span>
+            <div>Più conversione, più controllo operativo, più qualità percepita.</div>
+          </div>
+
+          <div class="footerHint">
+            <span>Fine presentazione</span>
+            <span class="sep"></span>
+            <span>Tasto <span class="kbd">←</span> per tornare indietro</span>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="shot">
+            <img src="assets/img/screen12.jpg" alt="Riepilogo risultati - screenshot" />
+          </div>
+        </div>
+      </section>
+
+    </div>
   </div>
-  <img src="img/screen10.jpg" alt="">
-</section>
 
-<!-- SERVIZIO 2 -->
-<section class="grid">
-  <img src="img/screen11.jpg" alt="">
-  <div class="card">
-    <h3>Ottimizzazione annuncio</h3>
-    <ul>
-      <li>Titolo orientato alla conversione</li>
-      <li>Descrizione strutturata per Airbnb</li>
-      <li>Storytelling coerente con il target</li>
-    </ul>
+  <div class="navBtns" aria-hidden="false">
+    <button class="btn" id="prevBtn" type="button">
+      ← <span class="small">Indietro</span>
+    </button>
+    <button class="btn" id="nextBtn" type="button">
+      <span class="small">Avanti</span> →
+    </button>
   </div>
-</section>
 
-<!-- SERVIZIO 3 -->
-<section class="grid">
-  <div class="card">
-    <h3>Foto, ordine immagini e percezione</h3>
-    <p>
-      Le immagini non servono solo a “mostrare” la casa,
-      ma a guidare la scelta dell’ospite e aumentare il tasso di prenotazione.
-    </p>
-  </div>
-  <img src="img/screen12.jpg" alt="">
-</section>
+  <script>
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const bar = document.getElementById("bar");
+    const counter = document.getElementById("counter");
+    const stage = document.getElementById("stage");
 
-<!-- SERVIZIO 4 -->
-<section class="grid">
-  <img src="img/screen2.jpg" alt="">
-  <div class="card">
-    <h3>Policy e servizi</h3>
-    <ul>
-      <li>Ottimizzazione policy di cancellazione</li>
-      <li>Revisione servizi e dotazioni</li>
-      <li>Inserimento contenuti mancanti</li>
-    </ul>
-  </div>
-</section>
+    let i = 0;
 
-<!-- SERVIZIO 5 -->
-<section class="grid">
-  <div class="card">
-    <h3>Smart messaging e automazioni</h3>
-    <p>
-      Creazione e revisione dei messaggi automatici per ridurre
-      tempi di risposta e aumentare il punteggio qualità.
-    </p>
-  </div>
-  <img src="img/screen5.jpg" alt="">
-</section>
+    function clamp(n){ return Math.max(0, Math.min(slides.length-1, n)); }
 
-<!-- PROOF -->
-<section class="grid">
-  <img src="img/screen1.jpg" alt="">
-  <div>
-    <h2>Risultati reali</h2>
-    <p>
-      Dashboard, recensioni e performance dimostrano come
-      una gestione strutturata porti più guadagni,
-      più controllo e meno stress operativo.
-    </p>
-  </div>
-</section>
+    function show(idx){
+      i = clamp(idx);
+      slides.forEach((s, k) => s.classList.toggle("active", k === i));
+      const pct = ((i+1) / slides.length) * 100;
+      bar.style.width = pct + "%";
+      counter.textContent = (i+1) + "/" + slides.length;
+    }
 
-<!-- CHIUSURA -->
-<section>
-  <h2>In sintesi</h2>
-  <p>
-    Questa consulenza non è teoria, ma un intervento mirato
-    per trasformare una casa vacanza in un asset gestito come un business.
-  </p>
-</section>
+    function next(){ show(i+1); }
+    function prev(){ show(i-1); }
 
-</div>
+    // Click anywhere to go next (except clicks on buttons/links)
+    document.addEventListener("click", (e) => {
+      const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : "";
+      if (tag === "button" || tag === "a" || e.target.closest("button") || e.target.closest("a")) return;
+      // On desktop slideshow view: click = next
+      if (window.matchMedia("(min-width: 1021px)").matches) next();
+    });
 
+    // Keyboard
+    document.addEventListener("keydown", (e) => {
+      const k = e.key;
+      if (k === "ArrowRight" || k === " " || k === "PageDown") { e.preventDefault(); next(); }
+      if (k === "ArrowLeft"  || k === "PageUp") { e.preventDefault(); prev(); }
+      // Jump 1-9
+      if (/^[1-9]$/.test(k)) {
+        const n = parseInt(k, 10) - 1;
+        if (n < slides.length) show(n);
+      }
+      // F = fullscreen
+      if (k.toLowerCase() === "f") {
+        if (!document.fullscreenElement) stage.requestFullscreen?.();
+        else document.exitFullscreen?.();
+      }
+      // Home/End
+      if (k === "Home") show(0);
+      if (k === "End") show(slides.length-1);
+    });
+
+    document.getElementById("nextBtn").addEventListener("click", next);
+    document.getElementById("prevBtn").addEventListener("click", prev);
+
+    // Preload images
+    const imgs = [
+      "assets/img/screen9.jpg",
+      "assets/img/screen10.jpg",
+      "assets/img/screen11.jpg",
+      "assets/img/screen12.jpg",
+      "assets/img/screen1.jpg",
+      "assets/img/screen5.jpg",
+      "assets/img/screen%202.jpg"
+    ];
+    imgs.forEach(src => { const im = new Image(); im.src = src; });
+
+    show(0);
+  </script>
 </body>
 </html>
