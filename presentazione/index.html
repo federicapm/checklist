@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Presentazione Vendita — Federica Property Manager</title>
+  <title>Federica Property Manager — Presentazione Vendita (Consulenza 3 ore)</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,32 +11,37 @@
 
   <style>
     :root{
+      /* Palette Federica (navy + gold) */
       --navy:#0A2540;
+      --navy2:#0f2f52;
       --gold:#D4AF37;
-      --ink:#0B1220;
-      --muted:#5B667A;
-      --bg:#F5F7FB;
-      --card:#FFFFFF;
-      --line:rgba(10,37,64,.12);
-      --shadow: 0 14px 40px rgba(10,37,64,.14);
-      --radius: 18px;
+
+      --bg:#f4f6fb;
+      --card:#ffffff;
+      --text:#0b1220;
+      --muted:#5b6473;
+      --line:#e7ebf3;
+
+      --radius:18px;
+      --shadow:0 18px 60px rgba(10,37,64,.14);
+      --shadow2:0 10px 24px rgba(10,37,64,.10);
     }
 
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(1200px 800px at 20% 0%, rgba(212,175,55,.10), transparent 55%),
-                  radial-gradient(1000px 700px at 90% 10%, rgba(10,37,64,.10), transparent 60%),
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background: radial-gradient(1200px 600px at 14% 18%, rgba(212,175,55,.18), transparent 55%),
+                  radial-gradient(900px 520px at 88% 12%, rgba(10,37,64,.12), transparent 60%),
                   var(--bg);
-      color:var(--ink);
-      overflow:hidden; /* slideshow */
+      color:var(--text);
+      overflow:hidden; /* deck */
     }
 
-    /* --- Top bar --- */
+    /* Top bar */
     .topbar{
-      position:fixed; inset: 18px 18px auto 18px;
+      position:fixed; inset:18px 18px auto 18px;
       display:flex; align-items:center; justify-content:space-between;
       gap:12px;
       z-index:50;
@@ -45,311 +50,332 @@
     .brand{
       pointer-events:auto;
       display:flex; align-items:center; gap:10px;
-      padding:10px 12px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.72);
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(231,235,243,.9);
       backdrop-filter: blur(10px);
       border-radius:999px;
-      box-shadow: 0 8px 24px rgba(10,37,64,.10);
+      padding:10px 14px;
+      box-shadow:var(--shadow2);
     }
     .dot{
-      width:12px; height:12px; border-radius:999px;
-      background: var(--gold);
-      box-shadow: 0 0 0 6px rgba(212,175,55,.18);
+      width:10px; height:10px; border-radius:50%;
+      background:var(--gold);
+      box-shadow:0 0 0 6px rgba(212,175,55,.20);
     }
-    .brand strong{ font-weight:800; color:var(--navy); letter-spacing:.2px; }
-    .brand span{ color:var(--muted); font-weight:600; font-size:12px; margin-left:6px; }
-
-    .controls{
+    .brand b{color:var(--navy)}
+    .brand small{color:var(--muted); font-weight:600}
+    .hud{
       pointer-events:auto;
       display:flex; align-items:center; gap:10px;
-      padding:10px 12px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.72);
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(231,235,243,.9);
       backdrop-filter: blur(10px);
       border-radius:999px;
-      box-shadow: 0 8px 24px rgba(10,37,64,.10);
-    }
-    .pill{
-      font-size:12px; font-weight:700;
-      color:var(--navy);
-      display:flex; align-items:center; gap:8px;
+      padding:10px 14px;
+      box-shadow:var(--shadow2);
+      color:var(--muted);
+      font-weight:700;
     }
     .kbd{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-size:11px;
-      padding:4px 8px;
-      border-radius:8px;
-      border:1px solid var(--line);
+      font-weight:800;
+      color:var(--navy);
       background:#fff;
-      color:#111827;
+      border:1px solid var(--line);
+      border-radius:10px;
+      padding:6px 10px;
     }
     .progress{
-      min-width:140px;
-      height:8px;
-      border-radius:999px;
+      width:160px; height:10px;
       background:rgba(10,37,64,.10);
+      border-radius:999px;
       overflow:hidden;
-      border:1px solid rgba(10,37,64,.10);
+      border:1px solid rgba(231,235,243,.9);
     }
-    .progress > i{
-      display:block;
+    .bar{
       height:100%;
       width:0%;
-      background: linear-gradient(90deg, var(--gold), #F2D27A);
+      background:linear-gradient(90deg, var(--gold), #e8c85b);
+      border-radius:999px;
+      transition:width .25s ease;
     }
 
-    /* --- Slides stage --- */
+    /* Stage */
     .stage{
-      height:100%;
+      position:fixed; inset:0;
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:76px 18px 18px;
-    }
-
-    .deck{
-      width: min(1400px, calc(100vw - 36px));
-      height: min(820px, calc(100vh - 110px));
-      position:relative;
+      padding:90px 28px 28px;
     }
 
     .slide{
-      position:absolute; inset:0;
-      opacity:0;
-      transform: translateY(10px) scale(.995);
-      transition: opacity .25s ease, transform .25s ease;
-      pointer-events:none;
+      width:min(1280px, calc(100vw - 56px));
+      height:min(720px, calc(100vh - 140px));
+      background:var(--card);
+      border:1px solid rgba(231,235,243,.9);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      display:none;
+      position:relative;
+    }
+    .slide.active{display:block}
+
+    .slide::before{
+      content:"";
+      position:absolute; inset:-2px -2px auto -2px;
+      height:10px;
+      background:linear-gradient(90deg, rgba(212,175,55,.55), rgba(10,37,64,.12));
+      opacity:.9;
+    }
+
+    .content{
+      height:100%;
+      padding:42px 46px;
       display:grid;
       grid-template-columns: 1.05fr .95fr;
+      gap:26px;
+      align-items:stretch;
+    }
+
+    .full .content{
+      grid-template-columns:1fr;
       gap:18px;
-      padding:26px;
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.76);
-      backdrop-filter: blur(10px);
-      border:1px solid var(--line);
-      box-shadow: var(--shadow);
-    }
-    .slide.active{
-      opacity:1;
-      transform: translateY(0) scale(1);
-      pointer-events:auto;
     }
 
-    .left, .right{
-      min-height:0;
-      display:flex;
-      flex-direction:column;
-      gap:14px;
-    }
-
+    h1,h2,h3{margin:0}
     .kicker{
-      display:inline-flex; align-items:center; gap:10px;
-      font-weight:800;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-weight:900;
+      letter-spacing:.06em;
       color:var(--navy);
-      letter-spacing:.35px;
       text-transform:uppercase;
       font-size:12px;
     }
-    .kicker::before{
-      content:"";
-      width:12px; height:12px;
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background:rgba(212,175,55,.16);
+      border:1px solid rgba(212,175,55,.35);
+      color:var(--navy);
       border-radius:999px;
-      background: var(--gold);
-      box-shadow: 0 0 0 6px rgba(212,175,55,.16);
+      padding:6px 10px;
+      font-weight:900;
+      font-size:12px;
     }
 
-    h1{
-      margin:0;
-      font-size: clamp(34px, 3.2vw, 56px);
+    .title{
+      margin-top:14px;
+      font-size:54px;
       line-height:1.03;
-      letter-spacing:-.7px;
-      color: var(--navy);
+      color:var(--navy);
+      letter-spacing:-.03em;
       font-weight:900;
     }
-    h2{
-      margin:0;
-      font-size: clamp(24px, 2.2vw, 36px);
-      line-height:1.08;
-      letter-spacing:-.4px;
-      color: var(--navy);
-      font-weight:900;
-    }
-    p{
-      margin:0;
+    .subtitle{
+      margin-top:12px;
+      font-size:18px;
+      line-height:1.5;
       color:var(--muted);
-      font-size: 16px;
-      line-height:1.55;
       font-weight:600;
+      max-width:58ch;
     }
 
-    .card{
-      background: var(--card);
-      border:1px solid var(--line);
-      border-radius: 16px;
-      padding:16px;
-    }
-
-    .bullets{
-      margin:0;
-      padding-left:18px;
-      color:#23324A;
-      font-weight:700;
-      line-height:1.45;
-      font-size:16px;
-    }
-    .bullets li{ margin:10px 0; }
-    .bullets li strong{ color:var(--navy); }
-
-    .valueRow{
+    .grid{
+      margin-top:22px;
       display:grid;
       grid-template-columns: repeat(3, 1fr);
-      gap:12px;
+      gap:14px;
     }
-    .metric{
-      padding:14px;
-      border-radius:16px;
+    .mini{
       border:1px solid var(--line);
-      background: linear-gradient(180deg, #fff, #fbfbff);
+      border-radius:16px;
+      background:#fff;
+      padding:14px;
     }
-    .metric .label{
-      color:var(--muted);
-      font-size:12px;
-      font-weight:800;
-      text-transform:uppercase;
-      letter-spacing:.35px;
-    }
-    .metric .num{
-      margin-top:6px;
-      font-size:24px;
-      font-weight:900;
+    .mini b{
+      display:block;
+      font-size:16px;
       color:var(--navy);
+      margin-bottom:4px;
     }
-    .metric .hint{
-      margin-top:6px;
-      color:#6B7280;
-      font-size:12px;
-      font-weight:700;
-    }
-    .metric .num em{
-      font-style:normal;
-      color: #C81E1E;
+    .mini span{
+      color:var(--muted);
+      font-weight:600;
+      font-size:13px;
+      line-height:1.35;
     }
 
-    .shot{
-      position:relative;
-      width:100%;
+    .box{
+      border:1px solid var(--line);
+      border-radius:20px;
+      background:linear-gradient(180deg, #fff, #fbfcff);
+      padding:18px 18px;
+    }
+    .box h3{
+      color:var(--navy);
+      font-size:16px;
+      font-weight:900;
+      margin-bottom:10px;
+    }
+    .bullets{
+      margin:0; padding-left:18px;
+      color:var(--text);
+      font-weight:650;
+      line-height:1.55;
+      font-size:16px;
+    }
+    .bullets li{margin:10px 0}
+    .bullets b{color:var(--navy)}
+
+    .impact{
+      margin-top:14px;
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      border-radius:18px;
+      border:1px solid rgba(212,175,55,.35);
+      background:rgba(212,175,55,.12);
+      padding:14px 14px;
+      color:var(--navy);
+      font-weight:800;
+    }
+    .tag{
+      flex:0 0 auto;
+      background:var(--gold);
+      color:var(--navy);
+      border-radius:12px;
+      padding:6px 10px;
+      font-weight:1000;
+      font-size:12px;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .impact span{
+      color:var(--navy2);
+      font-weight:800;
+      line-height:1.35;
+    }
+
+    /* Right (screenshot) */
+    .shotWrap{
       height:100%;
+      border:1px dashed rgba(10,37,64,.20);
+      background:linear-gradient(180deg, rgba(10,37,64,.03), rgba(10,37,64,.00));
+      border-radius:24px;
+      padding:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .shotWrap .label{
+      position:absolute; top:14px; left:14px;
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(255,255,255,.86);
+      border:1px solid rgba(231,235,243,.9);
+      padding:8px 10px;
+      border-radius:999px;
+      color:var(--muted);
+      font-weight:800;
+      font-size:12px;
+      backdrop-filter: blur(10px);
+    }
+    .shot{
+      max-width:100%;
+      max-height:100%;
+      border-radius:18px;
+      box-shadow:0 18px 40px rgba(10,37,64,.16);
+      border:1px solid rgba(231,235,243,.9);
+      background:#fff;
+      object-fit:contain;
+    }
+
+    /* Proof grid slide */
+    .proofGrid{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:14px;
+      margin-top:18px;
+    }
+    .proofItem{
       border-radius:18px;
       border:1px solid var(--line);
       background:#fff;
       overflow:hidden;
+      box-shadow:0 10px 24px rgba(10,37,64,.08);
       display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:12px;
-    }
-    .shot img{
-      max-width:100%;
-      max-height:100%;
-      object-fit:contain;
-      border-radius:14px;
-      box-shadow: 0 12px 28px rgba(10,37,64,.14);
-      border:1px solid rgba(10,37,64,.10);
-    }
-    .caption{
-      display:flex;
-      align-items:flex-start;
-      gap:10px;
-      padding:14px 14px;
-      border-radius:14px;
-      border:1px solid rgba(212,175,55,.35);
-      background: rgba(212,175,55,.10);
-      color:#2B2F38;
-      font-weight:800;
-      line-height:1.35;
-    }
-    .caption .badge{
-      flex:0 0 auto;
-      padding:6px 10px;
-      border-radius:999px;
-      background: var(--gold);
-      color: var(--navy);
-      font-weight:900;
-      font-size:12px;
-      letter-spacing:.2px;
-    }
-
-    .footerHint{
-      margin-top:auto;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      color:#64748B;
-      font-size:12px;
-      font-weight:800;
-    }
-    .footerHint .sep{
-      width:1px;height:12px;background:rgba(10,37,64,.18);
-    }
-
-    /* Full width slide variant */
-    .slide.full{
-      grid-template-columns: 1fr;
-    }
-    .twoCols{
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap:18px;
+      flex-direction:column;
       min-height:0;
     }
-
-    /* Buttons hidden-ish (still usable) */
-    .navBtns{
-      position:fixed;
-      right:18px;
-      bottom:18px;
-      display:flex;
-      gap:10px;
-      z-index:60;
+    .proofItem img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
     }
-    .btn{
-      border:1px solid var(--line);
+    .proofItem .cap{
+      padding:10px 12px;
+      color:var(--navy);
+      font-weight:900;
+      font-size:12px;
+      border-top:1px solid var(--line);
+      background:linear-gradient(180deg,#fff,#fbfcff);
+    }
+
+    /* Controls bottom */
+    .controls{
+      position:fixed; inset:auto 18px 18px 18px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      z-index:60;
+      pointer-events:none;
+    }
+    .hint{
+      pointer-events:auto;
+      color:var(--muted);
+      font-weight:700;
+      font-size:13px;
+      background:rgba(255,255,255,.74);
+      border:1px solid rgba(231,235,243,.9);
+      border-radius:999px;
+      padding:10px 12px;
+      box-shadow:var(--shadow2);
+    }
+    .btns{
+      pointer-events:auto;
+      display:flex; gap:10px;
+    }
+    button{
+      appearance:none;
+      border:1px solid rgba(231,235,243,.9);
       background:rgba(255,255,255,.78);
       backdrop-filter: blur(10px);
-      border-radius:14px;
-      padding:10px 12px;
-      cursor:pointer;
-      font-weight:900;
       color:var(--navy);
-      box-shadow: 0 10px 24px rgba(10,37,64,.12);
-      display:flex;
-      align-items:center;
-      gap:10px;
+      font-weight:900;
+      border-radius:14px;
+      padding:10px 14px;
+      cursor:pointer;
+      box-shadow:var(--shadow2);
     }
-    .btn:active{ transform: translateY(1px); }
-    .btn .small{
-      font-size:12px;
-      font-weight:800;
-      color:#64748B;
+    button.primary{
+      background:linear-gradient(180deg, var(--gold), #e7c35a);
+      border-color:rgba(212,175,55,.55);
+      color:var(--navy);
     }
+    button:active{transform:translateY(1px)}
 
     /* Responsive */
-    @media (max-width: 1020px){
-      body{ overflow:auto; } /* fallback mobile */
-      .stage{ padding: 86px 12px 12px; align-items:flex-start; }
-      .deck{ height:auto; }
-      .slide{
-        position:relative;
-        opacity:1;
-        transform:none;
-        pointer-events:auto;
-        margin-bottom:14px;
-        height:auto;
-        grid-template-columns: 1fr;
-      }
-      .navBtns{ display:none; }
+    @media (max-width: 980px){
+      body{overflow:auto}
+      .stage{position:relative; padding:86px 14px 80px}
+      .slide{height:auto; min-height:calc(100vh - 170px); overflow:visible}
+      .content{grid-template-columns:1fr}
+      .proofGrid{grid-template-columns:repeat(2, 1fr)}
     }
   </style>
 </head>
@@ -357,425 +383,488 @@
 <body>
   <div class="topbar">
     <div class="brand">
-      <i class="dot"></i>
-      <strong>Federica Property Manager</strong>
-      <span>• presentazione per call vendita</span>
+      <span class="dot"></span>
+      <div>
+        <b>Federica Property Manager</b>
+        <small>• presentazione per call vendita</small>
+      </div>
     </div>
 
-    <div class="controls">
-      <div class="pill">
-        <span>Avanza:</span>
-        <span class="kbd">Click</span>
-        <span class="kbd">→</span>
-        <span class="kbd">Spazio</span>
-      </div>
-      <div class="progress" aria-label="progress">
-        <i id="bar"></i>
-      </div>
-      <div class="pill">
-        <span id="counter">1/1</span>
-      </div>
+    <div class="hud">
+      <span>Avanza:</span>
+      <span class="kbd">Click</span>
+      <span class="kbd">→</span>
+      <span class="kbd">Spazio</span>
+      <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+      <span id="count">1/1</span>
     </div>
   </div>
 
   <div class="stage" id="stage">
-    <div class="deck" id="deck">
 
-      <!-- 1) COVER -->
-      <section class="slide active">
-        <div class="left">
-          <div class="kicker">Consulenza Strategica (3 ore)</div>
-          <h1>Ottimizzazione Annuncio &amp; Performance</h1>
-          <p>
-            Questa presentazione è pensata per essere mostrata <strong>in chiamata</strong>.
-            L’obiettivo è far capire <strong>cosa viene fatto, perché conta</strong> e quali risultati può generare,
-            lavorando su dati, posizionamento e qualità dell’annuncio.
-          </p>
-
-          <div class="valueRow">
-            <div class="metric">
-              <div class="label">Focus</div>
-              <div class="num">Ricavi</div>
-              <div class="hint">prezzi, conversione, visibilità</div>
-            </div>
-            <div class="metric">
-              <div class="label">Focus</div>
-              <div class="num">Qualità</div>
-              <div class="hint">punteggio annuncio + recensioni</div>
-            </div>
-            <div class="metric">
-              <div class="label">Focus</div>
-              <div class="num">Controllo</div>
-              <div class="hint">messaggi, procedure, tempi risposta</div>
-            </div>
+    <!-- SLIDE 1: Cover + proof hero -->
+    <section class="slide active" data-title="cover">
+      <div class="content">
+        <div>
+          <div class="kicker">
+            <span class="pill">Consulenza Strategica • 3 ore</span>
+            <span class="pill">Ottimizzazione annuncio</span>
+            <span class="pill">+ qualità</span>
           </div>
 
-          <div class="footerHint">
-            <span>Tip: tasti <span class="kbd">1–9</span> per saltare alle slide</span>
-            <span class="sep"></span>
-            <span>Esc per uscire da full-screen (se attivo)</span>
+          <h1 class="title">Cosa compri davvero</h1>
+          <p class="subtitle">
+            Questa presentazione è un supporto per il venditore: slide brevi, concrete, e collegate ai risultati.
+            Ogni blocco spiega <b>cosa fa Federica</b> e <b>che impatto ha</b> su conversione, punteggio qualità e ricavi.
+          </p>
+
+          <div class="grid">
+            <div class="mini"><b>1) Annuncio</b><span>titolo, descrizione, foto, servizi, policy</span></div>
+            <div class="mini"><b>2) Comunicazione</b><span>template, risposte, tempi, review</span></div>
+            <div class="mini"><b>3) Visibilità</b><span>offerte, promo, strumenti Airbnb</span></div>
+          </div>
+
+          <div class="impact">
+            <div class="tag">Obiettivo</div>
+            <span>Rendere l’annuncio più vendibile e la gestione più solida: meno frizioni, più prenotazioni “buone”.</span>
           </div>
         </div>
 
-        <div class="right">
-          <div class="shot">
-            <img src="assets/img/screen9.jpg" alt="Risultati - screenshot" />
-          </div>
-          <div class="caption">
-            <span class="badge">PROVA</span>
-            <div>
-              La consulenza parte dai numeri reali e mette mano alle leve che impattano direttamente
-              <strong>guadagni, visibilità e punteggio qualità</strong>.
+        <div class="shotWrap">
+          <div class="label">Proof • guadagni / performance</div>
+          <!-- HERO: prova a caricare screen1; se non va, fallback -->
+          <img class="shot"
+               data-src="./assets/img/screen1.jpg"
+               data-alt="./assets/img/screen1.jpg"
+               alt="Risultati - screenshot" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: Proof wall (tutti gli screenshot, subito) -->
+    <section class="slide full" data-title="proof">
+      <div class="content">
+        <div>
+          <div class="kicker"><span class="pill">Proof</span> <span>Screenshot reali (esempi)</span></div>
+          <h2 class="title" style="font-size:44px">Risultati che il cliente vede</h2>
+          <p class="subtitle" style="max-width:none">
+            Questi screenshot servono a far capire che qui si lavora su <b>numeri</b> e <b>qualità</b>, non a “sensazione”.
+          </p>
+
+          <div class="proofGrid">
+            <div class="proofItem">
+              <img data-src="./assets/img/screen9,jpg" data-alt="./assets/img/screen9.jpg" alt="screen9" />
+              <div class="cap">Guadagni mensili • esempio 1</div>
+            </div>
+            <div class="proofItem">
+              <img data-src="./assets/img/screen10.jpg" data-alt="./assets/img/screen10.jpg" alt="screen10" />
+              <div class="cap">Guadagni mensili • esempio 2</div>
+            </div>
+            <div class="proofItem">
+              <img data-src="./assets/img/screen11.jpg" data-alt="./assets/img/screen11.jpg" alt="screen11" />
+              <div class="cap">Ottobre • riepilogo entrate</div>
+            </div>
+            <div class="proofItem">
+              <img data-src="./assets/img/screen12.jpg" data-alt="./assets/img/screen12.jpg" alt="screen12" />
+              <div class="cap">Calendario • occupazione e prezzi</div>
+            </div>
+
+            <div class="proofItem">
+              <!-- ATTENZIONE: in repo hai "screen 2.jpg" (con spazio) -->
+              <img data-src="./assets/img/screen%202.jpg" data-alt="./assets/img/screen2.jpg" alt="screen 2" />
+              <div class="cap">Qualità • notti / valore prenotazioni</div>
+            </div>
+            <div class="proofItem">
+              <!-- se esiste con spazio o senza -->
+              <img data-src="./assets/img/screen5.jpg" data-alt="./assets/img/screen%205.jpg" alt="screen5" />
+              <div class="cap">Riepilogo anno • totale (EUR)</div>
+            </div>
+            <div class="proofItem">
+              <img data-src="./assets/img/screen1.jpg" data-alt="./assets/img/screen1.jpg" alt="screen1" />
+              <div class="cap">Guadagni • mese corrente</div>
+            </div>
+            <div class="proofItem">
+              <div style="padding:18px">
+                <h3 style="margin:0;color:var(--navy);font-weight:900;font-size:18px">Come usarla in call</h3>
+                <p style="margin:10px 0 0;color:var(--muted);font-weight:650;line-height:1.55">
+                  1) Mostra proof (credibilità)<br>
+                  2) Spiega i servizi (cosa cambia nell’annuncio)<br>
+                  3) Collega ogni servizio a un effetto pratico (conversione/qualità/ricavi)
+                </p>
+              </div>
+              <div class="cap">Script venditore • semplice</div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- 2) RISULTATI (annuale) -->
-      <section class="slide">
-        <div class="left">
-          <div class="kicker">Risultati monitorabili</div>
-          <h2>Quando si lavora bene, i numeri si vedono.</h2>
-          <p>
-            Il punto non è “fare più notti a caso”, ma aumentare <strong>valore per notte</strong> e stabilità.
-            In consulenza si lavora sulle leve che alzano i ricavi e riducono gli sprechi.
+    <!-- SLIDE 3: Servizio 1 -->
+    <section class="slide" data-title="titolo-descrizione">
+      <div class="content">
+        <div>
+          <div class="kicker"><span class="pill">Servizio 1</span> <span>Annuncio: Titolo, descrizione, storytelling</span></div>
+          <h2 class="title" style="font-size:46px">Titolo & descrizione che convertono</h2>
+          <p class="subtitle">
+            Non è “scrivere bene”: è <b>posizionamento</b>. Un annuncio chiaro fa capire subito <b>perché scegliere te</b>.
           </p>
 
-          <div class="card">
+          <div class="box">
+            <h3>Cosa fa Federica (in pratica)</h3>
             <ul class="bullets">
-              <li><strong>Pricing</strong> e strategia stagionale</li>
-              <li><strong>Conversione</strong>: titolo, descrizione, foto, ordine immagini</li>
-              <li><strong>Visibilità</strong>: promo/offerte e strumenti della piattaforma</li>
+              <li><b>Titolo</b> costruito su leva + differenziante (no frasi generiche)</li>
+              <li><b>Descrizione</b> con struttura: promessa → prova → dettagli → regole</li>
+              <li><b>Storytelling</b> orientato alla prenotazione: elimina dubbi, aumenta fiducia</li>
+              <li>Allinea annuncio a target: coppie / business / famiglie / long weekend</li>
             </ul>
           </div>
 
-          <div class="caption">
-            <span class="badge">OBIETTIVO</span>
-            <div>Trasformare l’annuncio in un asset: più margine, più controllo, meno improvvisazione.</div>
+          <div class="impact">
+            <div class="tag">Effetto</div>
+            <span>Più click “giusti” → più richieste → migliore conversione (meno messaggi inutili).</span>
           </div>
         </div>
 
-        <div class="right">
-          <div class="shot">
-            <img src="assets/img/screen10.jpg" alt="Risultati annuali - screenshot" />
-          </div>
+        <div class="shotWrap">
+          <div class="label">Proof • valore prenotazioni / qualità</div>
+          <img class="shot"
+               data-src="./assets/img/screen%202.jpg"
+               data-alt="./assets/img/screen2.jpg"
+               alt="Qualità - screenshot" />
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- 3) QUALITÀ / RECENSIONI -->
-      <section class="slide">
-        <div class="left">
-          <div class="kicker">Qualità = più visibilità</div>
-          <h2>Il punteggio qualità non è un dettaglio.</h2>
-          <p>
-            L’algoritmo premia chi risponde bene, gestisce bene e comunica bene.
-            Migliorare qualità e comunicazioni vuol dire <strong>salire</strong> e pagare meno “invisibilità”.
+    <!-- SLIDE 4: Servizio 2 -->
+    <section class="slide" data-title="foto-ordine">
+      <div class="content">
+        <div>
+          <div class="kicker"><span class="pill">Servizio 2</span> <span>Foto + ordine immagini</span></div>
+          <h2 class="title" style="font-size:46px">Foto e ordine: prima impressione</h2>
+          <p class="subtitle">
+            Spesso il problema non è “mancano foto”, ma <b>l’ordine sbagliato</b> (e la prenotazione si perde prima di leggere).
           </p>
 
-          <div class="card">
+          <div class="box">
+            <h3>Cosa fa Federica (in pratica)</h3>
             <ul class="bullets">
-              <li><strong>Tempi risposta</strong> e gestione comunicazioni</li>
-              <li><strong>Messaggistica</strong>: template + automazioni (smart messaging)</li>
-              <li><strong>Prevenzione problemi</strong>: istruzioni chiare, aspettative corrette</li>
+              <li>Seleziona le foto che <b>vendono</b> nei primi 5 swipe (hook visivo)</li>
+              <li>Riordina per: impatto → spazi chiave → comfort → dettagli → regole</li>
+              <li>Evidenzia punti forti: luce, metratura, balcone, vista, bagno, letto</li>
+              <li>Riduce “foto inutili” che abbassano percezione (corridoi, doppioni, buio)</li>
             </ul>
           </div>
 
-          <div class="caption">
-            <span class="badge">IMPATTO</span>
-            <div>Più qualità → più ranking → più richieste → prezzi più alti sostenibili.</div>
+          <div class="impact">
+            <div class="tag">Effetto</div>
+            <span>Più tempo sull’annuncio → più fiducia → più conversione.</span>
           </div>
         </div>
 
-        <div class="right">
-          <div class="shot">
-            <img src="assets/img/screen11.jpg" alt="Qualità e recensioni - screenshot" />
-          </div>
+        <div class="shotWrap">
+          <div class="label">Proof • guadagni mensili</div>
+          <img class="shot"
+               data-src="./assets/img/screen10.jpg"
+               data-alt="./assets/img/screen10.jpg"
+               alt="Guadagni - screenshot" />
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- 4) QUALITÀ / CONSISTENZA -->
-      <section class="slide">
-        <div class="left">
-          <div class="kicker">Continuità nel tempo</div>
-          <h2>La differenza la fa la costanza dei 5★.</h2>
-          <p>
-            Non basta “un mese buono”. Si costruisce un sistema che mantiene standard alti,
-            riduce attriti con gli ospiti e stabilizza le performance.
+    <!-- SLIDE 5: Servizio 3 -->
+    <section class="slide" data-title="policy">
+      <div class="content">
+        <div>
+          <div class="kicker"><span class="pill">Servizio 3</span> <span>Policy cancellazione</span></div>
+          <h2 class="title" style="font-size:46px">Policy cancellazione ottimizzata</h2>
+          <p class="subtitle">
+            Una policy sbagliata crea frizione: o spaventa il cliente, o ti espone a cancellazioni “tossiche”.
           </p>
 
-          <div class="card">
+          <div class="box">
+            <h3>Cosa fa Federica (in pratica)</h3>
             <ul class="bullets">
-              <li><strong>Check</strong> dotazioni e contenuti mancanti</li>
-              <li><strong>Policy</strong> e regole chiare (meno contestazioni)</li>
-              <li><strong>Processi</strong> di comunicazione pre/durante/post soggiorno</li>
+              <li>Seleziona la policy coerente con <b>stagionalità</b> e tipologia ospite</li>
+              <li>Riduce cancellazioni last-minute non profittevoli</li>
+              <li>Allinea regole/descrizione per evitare contestazioni</li>
+              <li>Protegge calendario e marginalità (meno “buchi” difficili da riempire)</li>
             </ul>
           </div>
 
-          <div class="caption">
-            <span class="badge">RISULTATO</span>
-            <div>Più serenità operativa e meno “incidenti”, senza perdere prenotazioni.</div>
+          <div class="impact">
+            <div class="tag">Effetto</div>
+            <span>Meno buchi + prenotazioni più stabili → ricavi più prevedibili.</span>
           </div>
         </div>
 
-        <div class="right">
-          <div class="shot">
-            <img src="assets/img/screen12.jpg" alt="Qualità e andamento - screenshot" />
-          </div>
+        <div class="shotWrap">
+          <div class="label">Proof • riepilogo anno</div>
+          <img class="shot"
+               data-src="./assets/img/screen5.jpg"
+               data-alt="./assets/img/screen%205.jpg"
+               alt="Riepilogo anno - screenshot" />
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- 5) ESEMPIO GUADAGNI (mensile) -->
-      <section class="slide">
-        <div class="left">
-          <div class="kicker">Leve di ricavo</div>
-          <h2>Guadagni mensili: non è “fortuna”.</h2>
-          <p>
-            Un annuncio ottimizzato converte meglio e sostiene prezzi migliori.
-            La consulenza interviene su elementi che impattano direttamente il fatturato.
+    <!-- SLIDE 6: Servizio 4 -->
+    <section class="slide" data-title="servizi-dotazioni">
+      <div class="content">
+        <div>
+          <div class="kicker"><span class="pill">Servizio 4</span> <span>Servizi, dotazioni, contenuti mancanti</span></div>
+          <h2 class="title" style="font-size:46px">Servizi: il “checklist gap”</h2>
+          <p class="subtitle">
+            Tante case perdono prenotazioni perché mancano informazioni chiave (o sono inserite male).
           </p>
 
-          <div class="card">
+          <div class="box">
+            <h3>Cosa fa Federica (in pratica)</h3>
             <ul class="bullets">
-              <li><strong>Ordine foto</strong> e prime 5 immagini</li>
-              <li><strong>Storytelling</strong> della struttura e della zona</li>
-              <li><strong>Offerte e promo</strong> impostate correttamente</li>
+              <li>Verifica <b>tutti i campi</b> Airbnb (amenities, sicurezza, house rules)</li>
+              <li>Recupera contenuti mancanti che impattano la ricerca/filtri (es. Wi-Fi, AC)</li>
+              <li>Riduce domande ripetitive: info chiare = meno chat, più conversione</li>
+              <li>Allinea annuncio a standard qualità (evita penalizzazioni)</li>
             </ul>
           </div>
 
-          <div class="caption">
-            <span class="badge">FOCUS</span>
-            <div>Far aumentare il valore percepito → aumenta la conversione → aumenta il prezzo medio.</div>
+          <div class="impact">
+            <div class="tag">Effetto</div>
+            <span>Più visibilità nei filtri + meno frizioni → più prenotazioni “giuste”.</span>
           </div>
         </div>
 
-        <div class="right">
-          <div class="shot">
-            <img src="assets/img/screen1.jpg" alt="Guadagni mensili - screenshot" />
-          </div>
+        <div class="shotWrap">
+          <div class="label">Proof • guadagni mensili</div>
+          <img class="shot"
+               data-src="./assets/img/screen9,jpg"
+               data-alt="./assets/img/screen9.jpg"
+               alt="Guadagni - screenshot" />
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- 6) RIEPILOGO (dettaglio numeri) -->
-      <section class="slide">
-        <div class="left">
-          <div class="kicker">Numeri leggibili</div>
-          <h2>Si lavora su dati, non su sensazioni.</h2>
-          <p>
-            In consulenza si analizza cosa sta funzionando e cosa sta “mangiando” margine:
-            correzioni, costi e dinamiche che vanno controllate.
+    <!-- SLIDE 7: Servizio 5 -->
+    <section class="slide" data-title="smart-messaging">
+      <div class="content">
+        <div>
+          <div class="kicker"><span class="pill">Servizio 5</span> <span>Smart messaging + template</span></div>
+          <h2 class="title" style="font-size:46px">Messaggi automatici che alzano la qualità</h2>
+          <p class="subtitle">
+            Non è solo comodità: tempi rapidi + comunicazione chiara = <b>punteggio qualità più alto</b> e meno problemi.
           </p>
 
-          <div class="card">
+          <div class="box">
+            <h3>Cosa fa Federica (in pratica)</h3>
             <ul class="bullets">
-              <li><strong>Analisi ricavi</strong> e struttura dei costi</li>
-              <li><strong>Azioni correttive</strong> sulla strategia prezzi</li>
-              <li><strong>Decisioni</strong> basate su numeri e stagionalità</li>
+              <li>Template pre-checkin, check-in, durante soggiorno, check-out</li>
+              <li>Risposte rapide alle FAQ (parcheggio, self check-in, regole casa)</li>
+              <li>Messaggi “anti-recensione negativa” (gestione aspettative)</li>
+              <li>Standard comunicazione: tono, timing, contenuti essenziali</li>
             </ul>
           </div>
 
-          <div class="caption">
-            <span class="badge">METODO</span>
-            <div>Ogni intervento ha un perché: impatto su ricavi, conversione o qualità.</div>
+          <div class="impact">
+            <div class="tag">Effetto</div>
+            <span>Meno stress operativo + più 5 stelle → migliore ranking e conversione.</span>
           </div>
         </div>
 
-        <div class="right">
-          <div class="shot">
-            <img src="assets/img/screen5.jpg" alt="Riepilogo numeri - screenshot" />
-          </div>
+        <div class="shotWrap">
+          <div class="label">Proof • qualità / valutazioni</div>
+          <img class="shot"
+               data-src="./assets/img/screen%202.jpg"
+               data-alt="./assets/img/screen2.jpg"
+               alt="Qualità - screenshot" />
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- 7) OCCUPAZIONE / CALENDARIO -->
-      <section class="slide">
-        <div class="left">
-          <div class="kicker">Calendario e domanda</div>
-          <h2>Occupazione intelligente: riempire bene.</h2>
-          <p>
-            Non serve solo “riempire”. Serve riempire <strong>con il prezzo giusto</strong> e con regole/policy coerenti,
-            evitando buchi e prenotazioni non profittevoli.
+    <!-- SLIDE 8: Servizio 6 -->
+    <section class="slide" data-title="promo-visibilita">
+      <div class="content">
+        <div>
+          <div class="kicker"><span class="pill">Servizio 6</span> <span>Offerte, promozioni, strumenti visibilità</span></div>
+          <h2 class="title" style="font-size:46px">Promo impostate bene (non a caso)</h2>
+          <p class="subtitle">
+            Scontare “a caso” rovina la marginalità. Qui si lavora su leve che aumentano la visibilità senza distruggere il prezzo.
           </p>
 
-          <div class="card">
+          <div class="box">
+            <h3>Cosa fa Federica (in pratica)</h3>
             <ul class="bullets">
-              <li><strong>Strategia minimi</strong> (notti) e gap</li>
-              <li><strong>Policy cancellazione</strong> ottimizzata</li>
-              <li><strong>Promo</strong> mirate sui periodi giusti</li>
+              <li>Promo su periodi giusti (non su date già forti)</li>
+              <li>Offerte mirate per riempire gap e migliorare occupazione</li>
+              <li>Uso corretto strumenti Airbnb (visibilità / offerte / regole minimi)</li>
+              <li>Obiettivo: <b>riempire bene</b> (prezzo giusto + calendario sano)</li>
             </ul>
           </div>
 
-          <div class="caption">
-            <span class="badge">EFFETTO</span>
-            <div>Meno buchi + più controllo + meno stress operativo.</div>
+          <div class="impact">
+            <div class="tag">Effetto</div>
+            <span>Occupazione più intelligente → meno buchi → ricavi più alti e stabili.</span>
           </div>
         </div>
 
-        <div class="right">
-          <div class="shot">
-            <img src="assets/img/screen%202.jpg" alt="Calendario e occupazione - screenshot" />
-          </div>
+        <div class="shotWrap">
+          <div class="label">Proof • calendario / occupazione</div>
+          <img class="shot"
+               data-src="./assets/img/screen12.jpg"
+               data-alt="./assets/img/screen12.jpg"
+               alt="Calendario - screenshot" />
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- 8) COSA INCLUDE (tutti i servizi) -->
-      <section class="slide full">
-        <div class="left" style="gap:18px;">
-          <div class="kicker">Cosa include la consulenza (3 ore)</div>
-          <h2>Interventi concreti sull’annuncio (step by step)</h2>
-          <p>
-            Questa consulenza serve a sistemare ciò che impatta davvero:
-            <strong>conversione, qualità e visibilità</strong>.
+    <!-- SLIDE 9: Servizio 7 -->
+    <section class="slide" data-title="operativita">
+      <div class="content">
+        <div>
+          <div class="kicker"><span class="pill">Servizio 7</span> <span>Operatività: tempi risposta + qualità</span></div>
+          <h2 class="title" style="font-size:46px">Ridurre tempi risposta, aumentare punteggio</h2>
+          <p class="subtitle">
+            L’algoritmo e gli ospiti premiano velocità e chiarezza. Se rispondi tardi o in modo confuso, perdi conversione.
           </p>
 
-          <div class="twoCols">
-            <div class="card">
-              <ul class="bullets">
-                <li><strong>Revisione completa</strong> di titolo, descrizione e storytelling</li>
-                <li><strong>Aggiornamento foto</strong> + ordine immagini (priorità conversione)</li>
-                <li><strong>Policy cancellazione</strong> ottimizzata (meno frizioni, più prenotazioni buone)</li>
-                <li><strong>Servizi e dotazioni</strong>: revisione e contenuti mancanti</li>
-              </ul>
-            </div>
-
-            <div class="card">
-              <ul class="bullets">
-                <li><strong>Smart messaging</strong>: template e risposte automatiche</li>
-                <li><strong>Offerte e promozioni</strong> + strumenti visibilità impostati correttamente</li>
-                <li><strong>Operatività</strong>: ridurre tempi di risposta e alzare punteggio qualità</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="caption">
-            <span class="badge">VALORE</span>
-            <div>
-              Non è “teoria”: è ottimizzazione guidata su ciò che sposta il risultato.
-              Il cliente esce con un annuncio più vendibile e una gestione più ordinata.
-            </div>
-          </div>
-
-          <div class="footerHint">
-            <span>Slide 8/9 • riepilogo servizi</span>
-            <span class="sep"></span>
-            <span>Click per continuare</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- 9) OUTPUT (cosa si porta a casa) -->
-      <section class="slide">
-        <div class="left">
-          <div class="kicker">Output della consulenza</div>
-          <h2>Cosa ottiene il cliente, in modo pratico</h2>
-          <p>
-            La consulenza non finisce con “idee”. Si traduce in asset riutilizzabili,
-            utili anche se il proprietario gestisce in autonomia.
-          </p>
-
-          <div class="card">
+          <div class="box">
+            <h3>Cosa fa Federica (in pratica)</h3>
             <ul class="bullets">
-              <li><strong>Annuncio riposizionato</strong> (testo + struttura + priorità)</li>
-              <li><strong>Sequenza messaggi</strong> pronta (pre/durante/post soggiorno)</li>
-              <li><strong>Set di promo/offerte</strong> impostato correttamente</li>
-              <li><strong>Piano operativo</strong> per alzare qualità e ridurre i tempi risposta</li>
+              <li>Imposta flussi e template per rispondere in pochi minuti</li>
+              <li>Riduce errori e “buchi comunicativi” (check-in, regole, extra)</li>
+              <li>Previene problemi che generano recensioni basse</li>
+              <li>Rende la gestione replicabile (non dipende dall’umore del giorno)</li>
             </ul>
           </div>
 
-          <div class="caption">
-            <span class="badge">SINTESI</span>
-            <div>Più conversione, più controllo operativo, più qualità percepita.</div>
-          </div>
-
-          <div class="footerHint">
-            <span>Fine presentazione</span>
-            <span class="sep"></span>
-            <span>Tasto <span class="kbd">←</span> per tornare indietro</span>
+          <div class="impact">
+            <div class="tag">Effetto</div>
+            <span>Più qualità percepita → più 5 stelle → più ranking → più prenotazioni.</span>
           </div>
         </div>
 
-        <div class="right">
-          <div class="shot">
-            <img src="assets/img/screen12.jpg" alt="Riepilogo risultati - screenshot" />
+        <div class="shotWrap">
+          <div class="label">Proof • qualità & performance</div>
+          <img class="shot"
+               data-src="./assets/img/screen11.jpg"
+               data-alt="./assets/img/screen11.jpg"
+               alt="Qualità - screenshot" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: Recap (per chiudere in call) -->
+    <section class="slide full" data-title="recap">
+      <div class="content">
+        <div>
+          <div class="kicker"><span class="pill">Recap</span> <span>cosa include (3 ore)</span></div>
+          <h2 class="title" style="font-size:44px">In 3 ore: interventi ad alto impatto</h2>
+          <p class="subtitle" style="max-width:none">
+            Questa è la lista “da vendita”: ogni punto è un intervento operativo che migliora conversione, qualità e visibilità.
+          </p>
+
+          <div class="box">
+            <ul class="bullets">
+              <li><b>Titolo, descrizione, storytelling</b> (posizionamento + fiducia)</li>
+              <li><b>Foto + ordine immagini</b> (prima impressione + tempo sull’annuncio)</li>
+              <li><b>Policy cancellazione</b> (meno frizione / meno buchi)</li>
+              <li><b>Servizi e dotazioni</b> (filtri + contenuti mancanti)</li>
+              <li><b>Smart messaging</b> (template + gestione aspettative)</li>
+              <li><b>Offerte / promo / visibilità</b> (occupazione intelligente)</li>
+              <li><b>Operatività</b> (tempi risposta + punteggio qualità)</li>
+            </ul>
+          </div>
+
+          <div class="impact">
+            <div class="tag">Chiusura</div>
+            <span>Non è “teoria”: è un lavoro guidato su leve che cambiano il risultato.</span>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
+  </div>
+
+  <div class="controls">
+    <div class="hint">Tip: <b>Spazio</b> / <b>→</b> avanti • <b>←</b> indietro • <b>1–9</b> salta • <b>F</b> full screen</div>
+    <div class="btns">
+      <button id="prev">← Indietro</button>
+      <button class="primary" id="next">Avanti →</button>
     </div>
   </div>
 
-  <div class="navBtns" aria-hidden="false">
-    <button class="btn" id="prevBtn" type="button">
-      ← <span class="small">Indietro</span>
-    </button>
-    <button class="btn" id="nextBtn" type="button">
-      <span class="small">Avanti</span> →
-    </button>
-  </div>
-
   <script>
-    const slides = Array.from(document.querySelectorAll(".slide"));
-    const bar = document.getElementById("bar");
-    const counter = document.getElementById("counter");
-    const stage = document.getElementById("stage");
+    // --- helper: set img src + fallback ---
+    function hydrateImages(scope=document){
+      const imgs = scope.querySelectorAll('img[data-src]');
+      imgs.forEach(img=>{
+        const primary = img.getAttribute('data-src');
+        const alt = img.getAttribute('data-alt');
+        // carica primary
+        img.src = primary;
 
-    let i = 0;
-
-    function clamp(n){ return Math.max(0, Math.min(slides.length-1, n)); }
-
-    function show(idx){
-      i = clamp(idx);
-      slides.forEach((s, k) => s.classList.toggle("active", k === i));
-      const pct = ((i+1) / slides.length) * 100;
-      bar.style.width = pct + "%";
-      counter.textContent = (i+1) + "/" + slides.length;
+        // se fallisce, prova alt
+        img.onerror = () => {
+          if (alt && img.src !== alt) {
+            img.src = alt;
+          }
+        };
+      });
     }
 
-    function next(){ show(i+1); }
-    function prev(){ show(i-1); }
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    let idx = 0;
 
-    // Click anywhere to go next (except clicks on buttons/links)
-    document.addEventListener("click", (e) => {
-      const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : "";
-      if (tag === "button" || tag === "a" || e.target.closest("button") || e.target.closest("a")) return;
-      // On desktop slideshow view: click = next
-      if (window.matchMedia("(min-width: 1021px)").matches) next();
+    const bar = document.getElementById('bar');
+    const count = document.getElementById('count');
+
+    function show(i){
+      idx = Math.max(0, Math.min(slides.length-1, i));
+      slides.forEach((s,k)=>s.classList.toggle('active', k===idx));
+      const pct = ((idx+1)/slides.length)*100;
+      bar.style.width = pct + '%';
+      count.textContent = (idx+1) + '/' + slides.length;
+
+      // ricarica immagini solo nella slide attiva (per sicurezza)
+      hydrateImages(slides[idx]);
+    }
+
+    function next(){ show(idx+1); }
+    function prev(){ show(idx-1); }
+
+    document.getElementById('next').addEventListener('click', next);
+    document.getElementById('prev').addEventListener('click', prev);
+
+    // Click ovunque per avanti (ma non sui bottoni)
+    document.getElementById('stage').addEventListener('click', (e)=>{
+      const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
+      if(tag === 'button') return;
+      next();
     });
 
-    // Keyboard
-    document.addEventListener("keydown", (e) => {
-      const k = e.key;
-      if (k === "ArrowRight" || k === " " || k === "PageDown") { e.preventDefault(); next(); }
-      if (k === "ArrowLeft"  || k === "PageUp") { e.preventDefault(); prev(); }
-      // Jump 1-9
-      if (/^[1-9]$/.test(k)) {
-        const n = parseInt(k, 10) - 1;
-        if (n < slides.length) show(n);
+    // Tastiera: spazio/→ avanti, ← indietro, 1-9 jump, F fullscreen
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'ArrowRight' || e.key === ' '){ e.preventDefault(); next(); }
+      if(e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+
+      // jump numeric
+      const n = parseInt(e.key, 10);
+      if(!isNaN(n) && n >= 1 && n <= slides.length){
+        show(n-1);
       }
-      // F = fullscreen
-      if (k.toLowerCase() === "f") {
-        if (!document.fullscreenElement) stage.requestFullscreen?.();
-        else document.exitFullscreen?.();
+
+      if(e.key.toLowerCase() === 'f'){
+        if(!document.fullscreenElement){
+          document.documentElement.requestFullscreen?.();
+        }else{
+          document.exitFullscreen?.();
+        }
       }
-      // Home/End
-      if (k === "Home") show(0);
-      if (k === "End") show(slides.length-1);
+      if(e.key === 'Escape' && document.fullscreenElement){
+        document.exitFullscreen?.();
+      }
     });
 
-    document.getElementById("nextBtn").addEventListener("click", next);
-    document.getElementById("prevBtn").addEventListener("click", prev);
-
-    // Preload images
-    const imgs = [
-      "assets/img/screen9.jpg",
-      "assets/img/screen10.jpg",
-      "assets/img/screen11.jpg",
-      "assets/img/screen12.jpg",
-      "assets/img/screen1.jpg",
-      "assets/img/screen5.jpg",
-      "assets/img/screen%202.jpg"
-    ];
-    imgs.forEach(src => { const im = new Image(); im.src = src; });
-
+    // Init
+    hydrateImages(document);
     show(0);
   </script>
 </body>
